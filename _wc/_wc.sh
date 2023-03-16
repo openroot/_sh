@@ -44,7 +44,7 @@ _arg1=$1;
 
 # region execute
 
-if [[ -z "$_arg1" ]]
+if [[ -z $_arg1 ]]
 then
 	read -rp "Enter a string: " "_string";
 	_wc "\${_string}";

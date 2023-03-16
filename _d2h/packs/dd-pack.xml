@@ -1,0 +1,210 @@
+<div class="row">
+                        <div class="col-md-12 text-center popupdiv">
+
+<h4 style="margin-top: 0px;">DD Pack [₹ 0]</h4>
+        <div class="panel-group" id="naccordion_GEC" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="nheadingOne_GEC">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#naccordion_GEC" href="#ncollapseOne_GEC" aria-expanded="true" aria-controls="ncollapseOne_GEC">
+                            GEC
+                        </a>
+                    </h4>
+                </div>
+                <div id="ncollapseOne_GEC" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_GEC">
+                    <div class="panel-body">
+                        <div class="totalamounttable" style="overflow-x:auto;">
+                            <table class="table table-bordered">
+                                <tbody>
+
+
+                                            <tr></tr>
+                                    <tr><td><p>DD National <br><span>LCN: 175 </span></p></td>
+                                    <td><p>DD ASSAM <br><span>LCN: 1965 </span></p></td>
+                                    <td><p>DD PUNJABI <br><span>LCN: 1363 </span></p></td>
+                                    <td><p>DD URDU <br><span>LCN: 779 </span></p></td>
+                                            </tr><tr></tr>
+                                    <tr><td><p>DD SAHYADRI <br><span>LCN: 1471 </span></p></td>
+                                    <td><p>DD KASHIR <br><span>LCN: 783 </span></p></td>
+                                    <td><p>DD PODHIGAI <br><span>LCN: 2893 </span></p></td>
+                                    <td><p>DD BANGLA <br><span>LCN: 1827 </span></p></td>
+                                            </tr><tr></tr>
+                                    <tr><td><p>DD CHANDANA <br><span>LCN: 2623 </span></p></td>
+                                    <td><p>DD Yadagiri <br><span>LCN: 2375 </span></p></td>
+                                    <td><p>DD MALAYALAM <br><span>LCN: 3125 </span></p></td>
+                                    <td><p>DD UP <br><span>LCN: 607 </span></p></td>
+                                            </tr><tr></tr>
+                                    <tr><td><p>DD Rajasthan <br><span>LCN: 179 </span></p></td>
+                                    <td><p>DD MP <br><span>LCN: 183 </span></p></td>
+                                    <td><p>DD SAPTAGIRI <br><span>LCN: 2377 </span></p></td>
+                                    <td><p>DD BIHAR <br><span>LCN: 2061 </span></p></td>
+                                            </tr><tr></tr>
+                                    <tr><td><p>DD GIRNAR <br><span>LCN: 1609 </span></p></td>
+                                    <td><p>DD Oriya <br><span>LCN: 1713 </span></p></td>
+                                    <td><p>DD ArunPrabha <br><span>LCN: 1967 </span></p></td>
+                                    <td><p>DD RETRO <br><span>LCN: 177 </span></p></td>
+
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <div class="panel-group" id="naccordion_SPORTS" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="nheadingOne_SPORTS">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#naccordion_SPORTS" href="#ncollapseOne_SPORTS" aria-expanded="true" aria-controls="ncollapseOne_SPORTS">
+                            SPORTS
+                        </a>
+                    </h4>
+                </div>
+                <div id="ncollapseOne_SPORTS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_SPORTS">
+                    <div class="panel-body">
+                        <div class="totalamounttable" style="overflow-x:auto;">
+                            <table class="table table-bordered">
+                                <tbody>
+
+
+                                            <tr></tr>
+                                    <tr><td><p>DD SPORTS <br><span>LCN: 629 </span></p></td>
+                                    <td><p>1 Sports <br><span>LCN: 663 </span></p></td>
+
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <div class="panel-group" id="naccordion_NEWS" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="nheadingOne_NEWS">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#naccordion_NEWS" href="#ncollapseOne_NEWS" aria-expanded="true" aria-controls="ncollapseOne_NEWS">
+                            NEWS
+                        </a>
+                    </h4>
+                </div>
+                <div id="ncollapseOne_NEWS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_NEWS">
+                    <div class="panel-body">
+                        <div class="totalamounttable" style="overflow-x:auto;">
+                            <table class="table table-bordered">
+                                <tbody>
+
+
+                                            <tr></tr>
+                                    <tr><td><p>ABN Andhra Jyothi <br><span>LCN: 2447 </span></p></td>
+                                    <td><p>DD INDIA <br><span>LCN: 759 </span></p></td>
+                                    <td><p>DD NEWS <br><span>LCN: 753 </span></p></td>
+                                    <td><p>Sansad TV HD <br><span>LCN: 757 </span></p></td>
+
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <div class="panel-group" id="naccordion_INFOTAINMENT" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="nheadingOne_INFOTAINMENT">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#naccordion_INFOTAINMENT" href="#ncollapseOne_INFOTAINMENT" aria-expanded="true" aria-controls="ncollapseOne_INFOTAINMENT">
+                            INFOTAINMENT
+                        </a>
+                    </h4>
+                </div>
+                <div id="ncollapseOne_INFOTAINMENT" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_INFOTAINMENT">
+                    <div class="panel-body">
+                        <div class="totalamounttable" style="overflow-x:auto;">
+                            <table class="table table-bordered">
+                                <tbody>
+
+
+                                            <tr></tr>
+                                    <tr><td><p>DD BHARATI <br><span>LCN: 979 </span></p></td>
+                                    <td><p>DD KISAN <br><span>LCN: 977 </span></p></td>
+                                    <td><p>DD Gyandarshan <br><span>LCN: 976 </span></p></td>
+
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <div class="panel-group" id="naccordion_SHOPPING" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="nheadingOne_SHOPPING">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#naccordion_SHOPPING" href="#ncollapseOne_SHOPPING" aria-expanded="true" aria-controls="ncollapseOne_SHOPPING">
+                            SHOPPING
+                        </a>
+                    </h4>
+                </div>
+                <div id="ncollapseOne_SHOPPING" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_SHOPPING">
+                    <div class="panel-body">
+                        <div class="totalamounttable" style="overflow-x:auto;">
+                            <table class="table table-bordered">
+                                <tbody>
+
+
+                                            <tr></tr>
+                                    <tr><td><p>Telugu Naaptol <br><span>LCN: 2365 </span></p></td>
+                                    <td><p>Tamil Naaptol <br><span>LCN: 2885 </span></p></td>
+                                    <td><p>Malayalam Naaptol <br><span>LCN: 3115 </span></p></td>
+                                    <td><p>Kannada Naaptol <br><span>LCN: 2612 </span></p></td>
+
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <div class="panel-group" id="naccordion_Shopping" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="nheadingOne_Shopping">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#naccordion_Shopping" href="#ncollapseOne_Shopping" aria-expanded="true" aria-controls="ncollapseOne_Shopping">
+                            Shopping
+                        </a>
+                    </h4>
+                </div>
+                <div id="ncollapseOne_Shopping" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_Shopping">
+                    <div class="panel-body">
+                        <div class="totalamounttable" style="overflow-x:auto;">
+                            <table class="table table-bordered">
+                                <tbody>
+
+
+                                            <tr></tr>
+                                    <tr><td><p>Naaptol <br><span>LCN: 325 </span></p></td>
+
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+</div>
+                        <div class="col-md-12 text-center Sachet-Channels" style="font-style: italic; display: none;">
+                            This channel is a part of FTA Sachet and accordingly other corresponding channels of this Sachet will also get activated. Please note-NCF charges will be applicable as per total channels count.
+                        </div>
+                    </div>
