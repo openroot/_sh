@@ -1,6 +1,8 @@
+<?xml version = "1.0"?>
 <div id="collapsefive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingfive" aria-expanded="true" style="">
-                                <div class="panel-body">
-                                    <div id="menu6" class="tab-pane fade in active">        <div class="row">
+    <div class="panel-body">
+        <div id="menu6" class="tab-pane fade in active">
+            <div class="row">
             <div class="col-xs-6">
                 <div class="mudifyyourplan">
                                 <input type="checkbox" data-offerscript="" data-hdid="0" data-prodid="9833" data-price="19.00" data-channel="1" data-name="&amp; PICTURE HD" data-type="AC" name="AC" id="AC_9833"> <label for="AC_9833">   &amp; PICTURE HD </label>

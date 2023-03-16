@@ -10,16 +10,6 @@ function _trap() {
 	exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _sl() {
-	local _arg1=$1;
-	if [[ $_arg1 == "b" ]];
-	then
-		echo sl;
-	else
-		echo sl -l;
-	fi
-}
-
 function _appmenugen() {
 	local _arg1=$1;
 

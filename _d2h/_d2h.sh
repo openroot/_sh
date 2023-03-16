@@ -10,24 +10,19 @@ function _trap() {
 	exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _fake() {
-	_i=0;
-	while true;
-	do
-		let _i=$_i+1;
-		for _j in $(seq 0 1 100);
-		do
-			echo $_j;
-			sleep .01;
-		done |
-		dialog --gauge "Install Part $_i : `sed $(perl -e "print int rand(99999)")"q; d" /usr/share/dict/words`" 6 40;
-	done
+function _tempfn() {
+	_fs_const_dir=`dirname $0`; # current directory (relative)
+
+	_xmlfile1="$_fs_const_dir/packs/_testxml.xml";
+# 	_xmlfile1="$_fs_const_dir/packs/dd-pack.xml";
+# 	cat $_xmlfile1;
+	xmlstarlet val $_xmlfile1;
 }
 
 # endregion
 
 # region execute
 
-_fake;
+_tempfn;
 
 # endregion
