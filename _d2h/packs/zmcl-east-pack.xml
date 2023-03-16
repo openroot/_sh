@@ -1,68 +1,14 @@
 <?xml version = "1.0"?>
-<div class="col-md-12 text-center popupdiv">
 
-<h4 style="margin-top: 0px;">ZMCL- East Pack [₹ 0.88]</h4>
-        <div class="panel-group" id="naccordion_NEWS" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading active" role="tab" id="nheadingOne_NEWS">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#naccordion_NEWS" href="#ncollapseOne_NEWS" aria-expanded="true" aria-controls="ncollapseOne_NEWS">
-                            NEWS
-                        </a>
-                    </h4>
-                </div>
-                <div id="ncollapseOne_NEWS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_NEWS">
-                    <div class="panel-body">
-                        <div class="totalamounttable" style="overflow-x:auto;">
-                            <table class="table table-bordered">
-                                <tbody>
+NEWS
 
+<td><p>ZEE NEWS<span>LCN: 723</span></p></td>
+<td><p>24 Ghanta TV<span>LCN: 1869</span></p></td>
+<td><p>Zee Hindustan<span>LCN: 721</span></p></td>
+<td><p>Zee Salaam<span>LCN: 777</span></p></td>
+<td><p>ZEE BIHAR JHARKHAND<span>LCN: 823</span></p></td>
+<td><p>WION<span>LCN: 893</span></p></td>
 
-                                            <tr></tr>
-                                    <tr><td><p>ZEE NEWS <br><span>LCN: 723 </span></p></td>
-                                    <td><p>24 Ghanta TV <br><span>LCN: 1869 </span></p></td>
-                                    <td><p>Zee Hindustan <br><span>LCN: 721 </span></p></td>
-                                    <td><p>Zee Salaam <br><span>LCN: 777 </span></p></td>
-                                            </tr><tr></tr>
-                                    <tr><td><p>ZEE BIHAR JHARKHAND <br><span>LCN: 823 </span></p></td>
-                                    <td><p>WION <br><span>LCN: 893 </span></p></td>
+BUSINESS NEWS
 
-
-                                    </tr></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        <div class="panel-group" id="naccordion_BUSINESS_NEWS" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading active" role="tab" id="nheadingOne_BUSINESS_NEWS">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#naccordion_BUSINESS_NEWS" href="#ncollapseOne_BUSINESS_NEWS" aria-expanded="true" aria-controls="ncollapseOne_BUSINESS_NEWS">
-                            BUSINESS NEWS
-                        </a>
-                    </h4>
-                </div>
-                <div id="ncollapseOne_BUSINESS_NEWS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="nheadingOne_BUSINESS_NEWS">
-                    <div class="panel-body">
-                        <div class="totalamounttable" style="overflow-x:auto;">
-                            <table class="table table-bordered">
-                                <tbody>
-
-
-                                            <tr></tr>
-                                    <tr><td><p>ZEE BUSINESS <br><span>LCN: 873 </span></p></td>
-
-
-                                    </tr></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-</div>
+<td><p>ZEE BUSINESS<span>LCN: 873</span></p></td>

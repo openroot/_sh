@@ -28,12 +28,12 @@
                 <PRICE>1.25</PRICE>
             </ITEM>
             <ITEM>
-        <PRODUCT>Apples</PRODUCT>
+                <PRODUCT>Apples</PRODUCT>
                 <NUMBER>12</NUMBER>
                 <PRICE>2.50</PRICE>
             </ITEM>
             <ITEM>
-        <PRODUCT>Bananas</PRODUCT>
+                <PRODUCT>Bananas</PRODUCT>
                 <NUMBER>6</NUMBER>
                 <PRICE>.50</PRICE>
             </ITEM>

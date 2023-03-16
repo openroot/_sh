@@ -16,7 +16,7 @@ function _tempfn() {
 	_xmlfile1="$_fs_const_dir/packs/_testxml.xml";
 # 	_xmlfile1="$_fs_const_dir/packs/dd-pack.xml";
 # 	cat $_xmlfile1;
-	xmlstarlet val $_xmlfile1;
+	xmlstarlet select --template --value-of /ORDERFILE/CUSTOMER/ORDERS/ITEM --nl $_xmlfile1;
 }
 
 # endregion
