@@ -24,9 +24,11 @@ function _appmenugen() {
 	local _arg1=$1;
 
 	# possible space separated list of app name available (in current directory)
-	_directoriesandfile="_coffee _d2h _multichoice _quote _sh.sh _sl temporary_container _wc";
-	IFS=' ';
-	read -ra _directoriesandfiles <<< "$_directoriesandfile";
+	_oifs=$IFS;
+	IFS=$'\n';
+	_directoriesandfiles=($(ls));
+	IFS=$_oifs;
+# 	echo "${_directoriesandfiles[@]}";
 
 	_index=0;
 	_menustring="";
@@ -35,7 +37,7 @@ function _appmenugen() {
 	for _possibleapp in "${_directoriesandfiles[@]}";
 	do
 		case "$_possibleapp" in
-		_sh.sh|temporary_container)
+		"_sh.sh"|"temporary_container")
 			;;
 		*)
 			_app=$_possibleapp;
@@ -46,7 +48,7 @@ function _appmenugen() {
 			;;
 		esac
 	done
-# 	printf "$_menustring";
+#  	printf "$_menustring";
 
 	_selectionorder=-1;
 
