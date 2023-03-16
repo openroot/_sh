@@ -23,10 +23,15 @@ function _sl() {
 function _appmenugen() {
 	local _arg1=$1;
 
+	_fs_const_dir=`dirname $0`; # current directory (relative)
+
+	_filelist=`cd $_fs_const_dir | ls`;
+# 	printf "$_filelist\n";
+
 	# possible space separated list of app name available (in current directory)
 	_oifs=$IFS;
 	IFS=$'\n';
-	_directoriesandfiles=($(ls));
+	_directoriesandfiles=($_filelist);
 	IFS=$_oifs;
 # 	echo "${_directoriesandfiles[@]}";
 
@@ -72,10 +77,10 @@ function _appmenugen() {
 	then
 		dialog --clear --erase-on-exit \
 		--title "App list" \
-		--menu "Choose an App to Execute" 13 28 25 $_menustring 2> "temporary_container/output.txt";
+		--menu "Choose an App to Execute" 13 28 25 $_menustring 2> "$_fs_const_dir/temporary_container/output.txt";
 
 		_menustatus=$?;
-		_selectionorder=`cat temporary_container/output.txt`;
+		_selectionorder=`cat $_fs_const_dir/temporary_container/output.txt`;
 
 		if [[ $_menustatus != 0 ]];
 		then
@@ -89,7 +94,7 @@ function _appmenugen() {
 		_selectedapp="${_apps[$_selectionorder-1]}/${_apps[$_selectionorder-1]}.sh";
 # 		printf "Selected App: $_selectedapp\n";
 #  		echo "${_apps[@]}";
-		./$_selectedapp;
+		./$_fs_const_dir/$_selectedapp;
 	fi
 }
 
