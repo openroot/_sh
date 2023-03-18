@@ -13,10 +13,10 @@ function _trap() {
 function _tempfn() {
 	_fs_const_dir=`dirname $0`; # current directory (relative)
 
-	_xmlfile1="$_fs_const_dir/packs/_testxml.xml";
-# 	_xmlfile1="$_fs_const_dir/packs/dd-pack.xml";
-# 	cat $_xmlfile1;
-	xmlstarlet select --template --value-of /ORDERFILE/CUSTOMER/ORDERS/ITEM --nl $_xmlfile1;
+	_channellist_json_file="$_fs_const_dir/packs/channel-list.json";
+
+	_numberofenlist=`cat $_channellist_json_file | jshon -l`;
+	printf "Number of enlist(s): $_numberofenlist\n";
 }
 
 # endregion
