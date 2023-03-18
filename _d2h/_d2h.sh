@@ -15,8 +15,9 @@ function _entry() {
 	_fs_const_dir=`dirname $0`; # current directory (relative)
 
 	_channellist_json_file="$_fs_const_dir/packs/channel-list.json";
+	_channellist_json=`cat $_channellist_json_file`;
 
-	local _numberofenlist=`cat $_channellist_json_file | jshon -l`;
+	local _numberofenlist=`echo $_channellist_json | jshon -l`;
 	printf "Number of enlist(s): $_numberofenlist\n";
 
 	local _isfound=-1;
@@ -26,6 +27,8 @@ function _entry() {
 	then
 		printf "Passed argument: $_arg1\n";
 	fi
+
+	jq '.[].name' $_channellist_json_file;
 }
 
 # endregion
