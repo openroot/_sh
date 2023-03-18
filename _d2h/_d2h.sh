@@ -7,35 +7,43 @@
 
 trap _trap SIGINT;
 function _trap() {
-	exit; # exit the app (on next run) pressing <<ctrl><c>>
+        exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _entry() {
-	local _arg1=$1;
-	_fs_const_dir=`dirname $0`; # current directory (relative)
+function _construct() {
+        _arg1=$1;
 
-	_channellist_json_file="$_fs_const_dir/packs/channel-list.json";
-	_channellist_json=`cat $_channellist_json_file`;
+        # current directory (relative)
+        _fs_const_dir=`dirname $0`;
 
-	local _numberofenlist=`echo $_channellist_json | jshon -l`;
-	printf "Number of enlist(s): $_numberofenlist\n";
+        # json file having channel enlist
+        _channellist_json_file="$_fs_const_dir/packs/channel-list.json";
 
-	local _isfound=-1;
+        # invoke app functionality(s)
+        _app;
+}
 
-	# trying taking channel selection from passed argument from console
-	if ! [ -z $_arg1 ]
-	then
-		printf "Passed argument: $_arg1\n";
-	fi
+function _app() {
+        # trying taking channel selection from passed argument from console
+        if ! [ -z $_arg1 ]
+        then
+                printf "Passed argument: $_arg1\n";
+        fi
 
-	jq '.[].name' $_channellist_json_file;
+        # total count of enlisted channels
+        _count_enlist=`jq '. | length' $_channellist_json_file`;
+        printf "Total enlisted channels: $_count_enlist\n";
+
+        # sample jq query
+        jq '.[] |
+        select(.package=="a-la-carte") |
+        .category,.package,.name,.cno,.price' $_channellist_json_file;
 }
 
 # endregion
 
 # region execute
 
-_arg1=$1;
-_entry $_arg1;
+_construct $1;
 
 # endregion
