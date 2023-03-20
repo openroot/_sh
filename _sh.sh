@@ -3,6 +3,16 @@
 # Purpose: Menu based App selector bash script
 # --------------------------------------------
 
+# region script requires
+
+# current directory (relative)
+_const_currentdir=$(builtin cd .; pwd);
+
+# GUI dialog box library
+source $_const_currentdir/_dialogbox/_library.sh;
+
+# regionend
+
 # region function
 
 trap _trap SIGINT;
@@ -10,32 +20,34 @@ function _trap() {
 	exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _appmenugen() {
-	local _arg1=$1;
+function _construct() {
+	_arg1=$1;
 
-	_fs_const_dir=`dirname $0`; # current directory (relative)
+	_app;
+}
 
-	_filelist=`cd $_fs_const_dir | ls`;
+function _app() {
+	local _filelist=`cd $_const_currentdir | ls`;
 # 	printf "$_filelist\n";
 
 	# possible space separated list of app name available (in current directory)
-	_oifs=$IFS;
+	local _oifs=$IFS;
 	IFS=$'\n';
-	_directoriesandfiles=($_filelist);
+	local _directoriesandfiles=($_filelist);
 	IFS=$_oifs;
 # 	echo "${_directoriesandfiles[@]}";
 
-	_index=0;
-	_menustring="";
-	_apps=();
+	local _index=0;
+	local _menustring="";
+	local _apps=();
 	# generating array of apps
 	for _possibleapp in "${_directoriesandfiles[@]}";
 	do
 		case "$_possibleapp" in
-		"_sh.sh"|"temporary_container")
+		"_sh.sh"|"_temporary_container")
 			;;
 		*)
-			_app=$_possibleapp;
+			local _app=$_possibleapp;
 			_apps+=($_app);
 			let _index=$_index+1;
 			_menustring="$_menustring$_index $_app ";
@@ -45,7 +57,7 @@ function _appmenugen() {
 	done
 #  	printf "$_menustring";
 
-	_selectionorder=-1;
+	local _selectionorder=-1;
 
 	# trying taking app selection from passed argument from console
 	if ! [ -z $_arg1 ]
@@ -67,10 +79,10 @@ function _appmenugen() {
 	then
 		dialog --clear --erase-on-exit \
 		--title "App list" \
-		--menu "Choose an App to Execute" 13 28 25 $_menustring 2> "$_fs_const_dir/temporary_container/output.txt";
+		--menu "Choose an App to Execute" 13 28 25 $_menustring 2> "$_const_currentdir/_temporary_container/output.txt";
 
-		_menustatus=$?;
-		_selectionorder=`cat $_fs_const_dir/temporary_container/output.txt`;
+		local _menustatus=$?;
+		_selectionorder=`cat $_const_currentdir/_temporary_container/output.txt`;
 
 		if [[ $_menustatus != 0 ]];
 		then
@@ -81,10 +93,8 @@ function _appmenugen() {
 	# trying executing selected app (if any successfully selected)
 	if [[ $_selectionorder != -1 ]];
 	then
-		_selectedapp="${_apps[$_selectionorder-1]}/${_apps[$_selectionorder-1]}.sh";
-# 		printf "Selected App: $_selectedapp\n";
-#  		echo "${_apps[@]}";
-		./$_fs_const_dir/$_selectedapp;
+		cd ${_apps[$_selectionorder-1]};
+		./${_apps[$_selectionorder-1]}.sh;
 	fi
 }
 
@@ -92,7 +102,6 @@ function _appmenugen() {
 
 # region input
 
-_arg1=$1;
-_appmenugen $_arg1;
+_construct $1;
 
 # endregion
