@@ -16,7 +16,7 @@ function _dialog._message() {
 	local _message=$1;
 	local _title=$2;
 	local _height=9;
-	local _width=32;
+	local _width=34;
 	if ! [ -z $3 ]
 	then
 		_height=$3;
@@ -177,47 +177,68 @@ function _dialog._inputbox() {
 	fi
 }
 
-function _dialog._inputmenu() {
-}
+# function _dialog._inputmenu() {
+# }
 
-function _dialog._checklist() {
-}
+# function _dialog._checklist() {
+# }
 
-function _dialog._radiolist() {
-}
+# function _dialog._radiolist() {
+# }
 
-function _dialog._yesno() {
-}
+# function _dialog._yesno() {
+# }
 
-function _dialog._gauge() {
-}
+# function _dialog._gauge() {
+# }
 
-function _dialog._progressbox() {
-}
+# function _dialog._progressbox() {
+# }
 
-function _dialog._rangebox() {
-}
+# function _dialog._rangebox() {
+# }
 
-function _dialog._buildlist() {
-}
+# function _dialog._buildlist() {
+# }
 
-function _dialog._treeview() {
-}
+# function _dialog._treeview() {
+# }
 
-function _dialog._fselect() {
-}
+# function _dialog._fselect() {
+# }
 
-function _dialog._textbox() {
-}
+# function _dialog._textbox() {
+# }
 
-function _dialog._editbox() {
-}
+# function _dialog._editbox() {
+# }
 
-function _dialog._timeview() {
-}
+# function _dialog._timeview() {
+# }
 
-function _dialog._calender() {
-}
+# function _dialog._calender() {
+# }
 
+function _dialog._prgbox() {
+	local _command=$1;
+	local _prgboxmessage=$2;
+	local _title=$3;
+	local _height=9;
+	local _width=34;
+
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--prgbox "$_prgboxmessage" "$_command" \
+	$_height $_width;
+}
 
 # endregion

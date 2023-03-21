@@ -55,6 +55,19 @@ function _app() {
 	local _inputboxtitle="Sample inputbox";
 	_dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "8" "34";
 	_dialog._message "$_dialog_inputbox_result" "Inputbox returned values";
+
+	# _dialog._prgbox
+	_dialog._inputbox "" "Please enter a linux command to execute" "Execute a command" "9";
+	if [[ $_dialog_inputbox_result != -1 ]];
+	then
+		if [[ $_dialog_inputbox_result != "" ]];
+		then
+			local _command="$_dialog_inputbox_result";
+			local _prgboxmessage="Executed command \$$_command";
+			local _prgboxtitle="Sample prgbox";
+			_dialog._prgbox "$_command" "$_prgboxmessage" "$_prgboxtitle" "20" "50";
+		fi
+	fi
 }
 
 # endregion
