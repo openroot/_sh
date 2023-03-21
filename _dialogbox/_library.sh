@@ -75,4 +75,56 @@ function _dialog._menu() {
 	fi
 }
 
+function _dialog._form() {
+}
+
+function _dialog._mixedform() {
+}
+
+function _dialog._inputbox() {
+}
+
+function _dialog._inputmenu() {
+}
+
+function _dialog._checklist() {
+}
+
+function _dialog._radiolist() {
+}
+
+function _dialog._yesno() {
+}
+
+function _dialog._gauge() {
+}
+
+function _dialog._progressbox() {
+}
+
+function _dialog._rangebox() {
+}
+
+function _dialog._buildlist() {
+}
+
+function _dialog._treeview() {
+}
+
+function _dialog._fselect() {
+}
+
+function _dialog._textbox() {
+}
+
+function _dialog._editbox() {
+}
+
+function _dialog._timeview() {
+}
+
+function _dialog._calender() {
+}
+
+
 # endregion
