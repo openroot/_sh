@@ -13,7 +13,7 @@ _const_currentdir=$(builtin cd .; pwd);
 # region function
 
 function _dialog._message() {
-	local _message="$1";
+	local _message=$1;
 	local _title=$2;
 	local _height=9;
 	local _width=32;
@@ -109,9 +109,72 @@ function _dialog._form() {
 }
 
 function _dialog._mixedform() {
+	local _items=$1;
+	local _mixedformmessage=$2;
+	local _title=$3;
+	local _height=11;
+	local _width=34;
+	local _mixedformheight=3;
+
+	# converting semicolon separated list of form items into array
+	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_mixedformheight=$6;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--mixedform "$_mixedformmessage" \
+	$_height $_width $_mixedformheight \
+	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _mixedformstatus=$?;
+	_dialog_mixedform_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_mixedformstatus != 0 ]];
+	then
+		_dialog_mixedform_result=-1;
+	fi
 }
 
 function _dialog._inputbox() {
+	local _init=$1;
+	local _inputboxmessage=$2;
+	local _title=$3;
+	local _height=8; # "8" is minimum convenient height possible
+	local _width=34;
+
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--inputbox "$_inputboxmessage" \
+	$_height $_width \
+	"$_init" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _inputboxstatus=$?;
+	_dialog_inputbox_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_inputboxstatus != 0 ]];
+	then
+		_dialog_inputbox_result=-1;
+	fi
 }
 
 function _dialog._inputmenu() {
