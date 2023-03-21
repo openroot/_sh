@@ -36,17 +36,12 @@ function _dialog._menu() {
 	local _items=$1;
 	local _menumessage=$2;
 	local _title=$3;
-	local _height=13;
-	local _width=28;
-	local _menuheight=25;
+	local _height=11;
+	local _width=34;
+	local _menuheight=3;
 
 	# converting semicolon separated list of menu items into array
-	local _oifs=$IFS;
-	IFS=$';';
-	_items=($_items);
-	IFS=$_oifs;
-# 	echo "${_items[@]}";
-
+	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
 	if ! [ -z $4 ]
 	then
 		_height=$4;
@@ -68,7 +63,7 @@ function _dialog._menu() {
 
 	local _menustatus=$?;
 	_dialog_menu_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
-#
+
 	if [[ $_menustatus != 0 ]];
 	then
 		_dialog_menu_result=-1;
@@ -76,6 +71,41 @@ function _dialog._menu() {
 }
 
 function _dialog._form() {
+	local _items=$1;
+	local _formmessage=$2;
+	local _title=$3;
+	local _height=11;
+	local _width=34;
+	local _formheight=3;
+
+	# converting semicolon separated list of form items into array
+	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_formheight=$6;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--form "$_formmessage" \
+	$_height $_width $_formheight \
+	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _formstatus=$?;
+	_dialog_form_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_formstatus != 0 ]];
+	then
+		_dialog_form_result=-1;
+	fi
 }
 
 function _dialog._mixedform() {
