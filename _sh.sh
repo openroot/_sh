@@ -28,18 +28,18 @@ function _construct() {
 
 function _app() {
 	local _filelist=`cd $_const_currentdir | ls`;
-# 	printf "$_filelist\n";
+# 	_dialog._message "$_filelist";
 
 	# possible space separated list of app name available (in current directory)
 	local _oifs=$IFS;
 	IFS=$'\n';
 	local _directoriesandfiles=($_filelist);
 	IFS=$_oifs;
-# 	echo "${_directoriesandfiles[@]}";
+# 	_dialog._message "${_directoriesandfiles[@]}";
 
+	local _apps=();
 	local _index=0;
 	local _menustring="";
-	local _apps=();
 	# generating array of apps
 	for _possibleapp in "${_directoriesandfiles[@]}";
 	do
@@ -50,8 +50,8 @@ function _app() {
 			local _app=$_possibleapp;
 			_apps+=($_app);
 			let _index=$_index+1;
-			_menustring="$_menustring$_index $_app ";
-# 			printf "App Name: $_index $_app\n";
+			_menustring="$_menustring$_index;$_app;";
+# 			_dialog._message "App Name: $_index $_app";
 			;;
 		esac
 	done
@@ -67,7 +67,7 @@ function _app() {
 		do
 			if [[ $_app == *"$_arg1"* ]];
 			then
-# 				printf "Found App: $_index $_app\n";
+# 				_dialog._message "Found App: $_index $_app";
 				_selectionorder=$_index;
 			fi
 			let _index=$_index+1;
@@ -77,16 +77,10 @@ function _app() {
 	# trying taking app selection from dialog menu
 	if [[ $_selectionorder == -1 ]];
 	then
-		dialog --clear --erase-on-exit \
-		--title "App list" \
-		--menu "Choose an App to Execute" 13 28 25 $_menustring 2> "$_const_currentdir/_temporary_container/output.txt";
-
-		local _menustatus=$?;
-		_selectionorder=`cat $_const_currentdir/_temporary_container/output.txt`;
-
-		if [[ $_menustatus != 0 ]];
+		_dialog._menu "$_menustring" "Choose an App to Execute" "App list" 13 28 25;
+		if [[ $_dialog_menu_result != -1 ]];
 		then
-			_selectionorder=-1;
+			_selectionorder=$_dialog_menu_result;
 		fi
 	fi
 

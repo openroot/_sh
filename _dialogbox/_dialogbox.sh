@@ -29,9 +29,9 @@ function _app() {
 	local _title="Sample Message";
 	_dialog._message "$_message" "$_title";
 
-	local _items="1;A|pp for test buddies;2;B|ook of jealous intelligent(s);3;C|opy of tutorial(s)";
+	local _items="1;App for test buddies;2;Book of jealous intelligent(s);3;Copy of tutorial(s)";
 	_dialog._menu "$_items" "List of items" "Sample Menu" 10 55;
-	_dialog._message "Selection returned: $_dialog_menu_selection";
+	_dialog._message "Selection returned: $_dialog_menu_result";
 }
 
 # endregion

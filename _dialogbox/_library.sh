@@ -67,11 +67,11 @@ function _dialog._menu() {
 	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
 
 	local _menustatus=$?;
-	_dialog_menu_selection=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+	_dialog_menu_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
 #
 	if [[ $_menustatus != 0 ]];
 	then
-		_dialog_menu_selection=-1;
+		_dialog_menu_result=-1;
 	fi
 }
 
