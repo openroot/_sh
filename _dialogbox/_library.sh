@@ -70,6 +70,19 @@ function _dialog._menu() {
 	fi
 }
 
+function _dialog._menu._labelgeneratorfromarray() {
+	local _rawmenulabels=("$@");
+	local _index=0;
+	_dialog_menu_numericalorderedlabels="";
+
+	# generating numerical ordered menu labels from array
+	for _menulabel in "${_rawmenulabels[@]}";
+	do
+		let _index=$_index+1;
+		_dialog_menu_numericalorderedlabels="$_dialog_menu_numericalorderedlabels$_index;$_menulabel;";
+	done
+}
+
 function _dialog._form() {
 	local _items=$1;
 	local _formmessage=$2;
