@@ -36,21 +36,21 @@ function _app() {
 		"_dialog._yesno"
 		"_dialog._prgbox"
 	);
-	_dialog._menu._labelgeneratorfromarray "${_dialogfunctions[@]}";
-	local _numericalordereddialogfunctions=$_dialog_menu_numericalorderedlabels;
+	_dialog._menu._labelgenerator "${_dialogfunctions[@]}";
+	local _dialogfunctionslabels=$_dialog_menu_labels;
 
 	# loop infinite for dialog function(s) menu
 	while true;
 	do
-		_dialog._menu "$_numericalordereddialogfunctions" "Select a function to execute" "List of dialog function" "20" "45" "12";
+		_dialog._menu "$_dialogfunctionslabels" "Select a function to execute" "List of dialog function" "20" "45" "12";
 		
 		if [[ $_dialog_menu_result == -1 ]];
 		then
 			break;
 		else
-			local _selectedmenulabel="${_dialogfunctions[$_dialog_menu_result-1]}";
+			local _selectedlabel="${_dialogfunctions[$_dialog_menu_result-1]}";
 			
-			case $_selectedmenulabel in
+			case $_selectedlabel in
 				"_dialog._message")
 					# _dialog._message
 					local _messagestring="Hello\n\"World\"!";
@@ -60,11 +60,15 @@ function _app() {
 
 				"_dialog._menu")
 					# _dialog._menu
-					local _menuitems=("App for test buddies" "Book of jealous intelligent(s)" "Copy of tutorial(s)");
-					_dialog._menu._labelgeneratorfromarray "${_menuitems[@]}";
-					local _numericalorderedmenuitems=$_dialog_menu_numericalorderedlabels;
+					local _menuitems=(
+						"App for test buddies"
+						"Book of jealous intelligent(s)"
+						"Copy of tutorial(s)"
+					);
+					_dialog._menu._labelgenerator "${_menuitems[@]}";
+					local _menuitemslabels=$_dialog_menu_labels;
 
-					_dialog._menu "$_numericalorderedmenuitems" "List of menu items" "Sample Menu" "11" "45" "3";
+					_dialog._menu "$_menuitemslabels" "List of menu items" "Sample Menu" "11" "45" "3";
 					if [[ $_dialog_menu_result != -1 ]];
 					then
 						_dialog._message "${_menuitems[$_dialog_menu_result-1]}" "Selection returned";
@@ -100,7 +104,18 @@ function _app() {
 
 				"_dialog._checklist")
 					# _dialog._checklist
-					_dialog._checklist;
+					local _checklistitems=("potato" "on" "carrot" "off" "grape" "on" "cabbage" "on");
+					_dialog._checklist._labelgenerator "${_checklistitems[@]}";
+					local _checklistitemslabels=$_dialog_checklist_labels;
+
+					_dialog._checklist "$_checklistitemslabels" "List of checklist items" "Sample Checklist" "11" "45" "3";
+					if [[ $_dialog_checklist_result != -1 ]];
+					then
+						_dialog._newlinedelimitedstringtoarray "$_dialog_checklist_result";
+						_dialog._message "${#_dialog_array[@]}" "Total number of items selected";
+						_dialog._message "$_dialog_checklist_result" "Selected tags";
+						# TODO: print labels instead tags
+					fi
 				;;
 
 				"_dialog._yesno")

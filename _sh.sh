@@ -34,7 +34,8 @@ function _app() {
 		#_dialog._message "$_filelist";
 
 		# possible space separated list of app name available (in current directory)
-		local _oifs=$IFS; IFS=$'\n'; local _directoriesandfiles=($_filelist); IFS=$_oifs;
+		_dialog._newlinedelimitedstringtoarray "$_filelist";
+		_directoriesandfiles=("${_dialog_array[@]}");
 		#_dialog._message "${_directoriesandfiles[@]}";
 
 		local _apps=();

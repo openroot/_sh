@@ -12,11 +12,78 @@ _const_currentdir=$(builtin cd .; pwd);
 
 # region function
 
+function _dialog._chardelimitedstringtoarray() {
+	local _chardelimitedstring=$1;
+	local _chardelimiter=";";
+
+	if ! [ -z $2 ]
+	then
+		_chardelimiter=$2;
+	fi
+
+	# converting char delimited string into array
+	local _oifs=$IFS;
+	IFS=$"$_chardelimiter";
+	_dialog_array=($_chardelimitedstring);
+	IFS=$_oifs;
+}
+
+function _dialog._newlinedelimitedstringtoarray() {
+	local _newlinedelimitedstring=$1;
+
+	# converting newline delimited string into array
+	local _oifs=$IFS;
+	IFS=$'\n';
+	_dialog_array=($_newlinedelimitedstring);
+	IFS=$_oifs;
+}
+
+function _dialog._tabdelimitedstringtoarray() {
+	local _tabdelimitedstring=$1;
+
+	# converting tab delimited string into array
+	local _oifs=$IFS;
+	IFS=$'\t';
+	_dialog_array=($_tabdelimitedstring);
+	IFS=$_oifs;
+}
+
+function _dialog._menu._labelgenerator() {
+	local _rawlabels=("$@");
+
+	# generating numerical ordered labels from array
+	_dialog_menu_labels="";
+	local _rawlabelscount=${#_rawlabels[@]};
+	if [[ $_rawlabelscount > 0 ]];
+	then
+		for _i in $(seq 0 1 $((_rawlabelscount-1)));
+		do
+			_dialog_menu_labels="$_dialog_menu_labels$((_i+1));${_rawlabels[$_i]};";
+		done
+	fi
+}
+
+function _dialog._checklist._labelgenerator() {
+	local _rawlabels=("$@");
+
+	# generating numerical ordered labels from array
+	_dialog_checklist_labels="";
+	local _rawlabelscount=${#_rawlabels[@]};
+	if [[ $((_rawlabelscount%2)) == 0 ]];
+	then
+		for _i in $(seq 0 2 $((_rawlabelscount-1)));
+		do
+			_dialog_checklist_labels="$_dialog_checklist_labels$(((_i/2)+1));${_rawlabels[$_i]};${_rawlabels[$((_i+1))]};";
+		done
+	fi
+}
+
 function _dialog._message() {
 	local _message=$1;
 	local _title=$2;
 	local _height=9;
 	local _width=34;
+
 	if ! [ -z $3 ]
 	then
 		_height=$3;
@@ -40,8 +107,9 @@ function _dialog._menu() {
 	local _width=34;
 	local _menuheight=3;
 
-	# converting semicolon separated list of menu items into array
-	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
 	if ! [ -z $4 ]
 	then
 		_height=$4;
@@ -70,19 +138,6 @@ function _dialog._menu() {
 	fi
 }
 
-function _dialog._menu._labelgeneratorfromarray() {
-	local _rawmenulabels=("$@");
-	local _index=0;
-	_dialog_menu_numericalorderedlabels="";
-
-	# generating numerical ordered menu labels from array
-	for _menulabel in "${_rawmenulabels[@]}";
-	do
-		let _index=$_index+1;
-		_dialog_menu_numericalorderedlabels="$_dialog_menu_numericalorderedlabels$_index;$_menulabel;";
-	done
-}
-
 function _dialog._form() {
 	local _items=$1;
 	local _formmessage=$2;
@@ -91,8 +146,9 @@ function _dialog._form() {
 	local _width=34;
 	local _formheight=3;
 
-	# converting semicolon separated list of form items into array
-	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
 	if ! [ -z $4 ]
 	then
 		_height=$4;
@@ -129,8 +185,9 @@ function _dialog._mixedform() {
 	local _width=34;
 	local _mixedformheight=3;
 
-	# converting semicolon separated list of form items into array
-	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
 	if ! [ -z $4 ]
 	then
 		_height=$4;
@@ -191,21 +248,45 @@ function _dialog._inputbox() {
 }
 
 function _dialog._checklist() {
-	dialog --checklist "checklist" 15 10 10 \
-	1 "potato" "on" 2 "carrot" "off" 3 "grape" "on" 4 "cabbage" "off";
-}
+	local _items=$1;
+	local _checklistmessage=$2;
+	local _title=$3;
+	local _height=11;
+	local _width=34;
+	local _checklistheight=3;
 
-function _dialog._checklist._labelgenerator() {
-	local _rawlabels=("$@");
-	local _index=0;
-	_dialog_checklist_labels="";
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_checklistheight=$6;
+	fi
 
-	# generating numerical ordered labels from array
-	for _label in "${_rawlabels[@]}";
-	do
-		let _index=$_index+1;
-		_dialog_checklist_labels="$_dialog_checklist_labels$_index;${_rawlabels[$_index-1]};";
-	done
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--checklist "$_checklistmessage" \
+	$_height $_width $_checklistheight \
+	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _checkliststatus=$?;
+	_dialog_checklist_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_checkliststatus != 0 ]];
+	then
+		_dialog_checklist_result=-1;
+	else
+		# converting space separated tag list to ; separated list
+		_dialog_checklist_result=$(printf "$_dialog_checklist_result" | tr " " "\n";);
+	fi
 }
 
 # function _dialog._radiolist() {
