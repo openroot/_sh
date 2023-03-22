@@ -190,53 +190,33 @@ function _dialog._inputbox() {
 	fi
 }
 
-function _dialog._inputmenu() {
-	local _items=$1;
-	local _inputmenumessage=$2;
-	local _title=$3;
-	local _height=11;
-	local _width=34;
-	local _inputmenuheight=3;
-
-	# converting semicolon separated list of menu items into array
-	local _oifs=$IFS; IFS=$';'; _items=($_items); IFS=$_oifs;
-	if ! [ -z $4 ]
-	then
-		_height=$4;
-	fi
-	if ! [ -z $5 ]
-	then
-		_width=$5;
-	fi
-	if ! [ -z $6 ]
-	then
-		_inputmenuheight=$6;
-	fi
-
-	# TODO: debug renamed value not responding
-	dialog --clear --erase-on-exit \
-	--title "$_title" \
-	--inputmenu "$_inputmenumessage" \
-	$_height $_width $_inputmenuheight \
-	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
-
-	local _inputmenustatus=$?;
-	_dialog_inputmenu_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
-
-	if [[ $_inputmenustatus != 0 ]];
-	then
-		_dialog_inputmenu_result=-1;
-	fi
-}
-
 # function _dialog._checklist() {
 # }
 
 # function _dialog._radiolist() {
 # }
 
-# function _dialog._yesno() {
-# }
+function _dialog._yesno() {
+	local _yesnomessage=$1;
+	local _title=$2;
+	local _height=9;
+	local _width=34;
+
+	if ! [ -z $3 ]
+	then
+		_height=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_width=$4;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--yesno "$_yesnomessage" \
+	$_height $_width;
+	_dialog_yesno_result=$?;
+}
 
 # function _dialog._gauge() {
 # }
