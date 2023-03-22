@@ -78,7 +78,7 @@ function _app() {
 		# trying taking app selection from dialog menu
 		if [[ $_selectionorder == -1 ]];
 		then
-			_dialog._menu "$_menustring" "Choose an App to Execute" "App list" 13 28 25;
+			_dialog._menu "$_menustring" "Choose an App to Execute" "App list" "13" "28" "25";
 			if [[ $_dialog_menu_result != -1 ]];
 			then
 				_selectionorder=$_dialog_menu_result;
