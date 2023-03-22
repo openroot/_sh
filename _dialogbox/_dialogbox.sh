@@ -27,8 +27,6 @@ function _construct() {
 function _app() {
 	# array of dialog functions
 	local _dialogfunctions=("_dialog._message" "_dialog._menu" "_dialog._form" "_dialog._mixedform" "_dialog._inputbox" "_dialog._prgbox");
-	
-	# generating numerical ordered menu items from array
 	_dialog._menu._labelgeneratorfromarray "${_dialogfunctions[@]}";
 	local _numericalordereddialogfunctions=$_dialog_menu_numericalorderedlabels;
 
@@ -53,9 +51,15 @@ function _app() {
 
 				"_dialog._menu")
 					# _dialog._menu
-					local _menuitems="1;App for test buddies;2;Book of jealous intelligent(s);3;Copy of tutorial(s);";
-					_dialog._menu "$_menuitems" "List of menu items" "Sample Menu" "11" "45" "3";
-					_dialog._message "$_dialog_menu_result" "Selection returned";
+					local _menuitems=("App for test buddies" "Book of jealous intelligent(s)" "Copy of tutorial(s)");
+					_dialog._menu._labelgeneratorfromarray "${_menuitems[@]}";
+					local _numericalorderedmenuitems=$_dialog_menu_numericalorderedlabels;
+
+					_dialog._menu "$_numericalorderedmenuitems" "List of menu items" "Sample Menu" "11" "45" "3";
+					if [[ $_dialog_menu_result != -1 ]];
+					then
+						_dialog._message "${_menuitems[$_dialog_menu_result-1]}" "Selection returned";
+					fi
 				;;
 
 				"_dialog._form")
