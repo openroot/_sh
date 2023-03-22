@@ -226,7 +226,7 @@ function _dialog._inputbox() {
 # function _dialog._editbox() {
 # }
 
-# function _dialog._timeview() {
+# function _dialog._timebox() {
 # }
 
 # function _dialog._calender() {
