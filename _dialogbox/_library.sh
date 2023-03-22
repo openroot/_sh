@@ -190,8 +190,23 @@ function _dialog._inputbox() {
 	fi
 }
 
-# function _dialog._checklist() {
-# }
+function _dialog._checklist() {
+	dialog --checklist "checklist" 15 10 10 \
+	1 "potato" "on" 2 "carrot" "off" 3 "grape" "on" 4 "cabbage" "off";
+}
+
+function _dialog._checklist._labelgenerator() {
+	local _rawlabels=("$@");
+	local _index=0;
+	_dialog_checklist_labels="";
+
+	# generating numerical ordered labels from array
+	for _label in "${_rawlabels[@]}";
+	do
+		let _index=$_index+1;
+		_dialog_checklist_labels="$_dialog_checklist_labels$_index;${_rawlabels[$_index-1]};";
+	done
+}
 
 # function _dialog._radiolist() {
 # }

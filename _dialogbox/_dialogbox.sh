@@ -26,7 +26,16 @@ function _construct() {
 
 function _app() {
 	# array of dialog functions
-	local _dialogfunctions=("_dialog._message" "_dialog._menu" "_dialog._form" "_dialog._mixedform" "_dialog._inputbox" "_dialog._yesno" "_dialog._prgbox");
+	local _dialogfunctions=(
+		"_dialog._message"
+		"_dialog._menu"
+		"_dialog._form"
+		"_dialog._mixedform"
+		"_dialog._inputbox"
+		"_dialog._checklist"
+		"_dialog._yesno"
+		"_dialog._prgbox"
+	);
 	_dialog._menu._labelgeneratorfromarray "${_dialogfunctions[@]}";
 	local _numericalordereddialogfunctions=$_dialog_menu_numericalorderedlabels;
 
@@ -89,8 +98,13 @@ function _app() {
 					_dialog._message "$_dialog_inputbox_result" "Inputbox returned value";
 				;;
 
+				"_dialog._checklist")
+					# _dialog._checklist
+					_dialog._checklist;
+				;;
+
 				"_dialog._yesno")
-					#_dialog._yesno
+					# _dialog._yesno
 					_dialog._yesno "Hey Geek,\n\ndo you want to continue\nwith current session?" "Sample Yesno" "8" "34";
 					if [[ $_dialog_yesno_result == 0 ]]; then _dialog_yesno_result="yes"; fi;
 					if [[ $_dialog_yesno_result == 1 ]]; then _dialog_yesno_result="no"; fi;
