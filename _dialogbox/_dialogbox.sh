@@ -26,7 +26,7 @@ function _construct() {
 
 function _app() {
 	# array of dialog functions
-	local _dialogfunctions=("_dialog._message" "_dialog._menu" "_dialog._form" "_dialog._mixedform" "_dialog._inputbox" "_dialog._prgbox");
+	local _dialogfunctions=("_dialog._message" "_dialog._menu" "_dialog._form" "_dialog._mixedform" "_dialog._inputbox" "_dialog._inputmenu" "_dialog._prgbox");
 	_dialog._menu._labelgeneratorfromarray "${_dialogfunctions[@]}";
 	local _numericalordereddialogfunctions=$_dialog_menu_numericalorderedlabels;
 
@@ -87,6 +87,19 @@ function _app() {
 					local _inputboxtitle="Sample inputbox";
 					_dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "8" "34";
 					_dialog._message "$_dialog_inputbox_result" "Inputbox returned value";
+				;;
+
+				"_dialog._inputmenu")
+					# _dialog._inputmenu
+					local _inputmenuitems=("App for test buddies" "Book of jealous intelligent(s)" "Copy of tutorial(s)");
+					_dialog._menu._labelgeneratorfromarray "${_inputmenuitems[@]}";
+					local _numericalorderedinputmenuitems=$_dialog_menu_numericalorderedlabels;
+
+					_dialog._inputmenu "$_numericalorderedinputmenuitems" "List of inputmenu items" "Sample Inputmenu" "16" "45" "14";
+					if [[ $_dialog_inputmenu_result != -1 ]];
+					then
+						_dialog._message "$_dialog_inputmenu_result" "Input returned";
+					fi
 				;;
 
 				"_dialog._prgbox")
