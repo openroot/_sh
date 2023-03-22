@@ -5,9 +5,12 @@
 
 # region function
 
-trap _trap SIGINT;
-function _trap() {
-	exit; # exit the app (on next run) pressing <<ctrl><c>>
+_iscoffeefinish=-1;
+trap _coffeetrap SIGQUIT;
+
+function _coffeetrap() {
+	# press Ctrl+\ to stop app
+	_iscoffeefinish=1;
 }
 
 function _fake() {
@@ -21,6 +24,11 @@ function _fake() {
 			sleep .01;
 		done |
 		dialog --gauge "Install Part $_i : `sed $(perl -e "print int rand(99999)")"q; d" /usr/share/dict/words`" 6 40;
+
+		if [[ $_iscoffeefinish == 1 ]];
+		then
+			break;
+		fi
 	done
 }
 
