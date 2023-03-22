@@ -30,70 +30,79 @@ function _app() {
 	# loop infinite for app(s) menu
 	while true;
 	do
-		local _filelist=`cd $_const_currentdir | ls`;
-		#_dialog._message "$_filelist";
+		# getting default separated files and directories list
+		local _list=`cd $_const_currentdir | ls`;
+		#_dialog._message "$_list";
 
-		# possible space separated list of app name available (in current directory)
-		_dialog._newlinedelimitedstringtoarray "$_filelist";
+		# possible default separated list of app name available (in current directory relative)
+		_dialog._newlinedelimitedstringtoarray "$_list";
 		_directoriesandfiles=("${_dialog_array[@]}");
-		#_dialog._message "${_directoriesandfiles[@]}";
 
+
+
+		# filtering out valid apps into another array
 		local _apps=();
-		local _index=0;
-		local _menustring="";
-		# generating array of apps
 		for _possibleapp in "${_directoriesandfiles[@]}";
 		do
 			case "$_possibleapp" in
 			"_sh.sh"|"_temporary_container")
 				;;
 			*)
-				local _app=$_possibleapp;
-				_apps+=($_app);
-				let _index=$_index+1;
-				_menustring="$_menustring$_index;$_app;";
-				#_dialog._message "App Name: $_index $_app";
+				_apps+=($_possibleapp);
 				;;
 			esac
 		done
-		#printf "$_menustring";
 
-		local _selectionorder=-1;
 
-		# trying taking app selection from passed argument from console
+
+		# try taking app selection from either console argument or on failure from dialogbox
+		local _selectedtag=-1;
+
+		# trying taking app selection from console argument
 		if ! [ -z $_arg1 ]
 		then
-			_index=1;
+			local _index=1;
 			for _app in "${_apps[@]}";
 			do
 				if [[ $_app == *"$_arg1"* ]];
 				then
-					#_dialog._message "Found App: $_index $_app";
-					_selectionorder=$_index;
+					_selectedtag=$_index;
+					#_dialog._message "$_index $_app" "Found App";
+					break;
 				fi
 				let _index=$_index+1;
 			done
 		fi
 
 		# trying taking app selection from dialog menu
-		if [[ $_selectionorder == -1 ]];
+		if [[ $_selectedtag == -1 ]];
 		then
-			_dialog._menu "$_menustring" "Choose an App to Execute" "App list" "13" "28" "25";
+			_dialog._menu._labelgenerator "${_apps[@]}";
+			local _menuitemslabels=$_dialog_menu_labels;
+
+			_dialog._menu "$_menuitemslabels" "Choose an App to Execute" "App list" "14" "34" "10";
 			if [[ $_dialog_menu_result != -1 ]];
 			then
-				_selectionorder=$_dialog_menu_result;
+				_selectedtag=$_dialog_menu_result;
 			fi
 		fi
 
+
+
 		# trying executing selected app (if any successfully selected)
-		if [[ $_selectionorder != -1 ]];
+		if [[ $_selectedtag != -1 ]];
 		then
-			cd ${_apps[$_selectionorder-1]};
-			./${_apps[$_selectionorder-1]}.sh;
+			cd ${_apps[$_selectedtag-1]};
+			./${_apps[$_selectedtag-1]}.sh;
 			cd ..;
 		else
 			break;
 		fi
+
+
+
+		# after first run (possible) from console argument empty console argument to show default dialogbox
+		_arg1="";
 	done
 }
 
