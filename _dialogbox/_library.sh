@@ -1,6 +1,6 @@
  #!/bin/bash
 # Name: _library.sh
-# Purpose: GUI DialogBox library bash script
+# Purpose: GUI Dialogbox library bash script
 # ------------------------------------------
 
 # region script requires
@@ -11,6 +11,15 @@ _const_currentdir=$(builtin cd .; pwd);
 # regionend
 
 # region function
+
+function _dialog._construct() {
+	# create directory "_temporary_container" at 'source caller' directory if not already exists
+	_temporarycontainerdirectoryname="_temporary_container";
+	if ! [ -d "$_temporarycontainerdirectoryname" ];
+	then
+		mkdir $(printf "$_temporarycontainerdirectoryname";);
+	fi
+}
 
 function _dialog._chardelimitedstringtoarray() {
 	local _chardelimitedstring=$1;
@@ -367,3 +376,9 @@ function _dialog._prgbox() {
 }
 
 # endregion
+
+# region execute
+
+_dialog._construct;
+
+# regionend

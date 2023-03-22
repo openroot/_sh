@@ -1,6 +1,6 @@
 #!/bin/bash
 # Name: _dialogbox.sh
-# Purpose: GUI DialogBox bash script
+# Purpose: GUI Dialogbox bash script
 # ----------------------------------
 
 # region script requires
@@ -8,23 +8,23 @@
 # current directory (relative)
 _const_currentdir=$(builtin cd .; pwd);
 
-# GUI dialog box library
+# dialogbox library
 source $_const_currentdir/_library.sh;
 
 # regionend
 
 # region function
 
-trap _trap SIGINT;
-function _trap() {
+trap _dialogbox._trap SIGINT;
+function _dialogbox._trap() {
 	exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _construct() {
-	_app;
+function _dialogbox._construct() {
+	_dialogbox._app;
 }
 
-function _app() {
+function _dialogbox._app() {
 	# array of dialog functions
 	local _dialogfunctions=(
 		"_dialog._message"
@@ -153,6 +153,6 @@ function _app() {
 
 # region execute
 
-_construct;
+_dialogbox._construct;
 
 # endregion

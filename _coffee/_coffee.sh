@@ -6,14 +6,14 @@
 # region function
 
 _iscoffeefinish=-1;
-trap _coffeetrap SIGQUIT;
+trap _coffee._trap SIGQUIT;
 
-function _coffeetrap() {
+function _coffee._trap() {
 	# press Ctrl+\ to stop app
 	_iscoffeefinish=1;
 }
 
-function _fake() {
+function _coffee._fake() {
 	_i=0;
 	while true;
 	do
@@ -36,6 +36,6 @@ function _fake() {
 
 # region execute
 
-_fake;
+_coffee._fake;
 
 # endregion

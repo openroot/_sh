@@ -15,18 +15,18 @@ source $_const_currentdir/_dialogbox/_library.sh;
 
 # region function
 
-trap _trap SIGINT;
-function _trap() {
+trap _sh._trap SIGINT;
+function _sh._trap() {
 	exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _construct() {
+function _sh._construct() {
 	_arg1=$1;
 
-	_app;
+	_sh._app;
 }
 
-function _app() {
+function _sh._app() {
 	# loop infinite for app(s) menu
 	while true;
 	do
@@ -110,6 +110,6 @@ function _app() {
 
 # region input
 
-_construct $1;
+_sh._construct $1;
 
 # endregion

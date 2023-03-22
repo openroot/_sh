@@ -10,28 +10,28 @@ _const_currentdir=$(builtin cd .; pwd);
 # parent directory (relative)
 _const_parentdir=$(builtin cd ..; pwd);
 
-# GUI dialog box library
+# dialogbox library
 source $_const_parentdir/_dialogbox/_library.sh;
 
 # regionend
 
 # region function
 
-trap _trap SIGINT;
-function _trap() {
+trap _d2h._trap SIGINT;
+function _d2h._trap() {
 	exit; # exit the app (on next run) pressing <<ctrl><c>>
 }
 
-function _construct() {
+function _d2h._construct() {
 	_arg1=$1;
 
 	# json file having channel enlist
 	_channellist_json_file="$_const_currentdir/packs/channel-list.json";
 
-	_app;
+	_d2h._app;
 }
 
-function _app() {
+function _d2h._app() {
 	# trying taking channel selection from passed argument from console
 	if ! [ -z $_arg1 ]
 	then
@@ -53,6 +53,6 @@ function _app() {
 
 # region execute
 
-_construct $1;
+_d2h._construct $1;
 
 # endregion
