@@ -27,69 +27,73 @@ function _construct() {
 }
 
 function _app() {
-	local _filelist=`cd $_const_currentdir | ls`;
-	#_dialog._message "$_filelist";
-
-	# possible space separated list of app name available (in current directory)
-	local _oifs=$IFS;
-	IFS=$'\n';
-	local _directoriesandfiles=($_filelist);
-	IFS=$_oifs;
-	#_dialog._message "${_directoriesandfiles[@]}";
-
-	local _apps=();
-	local _index=0;
-	local _menustring="";
-	# generating array of apps
-	for _possibleapp in "${_directoriesandfiles[@]}";
+	# loop infinite for app(s) menu
+	while true;
 	do
-		case "$_possibleapp" in
-		"_sh.sh"|"_temporary_container")
-			;;
-		*)
-			local _app=$_possibleapp;
-			_apps+=($_app);
-			let _index=$_index+1;
-			_menustring="$_menustring$_index;$_app;";
-			#_dialog._message "App Name: $_index $_app";
-			;;
-		esac
-	done
-	#printf "$_menustring";
+		local _filelist=`cd $_const_currentdir | ls`;
+		#_dialog._message "$_filelist";
 
-	local _selectionorder=-1;
+		# possible space separated list of app name available (in current directory)
+		local _oifs=$IFS; IFS=$'\n'; local _directoriesandfiles=($_filelist); IFS=$_oifs;
+		#_dialog._message "${_directoriesandfiles[@]}";
 
-	# trying taking app selection from passed argument from console
-	if ! [ -z $_arg1 ]
-	then
-		_index=1;
-		for _app in "${_apps[@]}";
+		local _apps=();
+		local _index=0;
+		local _menustring="";
+		# generating array of apps
+		for _possibleapp in "${_directoriesandfiles[@]}";
 		do
-			if [[ $_app == *"$_arg1"* ]];
-			then
-				#_dialog._message "Found App: $_index $_app";
-				_selectionorder=$_index;
-			fi
-			let _index=$_index+1;
+			case "$_possibleapp" in
+			"_sh.sh"|"_temporary_container")
+				;;
+			*)
+				local _app=$_possibleapp;
+				_apps+=($_app);
+				let _index=$_index+1;
+				_menustring="$_menustring$_index;$_app;";
+				#_dialog._message "App Name: $_index $_app";
+				;;
+			esac
 		done
-	fi
+		#printf "$_menustring";
 
-	# trying taking app selection from dialog menu
-	if [[ $_selectionorder == -1 ]];
-	then
-		_dialog._menu "$_menustring" "Choose an App to Execute" "App list" 13 28 25;
-		if [[ $_dialog_menu_result != -1 ]];
+		local _selectionorder=-1;
+
+		# trying taking app selection from passed argument from console
+		if ! [ -z $_arg1 ]
 		then
-			_selectionorder=$_dialog_menu_result;
+			_index=1;
+			for _app in "${_apps[@]}";
+			do
+				if [[ $_app == *"$_arg1"* ]];
+				then
+					#_dialog._message "Found App: $_index $_app";
+					_selectionorder=$_index;
+				fi
+				let _index=$_index+1;
+			done
 		fi
-	fi
 
-	# trying executing selected app (if any successfully selected)
-	if [[ $_selectionorder != -1 ]];
-	then
-		cd ${_apps[$_selectionorder-1]};
-		./${_apps[$_selectionorder-1]}.sh;
-	fi
+		# trying taking app selection from dialog menu
+		if [[ $_selectionorder == -1 ]];
+		then
+			_dialog._menu "$_menustring" "Choose an App to Execute" "App list" 13 28 25;
+			if [[ $_dialog_menu_result != -1 ]];
+			then
+				_selectionorder=$_dialog_menu_result;
+			fi
+		fi
+
+		# trying executing selected app (if any successfully selected)
+		if [[ $_selectionorder != -1 ]];
+		then
+			cd ${_apps[$_selectionorder-1]};
+			./${_apps[$_selectionorder-1]}.sh;
+			cd ..;
+		else
+			break;
+		fi
+	done
 }
 
 # endregion
