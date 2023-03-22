@@ -28,14 +28,14 @@ function _construct() {
 
 function _app() {
 	local _filelist=`cd $_const_currentdir | ls`;
-# 	_dialog._message "$_filelist";
+	#_dialog._message "$_filelist";
 
 	# possible space separated list of app name available (in current directory)
 	local _oifs=$IFS;
 	IFS=$'\n';
 	local _directoriesandfiles=($_filelist);
 	IFS=$_oifs;
-# 	_dialog._message "${_directoriesandfiles[@]}";
+	#_dialog._message "${_directoriesandfiles[@]}";
 
 	local _apps=();
 	local _index=0;
@@ -51,11 +51,11 @@ function _app() {
 			_apps+=($_app);
 			let _index=$_index+1;
 			_menustring="$_menustring$_index;$_app;";
-# 			_dialog._message "App Name: $_index $_app";
+			#_dialog._message "App Name: $_index $_app";
 			;;
 		esac
 	done
-#  	printf "$_menustring";
+	#printf "$_menustring";
 
 	local _selectionorder=-1;
 
@@ -67,7 +67,7 @@ function _app() {
 		do
 			if [[ $_app == *"$_arg1"* ]];
 			then
-# 				_dialog._message "Found App: $_index $_app";
+				#_dialog._message "Found App: $_index $_app";
 				_selectionorder=$_index;
 			fi
 			let _index=$_index+1;
