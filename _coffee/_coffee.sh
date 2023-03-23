@@ -18,12 +18,13 @@ function _coffee._fake() {
 	while true;
 	do
 		let _i=$_i+1;
-		for _j in $(seq 0 1 100);
-		do
-			echo $_j;
-			sleep .01;
-		done |
-		dialog --gauge "Install Part $_i : `sed $(perl -e "print int rand(99999)")"q; d" /usr/share/dict/words`" 6 40;
+		{
+			for _j in $(seq 0 1 100);
+			do
+				printf "$_j\n";
+				sleep .01;
+			done 
+		} | dialog --gauge "Install Part $_i : `sed $(perl -e "print int rand(99999)")"q; d" /usr/share/dict/words`" 6 40;
 
 		if [[ $_iscoffeefinish == 1 ]];
 		then
