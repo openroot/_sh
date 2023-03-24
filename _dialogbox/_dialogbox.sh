@@ -118,15 +118,15 @@ function _dialogbox._samplingfunction() {
 			if [[ $_dialog_checklist_result != -1 ]];
 			then
 				_dialog._newlinedelimitedstringtoarray "$_dialog_checklist_result";
-				_dialog._message "${#_dialog_array[@]}" "Total number of items selected";
+				local _countselected=${#_dialog_array[@]};
 
-				_selecteditemslabels="";
+				_selectedlabels="";
 				for _i in "${_dialog_array[@]}";
 				do
-					# TODO: use 'grouped' array instead 'flat formatted' tags
-					_selecteditemslabels="$_selecteditemslabels${_checklistitems[$((($_i-1)*2))]}\n";
+					_dialog._checklist._getlabelbytag "$_checklistitemslabels" "$_i";
+					_selectedlabels+="$_dialog_checklist_labelbytag\n";
 				done
-				_dialog._message "$_selecteditemslabels" "Selected labels";
+				_dialog._message "$_selectedlabels" "Selected labels (total count: $_countselected)" "" "40";
 			fi
 		;;
 

@@ -57,6 +57,19 @@ function _dialog._tabdelimitedstringtoarray() {
 	IFS=$_oifs;
 }
 
+function _dialog._getvaluefromdoubledimensionarray() {
+	local _items=$1;
+	local _row=$2;
+	local _column=$3;
+	local _arraygrouplength=$4;
+
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
+
+	_dialog_valuefromdoubledimensionarray=${_items[$(((($_row-1)*$_arraygrouplength)+($_column-1)))]};
+}
+
 function _dialog._menu._labelgenerator() {
 	local _rawlabels=("$@");
 
@@ -85,6 +98,16 @@ function _dialog._checklist._labelgenerator() {
 			_dialog_checklist_labels="$_dialog_checklist_labels$(((_i/2)+1));${_rawlabels[$_i]};${_rawlabels[$((_i+1))]};";
 		done
 	fi
+}
+
+function _dialog._checklist._getlabelbytag() {
+	local _items=$1;
+	local _tag=$2;
+	local _arraygrouplength=3;
+	local _column=2;
+
+	_dialog._getvaluefromdoubledimensionarray "$_items" "$_tag" "$_column" "$_arraygrouplength";
+	_dialog_checklist_labelbytag=$_dialog_valuefromdoubledimensionarray;
 }
 
 function _dialog._message() {
