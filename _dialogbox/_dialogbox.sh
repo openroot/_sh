@@ -119,8 +119,14 @@ function _dialogbox._samplingfunction() {
 			then
 				_dialog._newlinedelimitedstringtoarray "$_dialog_checklist_result";
 				_dialog._message "${#_dialog_array[@]}" "Total number of items selected";
-				_dialog._message "$_dialog_checklist_result" "Selected tags";
-				# TODO: print labels instead tags
+
+				_selecteditemslabels="";
+				for _i in "${_dialog_array[@]}";
+				do
+					# TODO: use 'grouped' array instead 'flat formatted' tags
+					_selecteditemslabels="$_selecteditemslabels${_checklistitems[$((($_i-1)*2))]}\n";
+				done
+				_dialog._message "$_selecteditemslabels" "Selected labels";
 			fi
 		;;
 
