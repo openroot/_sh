@@ -37,6 +37,7 @@ function _dialogbox._app() {
 		"_dialog._yesno"
 		"_dialog._fselect"
 		"_dialog._textbox"
+		"_dialog._editbox"
 		"_dialog._timebox"
 		"_dialog._calendar"
 		"_dialog._prgbox"
@@ -166,13 +167,28 @@ function _dialogbox._samplingfunction() {
 
 		"_dialog._textbox")
 			# _dialog._textbox
-			_dialog._fselect "../_coffee/_coffee.sh" "Select a file to read content" "" "50" ;
+			_dialog._fselect "../_coffee/_coffee.sh" "Select a file to Read content" "" "50" ;
 			if ! [ -z $_dialog_fselect_result ]
 			then
 				_dialog._textbox "$_dialog_fselect_result" "Sample Textbox";
 				if [[ $_dialog_textbox_result == 0 ]]; then _dialog_textbox_result="exit"; fi;
 				if [[ $_dialog_textbox_result == 255 ]]; then _dialog_textbox_result="escape"; fi;
 				_dialog._message "$_dialog_textbox_result" "Textbox returned value";
+			fi
+		;;
+
+		"_dialog._editbox")
+			# _dialog._editbox
+			_dialog._fselect "../_coffee/_coffee.sh" "Select a file to Edit Content" "" "50" ;
+			if ! [ -z $_dialog_fselect_result ]
+			then
+				_dialog._editbox "$_dialog_fselect_result" "Sample Editbox";
+
+				_tempeditedfile="_temporary_container/_tempeditedfile";	# temporary file path/name
+				echo "$_dialog_editbox_result" > "$_tempeditedfile";	# writing content (edited) ,to temporary file
+				
+				_dialog._textbox "$_tempeditedfile" "Edited Value (in a temporary saved file)";
+				rm "$_tempeditedfile";	# after usage , deleting the temporary file
 			fi
 		;;
 
