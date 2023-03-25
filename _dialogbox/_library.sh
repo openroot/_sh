@@ -95,7 +95,10 @@ function _dialog._checklist._labelgenerator() {
 	then
 		for _i in $(seq 0 2 $((_rawlabelscount-1)));
 		do
-			_dialog_checklist_labels="$_dialog_checklist_labels$(((_i/2)+1));${_rawlabels[$_i]};${_rawlabels[$((_i+1))]};";
+			local _tagstatus="";
+			if [[ ${_rawlabels[$((_i+1))]} == "1" ]]; then _tagstatus="on"; fi;
+			if [[ ${_rawlabels[$((_i+1))]} == "0" ]]; then _tagstatus="off"; fi;
+			_dialog_checklist_labels="$_dialog_checklist_labels$(((_i/2)+1));${_rawlabels[$_i]};$_tagstatus;";
 		done
 	fi
 }
@@ -103,8 +106,8 @@ function _dialog._checklist._labelgenerator() {
 function _dialog._checklist._getlabelbytag() {
 	local _items=$1;
 	local _tag=$2;
-	local _arraygrouplength=3;
 	local _column=2;
+	local _arraygrouplength=3;
 
 	_dialog._getvaluefromdoubledimensionarray "$_items" "$_tag" "$_column" "$_arraygrouplength";
 	_dialog_checklist_labelbytag=$_dialog_valuefromdoubledimensionarray;
@@ -123,6 +126,34 @@ function _dialog._radiolist._getlabelbytag() {
 
 	_dialog._checklist._getlabelbytag "$_items" "$_tag";
 	_dialog_radiolist_labelbytag=$_dialog_checklist_labelbytag;
+}
+
+function _dialog._treeview._labelgenerator() {
+	local _rawlabels=("$@");
+
+	# generating numerical ordered labels from array
+	_dialog_treeview_labels="";
+	local _rawlabelscount=${#_rawlabels[@]};
+	if [[ $((_rawlabelscount%3)) == 0 ]];
+	then
+		for _i in $(seq 0 3 $((_rawlabelscount-1)));
+		do
+			local _tagstatus="";
+			if [[ ${_rawlabels[$((_i+2))]} == "1" ]]; then _tagstatus="on"; fi;
+			if [[ ${_rawlabels[$((_i+2))]} == "0" ]]; then _tagstatus="off"; fi;
+			_dialog_treeview_labels+="$(((_i/3)+1));${_rawlabels[$_i]};$_tagstatus;${_rawlabels[$((_i+1))]};";
+		done
+	fi
+}
+
+function _dialog._treeview._getlabelbytag() {
+	local _items=$1;
+	local _tag=$2;
+	local _column=2;
+	local _arraygrouplength=4;
+
+	_dialog._getvaluefromdoubledimensionarray "$_items" "$_tag" "$_column" "$_arraygrouplength";
+	_dialog_treeview_labelbytag=$_dialog_valuefromdoubledimensionarray;
 }
 
 function _dialog._message() {
@@ -409,8 +440,44 @@ function _dialog._yesno() {
 # function _dialog._buildlist() {
 # }
 
-# function _dialog._treeview() {
-# }
+function _dialog._treeview() {
+	local _items=$1;
+	local _treeviewmessage=$2;
+	local _title=$3;
+	local _height=14;
+	local _width=64;
+	local _treeviewheight=9;
+
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_treeviewheight=$6;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--treeview "$_treeviewmessage" \
+	$_height $_width $_treeviewheight \
+	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _treeviewstatus=$?;
+	_dialog_treeview_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_treeviewstatus != 0 ]];
+	then
+		_dialog_treeview_result=-1;
+	fi
+}
 
 function _dialog._fselect() {
 	local _filepath="";
