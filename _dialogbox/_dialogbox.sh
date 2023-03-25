@@ -36,6 +36,7 @@ function _dialogbox._app() {
 		"_dialog._radiolist"
 		"_dialog._yesno"
 		"_dialog._fselect"
+		"_dialog._textbox"
 		"_dialog._timebox"
 		"_dialog._calendar"
 		"_dialog._prgbox"
@@ -159,8 +160,20 @@ function _dialogbox._samplingfunction() {
 
 		"_dialog._fselect")
 			# _dialog._fselect
-			_dialog._fselect "../_coffee/_coffee.sh" "Sample Fileselector" "" "50" ;
+			_dialog._fselect "../_coffee/_coffee.sh" "Sample Fileselector" ;
 			_dialog._message "$_dialog_fselect_result" "Fselect returned value";
+		;;
+
+		"_dialog._textbox")
+			# _dialog._textbox
+			_dialog._fselect "../_coffee/_coffee.sh" "Select a file to read content" "" "50" ;
+			if ! [ -z $_dialog_fselect_result ]
+			then
+				_dialog._textbox "$_dialog_fselect_result" "Sample Textbox";
+				if [[ $_dialog_textbox_result == 0 ]]; then _dialog_textbox_result="exit"; fi;
+				if [[ $_dialog_textbox_result == 255 ]]; then _dialog_textbox_result="escape"; fi;
+				_dialog._message "$_dialog_textbox_result" "Textbox returned value";
+			fi
 		;;
 
 		"_dialog._calendar")
