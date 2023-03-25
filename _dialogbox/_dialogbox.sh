@@ -33,6 +33,7 @@ function _dialogbox._app() {
 		"_dialog._mixedform"
 		"_dialog._inputbox"
 		"_dialog._checklist"
+		"_dialog._radiolist"
 		"_dialog._yesno"
 		"_dialog._prgbox"
 	);
@@ -127,6 +128,20 @@ function _dialogbox._samplingfunction() {
 					_selectedlabels+="$_dialog_checklist_labelbytag\n";
 				done
 				_dialog._message "$_selectedlabels" "Selected labels (total count: $_countselected)" "" "40";
+			fi
+		;;
+
+		"_dialog._radiolist")
+			# _dialog._radiolist
+			local _radiolistitems=("Fahrenheit" "off" "Celcius" "off" "Kelvin" "on" "Rankine" "off");
+			_dialog._radiolist._labelgenerator "${_radiolistitems[@]}";
+			local _radiolistitemslabels=$_dialog_radiolist_labels;
+
+			_dialog._radiolist "$_radiolistitemslabels" "List of radiolist items" "Sample Radiolist" "11" "45" "3";
+			if [[ $_dialog_radiolist_result != -1 ]];
+			then
+				_dialog._radiolist._getlabelbytag "$_radiolistitemslabels" "$_dialog_radiolist_result";
+				_dialog._message "$_dialog_radiolist_labelbytag" "Radio selected";
 			fi
 		;;
 

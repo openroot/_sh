@@ -110,6 +110,21 @@ function _dialog._checklist._getlabelbytag() {
 	_dialog_checklist_labelbytag=$_dialog_valuefromdoubledimensionarray;
 }
 
+function _dialog._radiolist._labelgenerator() {
+	local _rawlabels=("$@");
+	
+	_dialog._checklist._labelgenerator "${_rawlabels[@]}";
+	_dialog_radiolist_labels=$_dialog_checklist_labels;
+}
+
+function _dialog._radiolist._getlabelbytag() {
+	local _items=$1;
+	local _tag=$2;
+
+	_dialog._checklist._getlabelbytag "$_items" "$_tag";
+	_dialog_radiolist_labelbytag=$_dialog_checklist_labelbytag;
+}
+
 function _dialog._message() {
 	local _message=$1;
 	local _title=$2;
@@ -321,8 +336,44 @@ function _dialog._checklist() {
 	fi
 }
 
-# function _dialog._radiolist() {
-# }
+function _dialog._radiolist() {
+	local _items=$1;
+	local _radiolistmessage=$2;
+	local _title=$3;
+	local _height=11;
+	local _width=34;
+	local _radiolistheight=3;
+
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_radiolistheight=$6;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--radiolist "$_radiolistmessage" \
+	$_height $_width $_radiolistheight \
+	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _radioliststatus=$?;
+	_dialog_radiolist_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_radioliststatus != 0 ]];
+	then
+		_dialog_radiolist_result=-1;
+	fi
+}
 
 function _dialog._yesno() {
 	local _yesnomessage=$1;
