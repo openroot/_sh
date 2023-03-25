@@ -128,6 +128,21 @@ function _dialog._radiolist._getlabelbytag() {
 	_dialog_radiolist_labelbytag=$_dialog_checklist_labelbytag;
 }
 
+function _dialog._buildlist._labelgenerator() {
+	local _rawlabels=("$@");
+	
+	_dialog._checklist._labelgenerator "${_rawlabels[@]}";
+	_dialog_buildlist_labels=$_dialog_checklist_labels;
+}
+
+function _dialog._buildlist._getlabelbytag() {
+	local _items=$1;
+	local _tag=$2;
+
+	_dialog._checklist._getlabelbytag "$_items" "$_tag";
+	_dialog_buildlist_labelbytag=$_dialog_checklist_labelbytag;
+}
+
 function _dialog._treeview._labelgenerator() {
 	local _rawlabels=("$@");
 
@@ -362,7 +377,7 @@ function _dialog._checklist() {
 	then
 		_dialog_checklist_result=-1;
 	else
-		# converting space separated tag list to ; separated list
+		# converting space separated tag list to newline separated list
 		_dialog_checklist_result=$(printf "$_dialog_checklist_result" | tr " " "\n";);
 	fi
 }
@@ -437,8 +452,47 @@ function _dialog._yesno() {
 # function _dialog._rangebox() {
 # }
 
-# function _dialog._buildlist() {
-# }
+function _dialog._buildlist() {
+	local _items=$1;
+	local _buildlistmessage=$2;
+	local _title=$3;
+	local _height=14;
+	local _width=64;
+	local _buildlistheight=9;
+
+	# converting semicolon separated list of items into array
+	_dialog._chardelimitedstringtoarray "$_items";
+	_items=("${_dialog_array[@]}");
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_buildlistheight=$6;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--buildlist "$_buildlistmessage" \
+	$_height $_width $_buildlistheight \
+	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _buildliststatus=$?;
+	_dialog_buildlist_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_buildliststatus != 0 ]];
+	then
+		_dialog_buildlist_result=-1;
+	else
+		# converting space separated tag list to newline separated list
+		_dialog_buildlist_result=$(printf "$_dialog_buildlist_result" | tr " " "\n";);
+	fi
+}
 
 function _dialog._treeview() {
 	local _items=$1;

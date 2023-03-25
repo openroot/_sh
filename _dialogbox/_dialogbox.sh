@@ -35,6 +35,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._buildlist"
 		"_dialog._treeview"
 		"_dialog._fselect"
 		"_dialog._textbox"
@@ -181,6 +182,36 @@ function _dialogbox._samplingfunction() {
 			if [[ $_dialog_yesno_result == 1 ]]; then _dialog_yesno_result="no"; fi;
 			if [[ $_dialog_yesno_result == 255 ]]; then _dialog_yesno_result="escape"; fi;
 			_dialog._message "$_dialog_yesno_result" "Yesno returned value";
+		;;
+
+		"_dialog._buildlist")
+			# _dialog._buildlist
+			local _buildlistitems=(
+				"Chinese checkers" "1"
+				"Business Game" "1"
+				"DYI Lego" "1"
+				"Origami" "0"
+				"Test Cricket" "1"
+			);
+
+			_dialog._buildlist._labelgenerator "${_buildlistitems[@]}";
+			local _buildlistitemslabels=$_dialog_buildlist_labels;
+
+			_dialog._buildlist "$_buildlistitemslabels" "List of buildlist items" "Sample Buildlist";
+
+			if [[ $_dialog_buildlist_result != -1 ]];
+			then
+				_dialog._newlinedelimitedstringtoarray "$_dialog_buildlist_result";
+				local _countselected=${#_dialog_array[@]};
+
+				_selectedlabels="";
+				for _i in "${_dialog_array[@]}";
+				do
+					_dialog._buildlist._getlabelbytag "$_buildlistitemslabels" "$_i";
+					_selectedlabels+="$_dialog_buildlist_labelbytag\n";
+				done
+				_dialog._message "$_selectedlabels" "Selected labels (total count: $_countselected)" "" "40";
+			fi
 		;;
 
 		"_dialog._treeview")
