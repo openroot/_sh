@@ -412,8 +412,42 @@ function _dialog._yesno() {
 # function _dialog._treeview() {
 # }
 
-# function _dialog._fselect() {
-# }
+function _dialog._fselect() {
+	local _filepath="";
+	local _title="";
+	local _height=4;
+	local _width=40;
+	
+	if ! [ -z $1 ]
+	then
+		_filepath=$1;
+	fi
+	if ! [ -z $2 ]
+	then
+		_title=$2;
+	fi
+	if ! [ -z $3 ]
+	then
+		_height=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_width=$4;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--fselect "$_filepath" \
+	"$_height" "$_width" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _fselectstatus=$?;
+	_dialog_fselect_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_fselectstatus != 0 ]];
+	then
+		_dialog_fselect_result=-1;
+	fi;
+}
 
 # function _dialog._textbox() {
 # }
@@ -422,9 +456,9 @@ function _dialog._yesno() {
 # }
 
 function _dialog._timebox() {
-	local _hour=$1;
-	local _minute=$2;
-	local _second=$3;
+	local _hour=$1;		# set 'null or empty' to value as 0
+	local _minute=$2;	# set 'null or empty' to value as 0
+	local _second=$3;	# set 'null or empty' to value as 0
 	local _timeboxmessage=$4;
 	local _title=$5;
 	local _height=2;
@@ -455,9 +489,9 @@ function _dialog._timebox() {
 }
 
 function _dialog._calendar() {
-	local _date=$1;
-	local _month=$2;
-	local _year=$3;
+	local _date=$1;		# set 'null or empty' to current value
+	local _month=$2;	# set 'null or empty' to current value
+	local _year=$3;		# set 'null or empty' to current value
 	local _calendarmessage=$4;
 	local _title=$5;
 	local _height=3;

@@ -35,6 +35,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._fselect"
 		"_dialog._timebox"
 		"_dialog._calendar"
 		"_dialog._prgbox"
@@ -156,6 +157,12 @@ function _dialogbox._samplingfunction() {
 			_dialog._message "$_dialog_yesno_result" "Yesno returned value";
 		;;
 
+		"_dialog._fselect")
+			# _dialog._fselect
+			_dialog._fselect "../_coffee/_coffee.sh" "Sample Fileselector" "" "50" ;
+			_dialog._message "$_dialog_fselect_result" "Fselect returned value";
+		;;
+
 		"_dialog._calendar")
 			# _dialog._calendar
 			_dialog._calendar "9" "8" "1988" "Date of Birth" "Sample Calendar";
@@ -164,7 +171,7 @@ function _dialogbox._samplingfunction() {
 
 		"_dialog._timebox")
 			# _dialog._timebox
-			_dialog._timebox "0" "4" "0" "Time of Birth" "Sample Timebox";
+			_dialog._timebox "0" "4" "28" "Time of Birth" "Sample Timebox";
 			_dialog._message "$_dialog_timebox_result" "Timebox returned value (hh:mm:ss)" "" "40";
 		;;
 
