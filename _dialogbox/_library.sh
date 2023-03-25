@@ -424,8 +424,38 @@ function _dialog._yesno() {
 # function _dialog._timebox() {
 # }
 
-# function _dialog._calender() {
-# }
+function _dialog._calendar() {
+	local _date=$1;
+	local _month=$2;
+	local _year=$3;
+	local _calendarmessage=$4;
+	local _title=$5;
+	local _height=3;
+	local _width=38;
+
+	if ! [ -z $6 ]
+	then
+		$_height=$6;
+	fi
+	if ! [ -z $7 ]
+	then
+		$_width=$7;
+	fi
+	
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--calendar "$_calendarmessage" \
+	"$_height" "$_width" \
+	"$_date" "$_month" "$_year" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _calendarstatus=$?;
+	_dialog_calendar_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_calendarstatus != 0 ]];
+	then
+		_dialog_calendar_result=-1;
+	fi
+}
 
 function _dialog._prgbox() {
 	local _command=$1;

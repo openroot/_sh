@@ -35,6 +35,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._calendar"
 		"_dialog._prgbox"
 	);
 	_dialog._menu._labelgenerator "${_dialogfunctions[@]}";
@@ -152,6 +153,11 @@ function _dialogbox._samplingfunction() {
 			if [[ $_dialog_yesno_result == 1 ]]; then _dialog_yesno_result="no"; fi;
 			if [[ $_dialog_yesno_result == 255 ]]; then _dialog_yesno_result="escape"; fi;
 			_dialog._message "$_dialog_yesno_result" "Yesno returned value";
+		;;
+
+		"_dialog._calendar")
+			_dialog._calendar "9" "8" "1988" "Date of Birth" "Sample Calendar";
+			_dialog._message "$_dialog_calendar_result" "Calendar returned value (d/m/y)";
 		;;
 
 		"_dialog._prgbox")
