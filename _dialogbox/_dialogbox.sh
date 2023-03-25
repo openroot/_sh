@@ -35,6 +35,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._timebox"
 		"_dialog._calendar"
 		"_dialog._prgbox"
 	);
@@ -156,8 +157,15 @@ function _dialogbox._samplingfunction() {
 		;;
 
 		"_dialog._calendar")
+			# _dialog._calendar
 			_dialog._calendar "9" "8" "1988" "Date of Birth" "Sample Calendar";
-			_dialog._message "$_dialog_calendar_result" "Calendar returned value (d/m/y)";
+			_dialog._message "$_dialog_calendar_result" "Calendar returned value (dd/mm/yyyy)" "" "40";
+		;;
+
+		"_dialog._timebox")
+			# _dialog._timebox
+			_dialog._timebox "0" "4" "0" "Time of Birth" "Sample Timebox";
+			_dialog._message "$_dialog_timebox_result" "Timebox returned value (hh:mm:ss)" "" "40";
 		;;
 
 		"_dialog._prgbox")

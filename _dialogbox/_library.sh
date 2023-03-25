@@ -421,8 +421,38 @@ function _dialog._yesno() {
 # function _dialog._editbox() {
 # }
 
-# function _dialog._timebox() {
-# }
+function _dialog._timebox() {
+	local _hour=$1;
+	local _minute=$2;
+	local _second=$3;
+	local _timeboxmessage=$4;
+	local _title=$5;
+	local _height=2;
+	local _width=34;
+
+	if ! [ -z $6 ]
+	then
+		$_height=$6;
+	fi
+	if ! [ -z $7 ]
+	then
+		$_width=$7;
+	fi
+	
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--timebox "$_timeboxmessage" \
+	"$_height" "$_width" \
+	"$_hour" "$_minute" "$_second" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _timeboxstatus=$?;
+	_dialog_timebox_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_timeboxstatus != 0 ]];
+	then
+		_dialog_timebox_result=-1;
+	fi
+}
 
 function _dialog._calendar() {
 	local _date=$1;
