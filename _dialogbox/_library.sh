@@ -449,8 +449,38 @@ function _dialog._yesno() {
 # function _dialog._progressbox() {
 # }
 
-# function _dialog._rangebox() {
-# }
+function _dialog._rangebox() {
+	local _rangeboxmessage=$1;
+	local _title=$2;
+	local _min=0;
+	local _max=9;
+	local _default=0;
+	local _height=8;
+	local _width=28;
+
+	if ! [ -z $3 ]
+	then
+		_height=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_width=$4;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--rangebox "$_rangeboxmessage" \
+	$_height $_width \
+	$_min $_max $_default 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _rangeboxstatus=$?;
+	_dialog_rangebox_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_rangeboxstatus != 0 ]];
+	then
+		_dialog_rangebox_result=-1;
+	fi
+}
 
 function _dialog._buildlist() {
 	local _items=$1;

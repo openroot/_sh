@@ -35,6 +35,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._rangebox"
 		"_dialog._buildlist"
 		"_dialog._treeview"
 		"_dialog._fselect"
@@ -182,6 +183,13 @@ function _dialogbox._samplingfunction() {
 			if [[ $_dialog_yesno_result == 1 ]]; then _dialog_yesno_result="no"; fi;
 			if [[ $_dialog_yesno_result == 255 ]]; then _dialog_yesno_result="escape"; fi;
 			_dialog._message "$_dialog_yesno_result" "Yesno returned value";
+		;;
+
+		"_dialog._rangebox")
+			#_dialog._rangebox
+			_dialog._rangebox "Press +/- or down/up key to slide" "Sample Rangebox" "9";
+
+			_dialog._message "$_dialog_rangebox_result" "Rangebox returned value";
 		;;
 
 		"_dialog._buildlist")
