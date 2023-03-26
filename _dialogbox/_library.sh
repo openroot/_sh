@@ -446,8 +446,28 @@ function _dialog._yesno() {
 # function _dialog._gauge() {
 # }
 
-# function _dialog._progressbox() {
-# }
+function _dialog._progressbox() {
+	local _command=$1;
+	local _progressboxmessage=$2;
+	local _title=$3;
+	local _height=16;
+	local _width=69;
+
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+
+	`echo "$_command"` \
+	| dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--progressbox "$_progressboxmessage" \
+	$_height $_width;
+}
 
 function _dialog._rangebox() {
 	local _rangeboxmessage=$1;

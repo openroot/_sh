@@ -35,6 +35,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._progressbox"
 		"_dialog._rangebox"
 		"_dialog._buildlist"
 		"_dialog._treeview"
@@ -185,6 +186,23 @@ function _dialogbox._samplingfunction() {
 			_dialog._message "$_dialog_yesno_result" "Yesno returned value";
 		;;
 
+		"_dialog._progressbox")
+			#_dialog._progressbox
+			_dialog._inputbox "top" "Please enter a linux command to pipeline" "Pipeline a command" "9";
+
+			if [[ $_dialog_inputbox_result != -1 ]];
+			then
+				if [[ $_dialog_inputbox_result != "" ]];
+				then
+					local _command="$_dialog_inputbox_result";
+					local _progressboxmessage="Executed command \$$_command";
+					local _progressboxtitle="Sample Progressbox";
+
+					_dialog._progressbox "$_command" "$_progressboxmessage" "$_progressboxtitlex";
+				fi
+			fi
+		;;
+
 		"_dialog._rangebox")
 			#_dialog._rangebox
 			_dialog._rangebox "Press +/- or down/up key to slide" "Sample Rangebox" "9";
@@ -311,6 +329,7 @@ function _dialogbox._samplingfunction() {
 					local _command="$_dialog_inputbox_result";
 					local _prgboxmessage="Executed command \$$_command";
 					local _prgboxtitle="Sample prgbox";
+
 					_dialog._prgbox "$_command" "$_prgboxmessage" "$_prgboxtitle" "20" "50";
 				fi
 			fi
