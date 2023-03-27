@@ -110,6 +110,6 @@ function _sh._app() {
 
 # region input
 
-_sh._construct $1;
+_sh._construct "$1";
 
 # endregion

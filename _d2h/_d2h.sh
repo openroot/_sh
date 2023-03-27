@@ -53,6 +53,6 @@ function _d2h._app() {
 
 # region execute
 
-_d2h._construct $1;
+_d2h._construct "$1";
 
 # endregion
