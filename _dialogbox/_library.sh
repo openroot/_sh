@@ -12,6 +12,15 @@ _const_currentdir=$(builtin cd .; pwd);
 
 # region function
 
+function _dialog._construct() {
+	# create directory "_temporary_container" at 'source caller' directory if not already exists
+	_temporarycontainerdirectoryname="_temporary_container";
+	if ! [ -d "$_temporarycontainerdirectoryname" ];
+	then
+		mkdir $(printf "$_temporarycontainerdirectoryname";);
+	fi
+}
+
 function _dialog._math._arith () {
 	local _value1=$1;
 	local _value2=$2;
@@ -25,15 +34,6 @@ function _dialog._math._arith () {
 
 	local _result=`bc -l <<< "scale=$_scale; $_value1 $_operation $_value2"`;
 	echo "$_result";
-}
-
-function _dialog._construct() {
-	# create directory "_temporary_container" at 'source caller' directory if not already exists
-	_temporarycontainerdirectoryname="_temporary_container";
-	if ! [ -d "$_temporarycontainerdirectoryname" ];
-	then
-		mkdir $(printf "$_temporarycontainerdirectoryname";);
-	fi
 }
 
 function _dialog._chardelimitedstringtoarray() {
