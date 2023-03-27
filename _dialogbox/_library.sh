@@ -207,6 +207,32 @@ function _dialog._message() {
 	$_height $_width;
 }
 
+function _dialog._infobox() {
+	local _infoboxmessage=$1;
+	local _title=$2;
+	local _elapsetime=1; # in seconds
+	local _height=9;
+	local _width=34;
+
+	if ! [ -z $3 ]
+	then
+		_elapsetime=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+
+	dialog \
+	--infobox "$_infoboxmessage" \
+	$_height $_width ;
+	sleep $_elapsetime;
+}
+
 function _dialog._menu() {
 	local _items=$1;
 	local _menumessage=$2;

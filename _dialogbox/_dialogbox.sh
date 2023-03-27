@@ -31,6 +31,7 @@ function _dialogbox._app() {
 	# array of dialog functions
 	local _dialogfunctions=(
 		"_dialog._message"
+		"_dialog._infobox"
 		"_dialog._menu"
 		"_dialog._form"
 		"_dialog._mixedform"
@@ -78,6 +79,12 @@ function _dialogbox._samplingfunction() {
 			local _messagetitle="Sample Message";
 
 			_dialog._message "$_messagestring" "$_messagetitle" "6" "28";
+		;;
+
+		"_dialog._infobox")
+			# _dialog._infobox
+
+			_dialog._infobox "Hello\n\"World!\"" "Sample Infobox" "2";
 		;;
 
 		"_dialog._menu")
