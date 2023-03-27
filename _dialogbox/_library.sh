@@ -12,6 +12,21 @@ _const_currentdir=$(builtin cd .; pwd);
 
 # region function
 
+function _dialog._math._arith () {
+	local _value1=$1;
+	local _value2=$2;
+	local _operation=$3;
+	local _scale=7;
+
+	if ! [ -z $4 ]
+	then
+		_scale=$4;
+	fi
+
+	local _result=`bc -l <<< "scale=$_scale; $_value1 $_operation $_value2"`;
+	echo "$_result";
+}
+
 function _dialog._construct() {
 	# create directory "_temporary_container" at 'source caller' directory if not already exists
 	_temporarycontainerdirectoryname="_temporary_container";
@@ -443,8 +458,54 @@ function _dialog._yesno() {
 	_dialog_yesno_result=$?;
 }
 
-# function _dialog._gauge() {
-# }
+function _dialog._gauge() {
+	local _gaugemessage=$1;
+	local _title=$2;
+	local _height=6;
+	local _width=34;
+	local _elapsetime=1; # in seconds
+	local _startvalue=0;
+	local _endvalue=100;
+	local _stepvalue=1;
+
+	if ! [ -z $3 ]
+	then
+		_height=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_width=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_elapsetime=$5;
+	fi
+	if ! [ -z $6 ]
+	then
+		_startvalue=$6;
+	fi
+	if ! [ -z $7 ]
+	then
+		_endvalue=$7;
+	fi
+	if ! [ -z $8 ]
+	then
+		_stepvalue=$8;
+	fi
+
+	local _stiptime=$(_dialog._math._arith "$_elapsetime" "$(_dialog._math._arith "$(_dialog._math._arith "$_endvalue" "$_startvalue" "-")" "$_stepvalue" "/")" "/");
+
+	{
+		for _i in $(seq $_startvalue $_stepvalue $_endvalue);
+		do
+			echo $_i;
+			sleep $_stiptime;
+		done 
+	} | dialog \
+	--title "$_title" \
+	--gauge "$_gaugemessage" \
+	$_height $_width;
+}
 
 function _dialog._progressbox() {
 	local _command=$1;

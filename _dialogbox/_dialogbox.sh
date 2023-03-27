@@ -15,9 +15,12 @@ source $_const_currentdir/_library.sh;
 
 # region function
 
-trap _dialogbox._trap SIGINT;
+_dialogbox_finishloop=-1;
+trap _dialogbox._trap SIGQUIT;
+
 function _dialogbox._trap() {
-	exit; # exit the app (on next run) pressing <<ctrl><c>>
+	# press Ctrl+\ to stop app
+	_dialogbox_finishloop=1;
 }
 
 function _dialogbox._construct() {
@@ -35,6 +38,7 @@ function _dialogbox._app() {
 		"_dialog._checklist"
 		"_dialog._radiolist"
 		"_dialog._yesno"
+		"_dialog._gauge"
 		"_dialog._progressbox"
 		"_dialog._rangebox"
 		"_dialog._buildlist"
@@ -184,6 +188,23 @@ function _dialogbox._samplingfunction() {
 			if [[ $_dialog_yesno_result == 1 ]]; then _dialog_yesno_result="no"; fi;
 			if [[ $_dialog_yesno_result == 255 ]]; then _dialog_yesno_result="escape"; fi;
 			_dialog._message "$_dialog_yesno_result" "Yesno returned value";
+		;;
+
+		"_dialog._gauge")
+			# _dialog._gauge
+
+			_dialogbox_finishloop=-1;
+			while true;
+			do
+				if [[ $_dialogbox_finishloop == -1 ]];
+				then
+					local _gaugemessage="Word 1 : `sed $(perl -e "print int rand(99999)")"q; d" /usr/share/dict/words`";
+					
+					_dialog._gauge "$_gaugemessage" "Technical Analog Water - WORD" "6" "44";
+				else
+					break;
+				fi
+			done
 		;;
 
 		"_dialog._progressbox")
