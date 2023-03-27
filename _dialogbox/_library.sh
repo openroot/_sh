@@ -533,6 +533,41 @@ function _dialog._gauge() {
 	$_height $_width;
 }
 
+function _dialog._pause() {
+	local _pausemessage=$1;
+	local _title=$2;
+	local _elapsetime=1; # in seconds
+	local _height=9;
+	local _width=34;
+
+	if ! [ -z $3 ]
+	then
+		_elapsetime=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_height=$4;
+	fi
+	if ! [ -z $5 ]
+	then
+		_width=$5;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--pause "$_pausemessage" \
+	$_height $_width \
+	$_elapsetime 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _pausestatus=$?;
+	_dialog_pause_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_pausestatus != 0 ]];
+	then
+		_dialog_pause_result=-1;
+	fi
+}
+
 function _dialog._progressbox() {
 	local _command=$1;
 	local _progressboxmessage=$2;

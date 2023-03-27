@@ -40,6 +40,7 @@ function _dialogbox._app() {
 		"_dialog._radiolist"
 		"_dialog._yesno"
 		"_dialog._gauge"
+		"_dialog._pause"
 		"_dialog._progressbox"
 		"_dialog._rangebox"
 		"_dialog._buildlist"
@@ -213,6 +214,14 @@ function _dialogbox._samplingfunction() {
 					break;
 				fi
 			done
+		;;
+
+		"_dialog._pause")
+			# _dialog._pause
+
+			_dialog._pause "Leftover time.." "Timer 3 Second" "3";
+
+			if [[ $_dialog_pause_result == -1 ]]; then _dialog._message "cancel" "Pause returned value"; fi
 		;;
 
 		"_dialog._progressbox")
