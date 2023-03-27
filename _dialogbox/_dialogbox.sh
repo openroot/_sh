@@ -44,6 +44,7 @@ function _dialogbox._app() {
 		"_dialog._buildlist"
 		"_dialog._treeview"
 		"_dialog._fselect"
+		"_dialog._dselect"
 		"_dialog._textbox"
 		"_dialog._editbox"
 		"_dialog._timebox"
@@ -294,6 +295,13 @@ function _dialogbox._samplingfunction() {
 			_dialog._fselect "../_coffee/_coffee.sh" "Sample Fileselector";
 
 			_dialog._message "$_dialog_fselect_result" "Fselect returned value";
+		;;
+
+		"_dialog._dselect")
+			# _dialog._dselect
+			_dialog._dselect "../" "Sample Directoryselector";
+
+			_dialog._message "$_dialog_dselect_result" "Dselect returned value";
 		;;
 
 		"_dialog._textbox")

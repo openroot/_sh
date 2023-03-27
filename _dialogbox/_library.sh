@@ -681,6 +681,43 @@ function _dialog._fselect() {
 	fi;
 }
 
+function _dialog._dselect() {
+	local _filepath="";
+	local _title="";
+	local _height=4;
+	local _width=40;
+	
+	if ! [ -z $1 ]
+	then
+		_filepath=$1;
+	fi
+	if ! [ -z $2 ]
+	then
+		_title=$2;
+	fi
+	if ! [ -z $3 ]
+	then
+		_height=$3;
+	fi
+	if ! [ -z $4 ]
+	then
+		_width=$4;
+	fi
+
+	dialog --clear --erase-on-exit \
+	--title "$_title" \
+	--dselect "$_filepath" \
+	"$_height" "$_width" 2> "${_const_currentdir}/_temporary_container/output.txt";
+
+	local _dselectstatus=$?;
+	_dialog_dselect_result=`cat ${_const_currentdir}/_temporary_container/output.txt`;
+
+	if [[ $_dselectstatus != 0 ]];
+	then
+		_dialog_dselect_result=-1;
+	fi;
+}
+
 function _dialog._textbox() {
 	local _filepath="";
 	local _title="";
