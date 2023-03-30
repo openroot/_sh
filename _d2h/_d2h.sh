@@ -25,8 +25,13 @@ function _d2h._trap() {
 function _d2h._construct() {
 	_arg1=$1;
 
-	# json file having channel enlist
-	_channellist_json_file="$_const_currentdir/packs/channel-list.json";
+	_d2h_channels_db_file="$_const_currentdir/packs/channel-list.txt";
+	_d2h_channels_db_rows=();
+	_d2h_channels_db_rowcount=-1;
+	_d2h_channels_db_cells=();
+	_d2h_channels_db_cellcount=-1;
+	_d2h_channels_db_tablewidth=-1;
+	_d2h_channels_db_isvarified=-1;
 
 	_d2h._app;
 }
@@ -38,16 +43,87 @@ function _d2h._app() {
 		_dialog._message "$_arg1" "Passed argument";
 	fi
 
-	# total count of enlisted channels
-	local _count_enlist=`jq '. | length' $_channellist_json_file`;
-	_dialog._message "$_count_enlist" "Total enlisted channels";
+	_d2h._db._read;
+	_d2h._db._print;
 
-	# sample jq query
-	local _sample_jq_query=`jq '.[] |
-	select(.package=="a-la-carte") |
-	.category,.package,.name,.cno,.price' $_channellist_json_file`;
-	_dialog._message "$_sample_jq_query" "Sample jq query" 35 45;
+	#_d2h._searchbyname;
 }
+
+function _d2h._db._read() {
+	if [[ $_d2h_channels_db_rowcount == -1 ]];
+	then
+		_dialog._newlinedelimitedstringtoarray "$(cat "$_d2h_channels_db_file")";
+
+		_d2h_channels_db_rows=("${_dialog_array[@]}");
+
+		_d2h_channels_db_rowcount=${#_d2h_channels_db_rows[@]};
+
+		for _row in "${_d2h_channels_db_rows[@]}";
+		do
+			local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
+
+			local _oifs=IFS; IFS='|'; read -r -a _items <<< "$_rowline"; IFS=$_oifs;
+
+			_d2h_channels_db_cells+=("${_items[@]}");
+			
+			_d2h_channels_db_tablewidth=${#_items[@]};
+		done
+
+		_d2h_channels_db_cellcount=${#_d2h_channels_db_cells[@]};
+		
+		_d2h._db._checksum "${_d2h_channels_db_rows[0]}" "$_d2h_channels_db_rowcount" "$_d2h_channels_db_cellcount";
+		_d2h_channels_db_isvarified=$?;
+	fi
+}
+
+function _d2h._db._checksum() {
+	local _firstrow=$1;
+	local _db_rowcount=$2;
+	local _db_cellcount=$3;
+
+	if ! [ -z $_firstrow ];
+	then
+		if [[ $_db_rowcount > 0 ]];
+		then
+			local _rowline=${_firstrow:0:${#_firstrow}-1};	# removing last most char of line
+
+			local _oifs=IFS; IFS='|'; read -r -a _items <<< "$_rowline"; IFS=$_oifs;
+
+			local _firstrow_cellcount=${#_items[@]};
+
+			if [[ $(($_db_rowcount*$_firstrow_cellcount)) == $_db_cellcount ]];
+			then
+				return "1";
+			else
+				return "0";
+			fi
+		fi
+	fi
+}
+
+function _d2h._db._print() {
+	if [[ $_d2h_channels_db_isvarified == 1 ]];
+	then
+		local _i=1;
+		for _cell in "${_d2h_channels_db_cells[@]}";
+		do
+			printf "$_i: $_cell\n";
+			_i=$(($_i+1));
+		done
+	fi
+}
+
+#function _d2h._searchbyname() {
+	# local _inputboxinit="";
+	# local _inputboxmessage="Please enter a Channel Name (subsequent)";
+	# local _inputboxtitle="Search by Channel Name";
+
+	# _dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "9" "34";
+
+	# _dialog._message "$_dialog_inputbox_result" "Inputbox returned value";
+
+	
+#}
 
 # endregion
 
