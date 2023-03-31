@@ -33,6 +33,14 @@ function _d2h._construct() {
 	_d2h_channels_db_tablewidth=-1;
 	_d2h_channels_db_isvarified=-1;
 
+	_db_file="";
+	_db_rows=();
+	_db_rowcount=-1;
+	_db_cells=();
+	_db_cellcount=-1;
+	_db_tablewidth=-1;
+	_db_isvarified=-1;
+
 	_d2h._app;
 }
 
