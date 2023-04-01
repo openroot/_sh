@@ -25,6 +25,8 @@ function _d2h._trap() {
 function _d2h._construct() {
 	_arg1=$1;
 
+	_db_print_rowseparator="\n";
+	_db_print_columnseparator=" | ";
 	_db_file="";
 	_db_rows=();
 	_db_rowcount=-1;
@@ -121,11 +123,18 @@ function _db._checksum() {
 function _db._print() {
 	if [[ $_db_isvarified == 1 ]];
 	then
-		local _i=1;
-		for _cell in "${_db_cells[@]}";
+		for ((_i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth));
 		do
-			printf "$_i: $_cell\n";
-			_i=$(($_i+1));
+			printf "$_db_print_columnseparator";
+
+			for ((_j=0; _j<$_db_tablewidth; _j++));
+			do
+				printf "${_db_cells[$((_i+_j))]}";
+
+				printf "$_db_print_columnseparator";
+			done
+			
+			printf "$_db_print_rowseparator";
 		done
 	fi
 }
