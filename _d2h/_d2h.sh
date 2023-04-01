@@ -61,7 +61,7 @@ function _d2h._app() {
 	_d2h_channels_db_tablewidth=$_db_tablewidth;
 	_d2h_channels_db_isvarified=$_db_isvarified;
 
-	_db._print;
+	_db._print "1";
 
 	#_d2h._searchbyname;
 }
@@ -123,17 +123,21 @@ function _db._checksum() {
 function _db._print() {
 	if [[ $_db_isvarified == 1 ]];
 	then
-		for ((_i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth));
+		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
 			printf "$_db_print_columnseparator";
 
-			for ((_j=0; _j<$_db_tablewidth; _j++));
+			for (( _j=0; _j<$_db_tablewidth; _j++ ));
 			do
 				printf "${_db_cells[$((_i+_j))]}";
 
 				printf "$_db_print_columnseparator";
+				if ! [[ -z $1 ]];
+				then
+					sleep 0.008;
+				fi
 			done
-			
+
 			printf "$_db_print_rowseparator";
 		done
 	fi
