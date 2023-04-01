@@ -25,14 +25,6 @@ function _d2h._trap() {
 function _d2h._construct() {
 	_arg1=$1;
 
-	_d2h_channels_db_file="$_const_currentdir/packs/channel-list.txt";
-	_d2h_channels_db_rows=();
-	_d2h_channels_db_rowcount=-1;
-	_d2h_channels_db_cells=();
-	_d2h_channels_db_cellcount=-1;
-	_d2h_channels_db_tablewidth=-1;
-	_d2h_channels_db_isvarified=-1;
-
 	_db_file="";
 	_db_rows=();
 	_db_rowcount=-1;
@@ -40,6 +32,14 @@ function _d2h._construct() {
 	_db_cellcount=-1;
 	_db_tablewidth=-1;
 	_db_isvarified=-1;
+
+	_d2h_channels_db_file="$_const_currentdir/packs/channel-list.txt";
+	_d2h_channels_db_rows=();
+	_d2h_channels_db_rowcount=-1;
+	_d2h_channels_db_cells=();
+	_d2h_channels_db_cellcount=-1;
+	_d2h_channels_db_tablewidth=-1;
+	_d2h_channels_db_isvarified=-1;
 
 	_d2h._app;
 }
@@ -51,40 +51,49 @@ function _d2h._app() {
 		_dialog._message "$_arg1" "Passed argument";
 	fi
 
-	_d2h._db._read;
-	_d2h._db._print;
+	_db._read "$_d2h_channels_db_file";
+	_d2h_channels_db_rows=("${_db_rows[@]}");
+	_d2h_channels_db_rowcount=$_db_rowcount;
+	_d2h_channels_db_cells=("${_db_cells[@]}");
+	_d2h_channels_db_cellcount=$_db_cellcount;
+	_d2h_channels_db_tablewidth=$_db_tablewidth;
+	_d2h_channels_db_isvarified=$_db_isvarified;
+
+	_db._print;
 
 	#_d2h._searchbyname;
 }
 
-function _d2h._db._read() {
-	if [[ $_d2h_channels_db_rowcount == -1 ]];
+function _db._read() {
+	_db_file=$1;
+
+	if [[ $_db_rowcount == -1 ]];
 	then
-		_dialog._newlinedelimitedstringtoarray "$(cat "$_d2h_channels_db_file")";
+		_dialog._newlinedelimitedstringtoarray "$(cat "$_db_file")";
 
-		_d2h_channels_db_rows=("${_dialog_array[@]}");
+		_db_rows=("${_dialog_array[@]}");
 
-		_d2h_channels_db_rowcount=${#_d2h_channels_db_rows[@]};
+		_db_rowcount=${#_db_rows[@]};
 
-		for _row in "${_d2h_channels_db_rows[@]}";
+		for _row in "${_db_rows[@]}";
 		do
 			local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
 
 			local _oifs=IFS; IFS='|'; read -r -a _items <<< "$_rowline"; IFS=$_oifs;
 
-			_d2h_channels_db_cells+=("${_items[@]}");
+			_db_cells+=("${_items[@]}");
 			
-			_d2h_channels_db_tablewidth=${#_items[@]};
+			_db_tablewidth=${#_items[@]};
 		done
 
-		_d2h_channels_db_cellcount=${#_d2h_channels_db_cells[@]};
+		_db_cellcount=${#_db_cells[@]};
 		
-		_d2h._db._checksum "${_d2h_channels_db_rows[0]}" "$_d2h_channels_db_rowcount" "$_d2h_channels_db_cellcount";
-		_d2h_channels_db_isvarified=$?;
+		_db._checksum "${_db_rows[0]}" "$_db_rowcount" "$_db_cellcount";
+		_db_isvarified=$?;
 	fi
 }
 
-function _d2h._db._checksum() {
+function _db._checksum() {
 	local _firstrow=$1;
 	local _db_rowcount=$2;
 	local _db_cellcount=$3;
@@ -109,11 +118,11 @@ function _d2h._db._checksum() {
 	fi
 }
 
-function _d2h._db._print() {
-	if [[ $_d2h_channels_db_isvarified == 1 ]];
+function _db._print() {
+	if [[ $_db_isvarified == 1 ]];
 	then
 		local _i=1;
-		for _cell in "${_d2h_channels_db_cells[@]}";
+		for _cell in "${_db_cells[@]}";
 		do
 			printf "$_i: $_cell\n";
 			_i=$(($_i+1));
