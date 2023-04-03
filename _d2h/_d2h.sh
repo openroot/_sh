@@ -63,7 +63,7 @@ function _d2h._app() {
 
 	#_db._print "1";
 
-	_db._traverse "search_cell_casesensitive" "4" "lix";
+	_db._searchrows "caseinsensitive_part" "4|news|2|bst|5|73|";
 	printf "Result:\n$_db_traverse_result";
 
 	#_d2h._searchbyname;
@@ -146,37 +146,43 @@ function _db._print() {
 	fi
 }
 
-function _db._traverse() {
+function _db._searchrows() {
 	local _action=$1;
-	local _cell=$2;
-	local _data=$3;
+	local _queryset=$2;
 
 	_db_traverse_result="";
+
+	local _oifs=IFS; IFS='|'; read -r -a _querysetarray <<< "$_queryset"; IFS=$_oifs;
+
+	local _querysetarraycount=${#_querysetarray[@]};
+	local _querysetcount=$((_querysetarraycount/2));
 
 	if [[ $_db_isvarified == 1 ]];
 	then
 		# each ' line '
 		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
-			# ' row ' -> each ' cell '
-			for (( _j=0; _j<$_db_tablewidth; _j++ ));
+			local _linenumber=$(((_i/_db_tablewidth)+1));
+
+			local _issuccess=0;
+			for (( _s=0; _s<$_querysetarraycount; _s+=2 ));
 			do
-				local _linenumber=$(((_i/_db_tablewidth)+1));
-				local _cellnumber=$((_j+1));
-				local _celldata="${_db_cells[$((_i+_j))]}";
+				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
+				local _data="${_querysetarray[$((_s+1))]}";
 
 				case $_action in
-					"search_cell_casesensitive")
-						if [[ $((_j+1)) == $_cell ]];
+					"casesensitive_part")
+						if [[ $_celldata == *"$_data"* ]];
 						then
-							if [[ $_celldata == *"$_data"* ]];
-							then
-								_db_traverse_result+="$_linenumber\n";
-							fi
+							_issuccess=$((_issuccess+1));
 						fi
 					;;
 
-					"search_cell_caseinsensitive")
+					"caseinsensitive_part")
+						if [[ ${_celldata,,} == *"${_data,,}"* ]];
+						then
+							_issuccess=$((_issuccess+1));
+						fi
 					;;
 
 					*)
@@ -184,6 +190,11 @@ function _db._traverse() {
 				esac
 
 			done
+
+			if [[ $_issuccess == $_querysetcount ]];
+			then
+				_db_traverse_result+="$_linenumber\n";
+			fi
 		done
 	fi
 
