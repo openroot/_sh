@@ -110,9 +110,9 @@ function _db._read() {
 
 	if [[ $_db_rowcount == -1 ]];
 	then
-		_dialog._newlinedelimitedstringtoarray "$(cat "$_db_file")";
+		_db._newlinedelimitedstringtoarray "$(cat "$_db_file")";
 
-		_db_rows=("${_dialog_array[@]}");
+		_db_rows=("${_db_array[@]}");
 
 		_db_rowcount=${#_db_rows[@]};
 
@@ -277,13 +277,23 @@ function _db._getrow() {
 	fi
 }
 
+function _db._newlinedelimitedstringtoarray() {
+	local _newlinedelimitedstring=$1;
+
+	# converting newline delimited string into array
+	local _oifs=$IFS;
+	IFS=$'\n';
+	_db_array=($_newlinedelimitedstring);
+	IFS=$_oifs;
+}
+
 function _db._bardelimitedstringtoarray() {
 	local _bardelimitedstring=$1;
 
 	# converting bar delimited string into array
 	local _oifs=$IFS;
-	IFS='|';
-	read -r -a _db_array <<< "$_bardelimitedstring";
+	IFS=$'|';
+	_db_array=($_bardelimitedstring);
 	IFS=$_oifs;
 }
 
