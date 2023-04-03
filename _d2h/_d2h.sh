@@ -64,10 +64,32 @@ function _d2h._app() {
 	#_db._print "1";
 
 	_db._searchrows "caseinsensitive_part" "4|news|2|bst|5|73|";
-	printf "Result:\n$_db_traverse_result";
+	if [[ $_db_traverse_result != -1 ]];
+	then
+		_db._bardelimitedstringtoarray "$_db_traverse_result";
+		local _rows=("${_db_array[@]}");
+
+		echo "Found number of rows: ${#_db_array[@]}";
+		for (( _i=0; _i<${#_db_array[@]}; _i++ ));
+		do
+			echo "${_db_array[$_i]}";
+		done
+	fi
 
 	#_d2h._searchbyname;
 }
+
+#function _d2h._searchbyname() {
+	# local _inputboxinit="";
+	# local _inputboxmessage="Please enter a Channel Name (subsequent)";
+	# local _inputboxtitle="Search by Channel Name";
+
+	# _dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "9" "34";
+
+	# _dialog._message "$_dialog_inputbox_result" "Inputbox returned value";
+
+	
+#}
 
 function _db._read() {
 	_db_file=$1;
@@ -84,7 +106,8 @@ function _db._read() {
 		do
 			local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
 
-			local _oifs=IFS; IFS='|'; read -r -a _items <<< "$_rowline"; IFS=$_oifs;
+			_db._bardelimitedstringtoarray "$_rowline";
+			local _items=("${_db_array[@]}");
 
 			_db_cells+=("${_items[@]}");
 			
@@ -109,7 +132,8 @@ function _db._checksum() {
 		then
 			local _rowline=${_firstrow:0:${#_firstrow}-1};	# removing last most char of line
 
-			local _oifs=IFS; IFS='|'; read -r -a _items <<< "$_rowline"; IFS=$_oifs;
+			_db._bardelimitedstringtoarray "$_rowline";
+			local _items=("${_db_array[@]}");
 
 			local _firstrow_cellcount=${#_items[@]};
 
@@ -152,7 +176,8 @@ function _db._searchrows() {
 
 	_db_traverse_result="";
 
-	local _oifs=IFS; IFS='|'; read -r -a _querysetarray <<< "$_queryset"; IFS=$_oifs;
+	_db._bardelimitedstringtoarray "$_queryset";
+	local _querysetarray=("${_db_array[@]}");
 
 	local _querysetarraycount=${#_querysetarray[@]};
 	local _querysetcount=$((_querysetarraycount/2));
@@ -193,7 +218,7 @@ function _db._searchrows() {
 
 			if [[ $_issuccess == $_querysetcount ]];
 			then
-				_db_traverse_result+="$_linenumber\n";
+				_db_traverse_result+="$_linenumber|";
 			fi
 		done
 	fi
@@ -204,17 +229,15 @@ function _db._searchrows() {
 	fi
 }
 
-#function _d2h._searchbyname() {
-	# local _inputboxinit="";
-	# local _inputboxmessage="Please enter a Channel Name (subsequent)";
-	# local _inputboxtitle="Search by Channel Name";
+function _db._bardelimitedstringtoarray() {
+	local _bardelimitedstring=$1;
 
-	# _dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "9" "34";
-
-	# _dialog._message "$_dialog_inputbox_result" "Inputbox returned value";
-
-	
-#}
+	# converting bar delimited string into array
+	local _oifs=$IFS;
+	IFS='|';
+	read -r -a _db_array <<< "$_bardelimitedstring";
+	IFS=$_oifs;
+}
 
 # endregion
 
