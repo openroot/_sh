@@ -26,7 +26,7 @@ function _d2h._construct() {
 	_arg1=$1;
 
 	_db_print_rowseparator="\n";
-	_db_print_columnseparator=" | ";
+	_db_print_cellseparator=" | ";
 	_db_file="";
 	_db_rows=();
 	_db_rowcount=-1;
@@ -64,16 +64,28 @@ function _d2h._app() {
 	#_db._print "1";
 
 	_db._searchrows "caseinsensitive_part" "4|news|2|bst|5|73|";
-	if [[ $_db_traverse_result != -1 ]];
+	if [[ $_db_searchrows_result != -1 ]];
 	then
-		_db._bardelimitedstringtoarray "$_db_traverse_result";
+		_db._bardelimitedstringtoarray "$_db_searchrows_result";
 		local _rows=("${_db_array[@]}");
 
 		echo "Found number of rows: ${#_db_array[@]}";
 		for (( _i=0; _i<${#_db_array[@]}; _i++ ));
 		do
-			echo "${_db_array[$_i]}";
+			printf "${_db_array[$_i]} ";
+
+			_db._getrow "${_db_array[$_i]}";
+			if [[ $_db_getrow_result != -1 ]];
+			then
+				echo "${_db_getrow_result[@]}";
+			fi
 		done
+	fi
+
+	_db._getrow "443" "4";
+	if [[ $_db_getrow_result != -1 ]];
+	then
+		echo "${_db_getrow_result[@]}";
 	fi
 
 	#_d2h._searchbyname;
@@ -152,13 +164,13 @@ function _db._print() {
 	then
 		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
-			printf "$_db_print_columnseparator";
+			printf "$_db_print_cellseparator";
 
 			for (( _j=0; _j<$_db_tablewidth; _j++ ));
 			do
 				printf "${_db_cells[$((_i+_j))]}";
 
-				printf "$_db_print_columnseparator";
+				printf "$_db_print_cellseparator";
 				if ! [[ -z $1 ]];
 				then
 					sleep 0.008;
@@ -174,7 +186,7 @@ function _db._searchrows() {
 	local _action=$1;
 	local _queryset=$2;
 
-	_db_traverse_result="";
+	_db_searchrows_result="";
 
 	_db._bardelimitedstringtoarray "$_queryset";
 	local _querysetarray=("${_db_array[@]}");
@@ -187,7 +199,7 @@ function _db._searchrows() {
 		# each ' line '
 		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
-			local _linenumber=$(((_i/_db_tablewidth)+1));
+			local _rownumber=$(((_i/_db_tablewidth)+1));
 
 			local _issuccess=0;
 			for (( _s=0; _s<$_querysetarraycount; _s+=2 ));
@@ -218,14 +230,38 @@ function _db._searchrows() {
 
 			if [[ $_issuccess == $_querysetcount ]];
 			then
-				_db_traverse_result+="$_linenumber|";
+				_db_searchrows_result+="$_rownumber|";
 			fi
 		done
 	fi
 
-	if [[ $_db_traverse_result == "" ]];
+	if [[ $_db_searchrows_result == "" ]];
 	then
-		_db_traverse_result=-1;
+		_db_searchrows_result=-1;
+	fi
+}
+
+function _db._getrow() {
+	local _rownumber=$1;
+	local _cellnumber=$2;
+
+	_db_getrow_result=-1;
+
+	if [[ $_db_isvarified == 1 ]];
+	then
+		if [ -z $_cellnumber ]
+		then
+			_db_getrow_result=();
+			local _init=$(((_rownumber-1)*6));
+			local _i=-1;
+			for (( _i=$_init; _i<$((_init+6)); _i++ ));
+			do
+				_db_getrow_result+=("${_db_cells[$_i]}");
+			done
+		else
+			#echo "return specific cell of the row";
+			echo;
+		fi
 	fi
 }
 
