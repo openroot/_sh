@@ -63,12 +63,14 @@ function _d2h._app() {
 
 	#_db._print "1";
 
-	_db._searchrows "caseinsensitive_part" "4|news|2|bst|5|73|";
+	local _querystring="4|news|2|bst|5|73|";
+	_db._searchrows "caseinsensitive_part" "$_querystring";
 	if [[ $_db_searchrows_result != -1 ]];
 	then
 		_db._bardelimitedstringtoarray "$_db_searchrows_result";
 		local _rows=("${_db_array[@]}");
 
+		echo "Query string; $_querystring";
 		echo "Found number of rows: ${#_db_array[@]}";
 		for (( _i=0; _i<${#_db_array[@]}; _i++ ));
 		do
@@ -82,10 +84,10 @@ function _d2h._app() {
 		done
 	fi
 
-	_db._getrow "443" "4";
+	_db._getrow "543" "6";
 	if [[ $_db_getrow_result != -1 ]];
 	then
-		echo "${_db_getrow_result[@]}";
+		printf "\nLast row, last cell: $_db_getrow_result\n";
 	fi
 
 	#_d2h._searchbyname;
@@ -249,18 +251,23 @@ function _db._getrow() {
 
 	if [[ $_db_isvarified == 1 ]];
 	then
-		if [ -z $_cellnumber ]
+		if [[ $_rownumber < $((_db_rowcount+1)) ]];
 		then
-			_db_getrow_result=();
-			local _init=$(((_rownumber-1)*6));
-			local _i=-1;
-			for (( _i=$_init; _i<$((_init+6)); _i++ ));
-			do
-				_db_getrow_result+=("${_db_cells[$_i]}");
-			done
-		else
-			#echo "return specific cell of the row";
-			echo;
+			local _init=$(((_rownumber-1)*_db_tablewidth));
+			if [ -z $_cellnumber ]
+			then
+				_db_getrow_result=();
+				local _i=-1;
+				for (( _i=$_init; _i<$((_init+_db_tablewidth)); _i++ ));
+				do
+					_db_getrow_result+=("${_db_cells[$_i]}");
+				done
+			else
+				if [[ $_cellnumber < $((_db_tablewidth+1)) ]];
+				then
+					_db_getrow_result="${_db_cells[$((_init+_cellnumber-1))]}";
+				fi
+			fi
 		fi
 	fi
 }
