@@ -116,6 +116,7 @@ function _db._read() {
 
 		_db_rowcount=${#_db_rows[@]};
 
+		local _row=-1;
 		for _row in "${_db_rows[@]}";
 		do
 			local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
@@ -164,10 +165,12 @@ function _db._checksum() {
 function _db._print() {
 	if [[ $_db_isvarified == 1 ]];
 	then
+		local _i=-1;
 		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
 			printf "$_db_print_cellseparator";
 
+			local _j=-1;
 			for (( _j=0; _j<$_db_tablewidth; _j++ ));
 			do
 				printf "${_db_cells[$((_i+_j))]}";
@@ -199,11 +202,13 @@ function _db._searchrows() {
 	if [[ $_db_isvarified == 1 ]];
 	then
 		# each ' line '
+		local _i=-1;
 		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
 			local _rownumber=$(((_i/_db_tablewidth)+1));
 
 			local _issuccess=0;
+			local _s=-1;
 			for (( _s=0; _s<$_querysetarraycount; _s+=2 ));
 			do
 				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
