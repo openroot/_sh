@@ -61,7 +61,10 @@ function _d2h._app() {
 	_d2h_channels_db_tablewidth=$_db_tablewidth;
 	_d2h_channels_db_isvarified=$_db_isvarified;
 
-	_db._print "1";
+	#_db._print "1";
+
+	_db._traverse "search_cell_casesensitive" "4" "lix";
+	printf "Result:\n$_db_traverse_result";
 
 	#_d2h._searchbyname;
 }
@@ -140,6 +143,53 @@ function _db._print() {
 
 			printf "$_db_print_rowseparator";
 		done
+	fi
+}
+
+function _db._traverse() {
+	local _action=$1;
+	local _cell=$2;
+	local _data=$3;
+
+	_db_traverse_result="";
+
+	if [[ $_db_isvarified == 1 ]];
+	then
+		# each ' line '
+		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
+		do
+			# ' row ' -> each ' cell '
+			for (( _j=0; _j<$_db_tablewidth; _j++ ));
+			do
+				local _linenumber=$(((_i/_db_tablewidth)+1));
+				local _cellnumber=$((_j+1));
+				local _celldata="${_db_cells[$((_i+_j))]}";
+
+				case $_action in
+					"search_cell_casesensitive")
+						if [[ $((_j+1)) == $_cell ]];
+						then
+							if [[ $_celldata == *"$_data"* ]];
+							then
+								_db_traverse_result+="$_linenumber\n";
+							fi
+						fi
+					;;
+
+					"search_cell_caseinsensitive")
+					;;
+
+					*)
+					;;
+				esac
+
+			done
+		done
+	fi
+
+	if [[ $_db_traverse_result == "" ]];
+	then
+		_db_traverse_result=-1;
 	fi
 }
 
