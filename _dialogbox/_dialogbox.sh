@@ -11,15 +11,15 @@ _const_currentdir=$(builtin cd .; pwd);
 # dialogbox library
 source $_const_currentdir/_library.sh;
 
+_dialogbox_finishloop=-1;
+trap _dialogbox._trap SIGQUIT;
+
 # regionend
 
 # region function
 
-_dialogbox_finishloop=-1;
-trap _dialogbox._trap SIGQUIT;
-
 function _dialogbox._trap() {
-	# press Ctrl+\ to stop app
+	# press Ctrl+\ to stop loop
 	_dialogbox_finishloop=1;
 }
 
