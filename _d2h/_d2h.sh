@@ -129,22 +129,6 @@ function _d2h._searchbynameorcategory() {
 			then
 				_dialog._message "${_menuitems[$_dialog_menu_result-1]}" "Selection returned";
 			fi
-
-			# _db._bardelimitedstringtoarray "$_db_searchrows_result";
-			# local _rows=("${_db_array[@]}");
-
-			# echo "Query String: $_querystring";
-			# echo "Found Number of Rows: ${#_rows[@]}";
-			# for (( _i=0; _i<${#_rows[@]}; _i++ ));
-			# do
-			# 	printf "${_rows[$_i]} ";
-
-			# 	_db._getrow "${_rows[$_i]}";
-			# 	if [[ $_db_getrow_result != -1 ]];
-			# 	then
-			# 		echo "${_db_getrow_result[@]}";
-			# 	fi
-			# done
 		fi
 
 	fi
