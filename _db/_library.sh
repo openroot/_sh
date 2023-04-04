@@ -159,7 +159,6 @@ function _db._searchrows() {
 			do
 				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
 				local _data="${_querysetarray[$((_s+1))]}";
-
 				local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
 				local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
 
