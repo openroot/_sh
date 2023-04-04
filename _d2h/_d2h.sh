@@ -34,26 +34,17 @@ function _d2h._construct() {
 }
 
 function _d2h._app() {
+
+	_d2h._channels_db;
+
 	# trying taking channel selection from passed argument from console
 	if ! [ -z $_arg1 ]
 	then
 		_dialog._message "$_arg1" "Passed argument";
 	fi
 
-	# _db._read
-	_db._read "$_d2h_channels_db_file";
-	_d2h_channels_db_rows=("${_db_rows[@]}");
-	_d2h_channels_db_rowcount=$_db_rowcount;
-	_d2h_channels_db_cells=("${_db_cells[@]}");
-	_d2h_channels_db_cellcount=$_db_cellcount;
-	_d2h_channels_db_tablewidth=$_db_tablewidth;
-	_d2h_channels_db_isvarified=$_db_isvarified;
-
-	#_db._print
-	#_db._print "t";
-
 	# _db._searchrows
-	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|";
+	local _querystring="4|news|t|t|";
 
 	_db._searchrows "$_querystring";
 	
@@ -76,15 +67,17 @@ function _d2h._app() {
 		done
 	fi
 
-	# _db._getrow
-	_db._getrow "543" "6";
-
-	if [[ $_db_getrow_result != -1 ]];
-	then
-		printf "\nLast Row, Last Cell: $_db_getrow_result\n";
-	fi
-
 	#_d2h._searchbyname;
+}
+
+function _d2h._channels_db() {
+	_db._read "$_d2h_channels_db_file";
+	_d2h_channels_db_rows=("${_db_rows[@]}");
+	_d2h_channels_db_rowcount=$_db_rowcount;
+	_d2h_channels_db_cells=("${_db_cells[@]}");
+	_d2h_channels_db_cellcount=$_db_cellcount;
+	_d2h_channels_db_tablewidth=$_db_tablewidth;
+	_d2h_channels_db_isvarified=$_db_isvarified;
 }
 
 #function _d2h._searchbyname() {

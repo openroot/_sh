@@ -160,7 +160,7 @@ function _db._searchrows() {
 				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
 				local _data="${_querysetarray[$((_s+1))]}";
 
-				local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == 'f' ]];then _iscaseinsensitive=0; fi;
+				local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
 				local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
 
 				if [[ $_iscaseinsensitive == 1 ]];
@@ -202,7 +202,7 @@ function _db._getrow() {
 
 	if [[ $_db_isvarified == 1 ]];
 	then
-		if [[ $_rownumber < $((_db_rowcount+1)) ]];
+		if [[ $_rownumber -lt $((_db_rowcount+1)) ]];
 		then
 			local _init=$(((_rownumber-1)*_db_tablewidth));
 			if [ -z $_cellnumber ]
@@ -214,7 +214,7 @@ function _db._getrow() {
 					_db_getrow_result+=("${_db_cells[$_i]}");
 				done
 			else
-				if [[ $_cellnumber < $((_db_tablewidth+1)) ]];
+				if [[ $_cellnumber -lt $((_db_tablewidth+1)) ]];
 				then
 					_db_getrow_result="${_db_cells[$((_init+_cellnumber-1))]}";
 				fi
