@@ -15,9 +15,18 @@ source $_const_parentdir/_db/_library.sh;
 # dialogbox library
 source $_const_parentdir/_dialogbox/_library.sh;
 
+_d2h_finishloop=-1;
+trap _d2h._trap SIGQUIT;
+
+
 # regionend
 
 # region function
+
+function _d2h._trap() {
+	# press Ctrl+\ to stop loop
+	_d2h_finishloop=1;
+}
 
 function _d2h._construct() {
 	_arg1=$1;
@@ -37,37 +46,15 @@ function _d2h._app() {
 
 	_d2h._channels_db;
 
-	# trying taking channel selection from passed argument from console
-	if ! [ -z $_arg1 ]
-	then
-		_dialog._message "$_arg1" "Passed argument";
-	fi
-
-	# _db._searchrows
-	local _querystring="4|news|t|t|";
-
-	_db._searchrows "$_querystring";
-	
-	if [[ $_db_searchrows_result != -1 ]];
-	then
-		_db._bardelimitedstringtoarray "$_db_searchrows_result";
-		local _rows=("${_db_array[@]}");
-
-		echo "Query String: $_querystring";
-		echo "Found Number of Rows: ${#_rows[@]}";
-		for (( _i=0; _i<${#_rows[@]}; _i++ ));
-		do
-			printf "${_rows[$_i]} ";
-
-			_db._getrow "${_rows[$_i]}";
-			if [[ $_db_getrow_result != -1 ]];
-			then
-				echo "${_db_getrow_result[@]}";
-			fi
-		done
-	fi
-
-	#_d2h._searchbyname;
+	while [[ true ]];
+	do
+		if [[ $_d2h_finishloop != -1 ]];
+		then
+			clear; break;
+		else
+			_d2h._searchbynameorcategory "$_arg1";
+		fi
+	done
 }
 
 function _d2h._channels_db() {
@@ -80,15 +67,88 @@ function _d2h._channels_db() {
 	_d2h_channels_db_isvarified=$_db_isvarified;
 }
 
-#function _d2h._searchbyname() {
-	# local _inputboxinit="";
-	# local _inputboxmessage="Please enter a Channel Name (subsequent)";
-	# local _inputboxtitle="Search by Channel Name";
+function _d2h._inputbox() {
+	local _inputboxinit=$1;
+	local _inputboxmessage=$2;
+	local _inputboxtitle=$3;
 
-	# _dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "9" "34";
+	_dialog._inputbox "$_inputboxinit" "$_inputboxmessage" "$_inputboxtitle" "9" "34";
 
-	# _dialog._message "$_dialog_inputbox_result" "Inputbox returned value";
-#}
+	_d2h_inputbox_result="$_dialog_inputbox_result";
+}
+
+function _d2h._searchbynameorcategory() {
+	local _search="";
+
+	if ! [ -z $_arg1 ]
+	then
+		# trying taking channel selection from passed argument from console
+		_search="$_arg1";
+	else
+		# else take input within app
+		_d2h._inputbox "" "Please enter a \nChannel Name or Category" "Channel Search";
+		if [[ $_d2h_inputbox_result != -1 ]];
+		then
+			_search="$_d2h_inputbox_result";
+		fi
+	fi
+
+	if [[ $_search != "" ]];
+	then
+		local _querystring="4|$_search|t|t|";
+
+		_db._searchrows "$_querystring";
+		
+		if [[ $_db_searchrows_result != -1 ]];
+		then
+
+			_db._bardelimitedstringtoarray "$_db_searchrows_result";
+			local _rows=("${_db_array[@]}");
+
+			# _dialog._menu
+			local _menuitems=();
+
+			for (( _i=0; _i<${#_rows[@]}; _i++ ));
+			do
+				_db._getrow "${_rows[$_i]}";
+				if [[ $_db_getrow_result != -1 ]];
+				then
+					local _string="";
+					if [[ "${_db_getrow_result[4]}" != "" ]]; then _string+="${_db_getrow_result[4]} || "; fi
+					if [[ "${_db_getrow_result[3]}" != "" ]]; then _string+="${_db_getrow_result[3]}"; fi
+					_menuitems+=("$_string");
+				fi
+			done
+
+			_dialog._menu._labelgenerator "${_menuitems[@]}";
+			local _menuitemslabels=$_dialog_menu_labels;
+
+			_dialog._menu "$_menuitemslabels" "Found channels" "Channel List" "28" "48" "3";
+
+			if [[ $_dialog_menu_result != -1 ]];
+			then
+				_dialog._message "${_menuitems[$_dialog_menu_result-1]}" "Selection returned";
+			fi
+
+			# _db._bardelimitedstringtoarray "$_db_searchrows_result";
+			# local _rows=("${_db_array[@]}");
+
+			# echo "Query String: $_querystring";
+			# echo "Found Number of Rows: ${#_rows[@]}";
+			# for (( _i=0; _i<${#_rows[@]}; _i++ ));
+			# do
+			# 	printf "${_rows[$_i]} ";
+
+			# 	_db._getrow "${_rows[$_i]}";
+			# 	if [[ $_db_getrow_result != -1 ]];
+			# 	then
+			# 		echo "${_db_getrow_result[@]}";
+			# 	fi
+			# done
+		fi
+
+	fi
+}
 
 # endregion
 
