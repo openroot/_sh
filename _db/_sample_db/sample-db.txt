@@ -1,0 +1,543 @@
+category|package|language|name|cno|price|
+|a-la-carte||&PICTURE HD||19|
+|a-la-carte||&TV HD||19|
+|a-la-carte||&Flix||15|
+|a-la-carte||&flix HD||19|
+|a-la-carte||&Pictures||10|
+|a-la-carte||&prive HD||6|
+|a-la-carte||&TV||6|
+|a-la-carte||1 Sports||4|
+|a-la-carte||10 TV||0|
+|a-la-carte||7S Music||0|
+|a-la-carte||9X Jhakaas||0|
+|a-la-carte||9X M||0|
+|a-la-carte||9X Tashan||0|
+|a-la-carte||Aaj Tak|725|0|
+|a-la-carte||ABP Ganga||0|
+|a-la-carte||ABP Majha||0|
+|a-la-carte||Adithya TV||9|
+|a-la-carte||Alankar||4|
+|a-la-carte||Amrita TV||0|
+|a-la-carte||Animal Planet||2|
+|a-la-carte||Animal Planet HD World|964|5|
+|a-la-carte||Aradhana||0|
+|a-la-carte||Asianet||19|
+|a-la-carte||Asianet HD||19|
+|a-la-carte||Asianet Movies||19|
+|a-la-carte||Asianet Plus||7|
+|a-la-carte||Ayush TV||0|
+|a-la-carte||BBC World News|913|1.5|
+|a-la-carte||Bhakti TV||0|
+|a-la-carte||Bharat Express||0|
+|a-la-carte||Big Ganga||0.5|
+|a-la-carte||Big Magic||0.1|
+|a-la-carte||Bindass|141|0.1|
+|a-la-carte||BTV News|2697|0|
+|a-la-carte||Calcutta News|822|0|
+|a-la-carte||Cartoon Network|1113|4.25|
+|a-la-carte||Chintu TV||5|
+|a-la-carte||Chutti Tv||6|
+|a-la-carte||CNBC AWAAZ|871|0.1|
+|a-la-carte||CNBC BAJAAR||1|
+|a-la-carte||CNBC Prime HD|934|1|
+|a-la-carte||CNBC TV|931|4|
+|a-la-carte||CNN International|911|2|
+|a-la-carte||CNN News|897|0.5|
+|a-la-carte||Colors||19|
+|a-la-carte||COLORS BANGLA||7|
+|a-la-carte||Colors Bangla HD||14|
+|a-la-carte||COLORS CINEPLEX||3|
+|a-la-carte||Colors Gujarati||6|
+|a-la-carte||Colors Gujarati Cinema|1621|1|
+|a-la-carte||Colors HD|106|19|
+|a-la-carte||Colors Infinity||5|
+|a-la-carte||Colors Infinity HD||9|
+|a-la-carte||Colors Kannada||19|
+|a-la-carte||Colors Kannada HD||19|
+|a-la-carte||Colors Kannada Movies||3|
+|a-la-carte||Colors Marathi||10|
+|a-la-carte||Colors Marathi HD||17|
+|a-la-carte||Colors Oriya||6|
+|a-la-carte||COLORS RISHTEY|143|1|
+|a-la-carte||Colors Super||3|
+|a-la-carte||Colors Tamil||3|
+|a-la-carte||Comedy Central|507|5|
+|a-la-carte||CTVN-AKD-PLUS|1829|0|
+|a-la-carte||D Tamil||3.5|
+|a-la-carte||DARSHANA||0|
+|a-la-carte||Dighvijay 24x7 News||0|
+|a-la-carte||Discovery||4|
+|a-la-carte||Discovery HD World||8|
+|a-la-carte||Discovery Kids||3.5|
+|a-la-carte||Discovery Science|967|1|
+|a-la-carte||Discovery Turbo||1|
+|a-la-carte||Disha TV||0|
+|a-la-carte||Disney Channel||10|
+|a-la-carte||Disney Junior||4|
+|a-la-carte||Enterr10 Bangla||0|
+|a-la-carte||ET Now|933|2|
+|a-la-carte||ETV Abhiruchi||3|
+|a-la-carte||ETV Andhra Pradesh||2|
+|a-la-carte||ETV Bal Bharat||4|
+|a-la-carte||ETV Cinema||13|
+|a-la-carte||ETV HD||19|
+|a-la-carte||ETV Life||2|
+|a-la-carte||ETV Plus||11|
+|a-la-carte||ETV Telangana||2|
+|a-la-carte||ETV TELUGU||19|
+|a-la-carte||Euro Sports HD|652|5.5|
+|a-la-carte||EUROSPORT||3.5|
+|a-la-carte||Flowers TV||10|
+|a-la-carte||Fox Life||1|
+|a-la-carte||Fox Life HD|970|2|
+|a-la-carte||Gemini Comedy||5|
+|a-la-carte||GEMINI HD||19|
+|a-la-carte||Gemini Life||5|
+|a-la-carte||Gemini Movies||17|
+|a-la-carte||Gemini Music||4|
+|a-la-carte||Gemini Tv||19|
+|a-la-carte||GOD TV||0|
+|a-la-carte||Goldmines||0|
+|a-la-carte||Goodness TV||0|
+|a-la-carte||Harvest TV||0|
+|a-la-carte||Harvest TV||0|
+|a-la-carte||Hindu Dharmam||0|
+|a-la-carte||History TV18 HD||7|
+|a-la-carte||HM TV||0|
+|a-la-carte||Hungama tv||1|
+|a-la-carte||India News Haryana||0|
+|a-la-carte||India Today|901|1.5|
+|a-la-carte||Investigation Discovery|119|1|
+|a-la-carte||Isaiyaruvi||4|
+|a-la-carte||J MOVIE||2.52|
+|a-la-carte||JAI HIND||0|
+|a-la-carte||Jalsha Movies||15|
+|a-la-carte||Janam TV||0|
+|a-la-carte||Jaya Max||2.52|
+|a-la-carte||Jaya Plus||1.68|
+|a-la-carte||Jaya TV||3.78|
+|a-la-carte||KAILIGNAR SETHIGAL||1|
+|a-la-carte||Kairali||0|
+|a-la-carte||Kalaignar TV||12|
+|a-la-carte||Kalvi Tholaikkatchi||0|
+|a-la-carte||Kappa TV||0|
+|a-la-carte||Kaumudy TV||0|
+|a-la-carte||KITE VICTERS||0|
+|a-la-carte||Kochu TV||5|
+|a-la-carte||Kolkata TV|1871|0|
+|a-la-carte||KTV||19|
+|a-la-carte||KTV HD||19|
+|a-la-carte||KUSHI TV||4|
+|a-la-carte||Living Foodz||1|
+|a-la-carte||Maa Gold||7|
+|a-la-carte||Maa Movies||19|
+|a-la-carte||Maa Music||4|
+|a-la-carte||Maa TV||19|
+|a-la-carte||Madha||0|
+|a-la-carte||Makkal Tv||0|
+|a-la-carte||Manorama News||0|
+|a-la-carte||MATHRUBHUMI||0|
+|a-la-carte||Mazhavil Manorama||0|
+|a-la-carte||Mazhavil Manorama HD|3112|0|
+|a-la-carte||MBC TV|1761|0|
+|a-la-carte||Media One||0|
+|a-la-carte||Mega 24||1|
+|a-la-carte||Mega MUSIQ||2|
+|a-la-carte||Mega TV||3|
+|a-la-carte||Mirror Now|899|0.5|
+|a-la-carte||MN+ HD||8|
+|a-la-carte||MNX||5|
+|a-la-carte||Movies Now||10|
+|a-la-carte||MTV||3|
+|a-la-carte||MTV Beats|463|0.1|
+|a-la-carte||MURASU||12|
+|a-la-carte||Nambikkkai||0|
+|a-la-carte||NAT GEO WILD||1|
+|a-la-carte||NAT GEO WILD HD||8|
+|a-la-carte||National Geographic||2|
+|a-la-carte||NDTV 24x7|891|3|
+|a-la-carte||NDTV India|729|0|
+|a-la-carte||New18 Bangla|1877|0.1|
+|a-la-carte||News 18 Bihar Jharkhand|825|0.1|
+|a-la-carte||News 18 Kannada||0.1|
+|a-la-carte||News 18 Kerala||0.1|
+|a-la-carte||News 18 North East|1999|0.1|
+|a-la-carte||News 18 Tamil Nadu||0.1|
+|a-la-carte||News 1st||0|
+|a-la-carte||News Lokmat||0.1|
+|a-la-carte||News18 Gujarati||0.1|
+|a-la-carte||News18 India||0.1|
+|a-la-carte||NEWS18 JK/HIMACHAL|781|0.1|
+|a-la-carte||News18 Madhya Pradesh/Chhattisgarh||0.1|
+|a-la-carte||News18 Oriya||0.1|
+|a-la-carte||News18 Punjab/Haryana/Himachal|1411|0.1|
+|a-la-carte||News18 Rajasthan|841|0.1|
+|a-la-carte||News18 Uttar Pradesh/Uttaranchal|817|0.1|
+|a-la-carte||NGC HD||14|
+|a-la-carte||Nick||6|
+|a-la-carte||Nick HD+||10|
+|a-la-carte||Nick Jr||1|
+|a-la-carte||Nipuna|2483|0|
+|a-la-carte||NTV News||0|
+|a-la-carte||Panini|981|0|
+|a-la-carte||Peace of Mind|1221|0|
+|a-la-carte||People||0|
+|a-la-carte||Pogo||4.25|
+|a-la-carte||Polimer News||0|
+|a-la-carte||Polimer TV||0|
+|a-la-carte||POWER VISION TV||0|
+|a-la-carte||PRARTHANA||2|
+|a-la-carte||Pravah Picture|1485|2|
+|a-la-carte||PTC News||0|
+|a-la-carte||Public Movies||0|
+|a-la-carte||Public Music||0|
+|a-la-carte||Public TV||0|
+|a-la-carte||Puthiya Thalaimurai||0|
+|a-la-carte||Puthu Yugam||0|
+|a-la-carte||R. Bangla||0|
+|a-la-carte||Raj Digital Plus||1.6|
+|a-la-carte||RAJ MUSIX|2937|1.4|
+|a-la-carte||Raj Musix Kannada||0|
+|a-la-carte||Raj Musix Malayalam||0|
+|a-la-carte||Raj Musix Telugu||0|
+|a-la-carte||RAJ NEWS|2961|0.28|
+|a-la-carte||Raj News Kannada|2691|0|
+|a-la-carte||Raj News Malayalam||0|
+|a-la-carte||Raj News Telugu||0|
+|a-la-carte||RAJ TV||4|
+|a-la-carte||Romedy Now||5|
+|a-la-carte||Rongeen TV||0|
+|a-la-carte||Safari TV||0|
+|a-la-carte||Sahana TV||0|
+|a-la-carte||Sai TV||0|
+|a-la-carte||Sakshi TV||0|
+|a-la-carte||Sandesh News||0|
+|a-la-carte||SATHIYAM||0|
+|a-la-carte||Shalom||0|
+|a-la-carte||Siri Kannada-All Time||0|
+|a-la-carte||SIRIPOLI||8|
+|a-la-carte||Sonic||2|
+|a-la-carte||SONY AATH|1817|5.5|
+|a-la-carte||Sony BBC Earth||3|
+|a-la-carte||Sony BBC Earth HD||19|
+|a-la-carte||SONY ENTERTAINMENT TELEVISION||19|
+|a-la-carte||SONY ENTERTAINMENT TELEVISION HD||19|
+|a-la-carte||Sony Marathi||5.5|
+|a-la-carte||SONY MAX||15|
+|a-la-carte||SONY MAX 2||1|
+|a-la-carte||SONY MAX HD||19|
+|a-la-carte||SONY PAL||0.5|
+|a-la-carte||SONY PIX||10|
+|a-la-carte||SONY PIX HD||19|
+|a-la-carte||SONY SAB||19|
+|a-la-carte||SONY SAB HD|114|19|
+|a-la-carte||SONY SPORTS TEN 1||19|
+|a-la-carte||SONY SPORTS TEN 1 HD||19|
+|a-la-carte||SONY SPORTS TEN 2||17|
+|a-la-carte||SONY SPORTS TEN 2 HD||19|
+|a-la-carte||SONY SPORTS TEN 3||17|
+|a-la-carte||SONY SPORTS TEN 3 HD|622|19|
+|a-la-carte||SONY SPORTS TEN 4||17|
+|a-la-carte||SONY SPORTS TEN 5||19|
+|a-la-carte||SONY SPORTS TEN 5 HD|658|19|
+|a-la-carte||Sony Wah|375|0.5|
+|a-la-carte||SONY YAY|1109|3|
+|a-la-carte||Sports18 1||8|
+|a-la-carte||Sports18 1 HD||10|
+|a-la-carte||Star Bharat||12|
+|a-la-carte||Star Bharat HD||19|
+|a-la-carte||Star Gold||19|
+|a-la-carte||Star Gold 2|351|2|
+|a-la-carte||Star Gold HD||19|
+|a-la-carte||Star Gold Select||7|
+|a-la-carte||Star Gold Select HD||8|
+|a-la-carte||Star Jalsha||19|
+|a-la-carte||Star Jalsha HD||19|
+|a-la-carte||STAR JALSHA MOVIES HD||19|
+|a-la-carte||Star Kiran||12|
+|a-la-carte||STAR MAA HD||21|
+|a-la-carte||Star Maa Movies HD||19|
+|a-la-carte||Star Movies||19|
+|a-la-carte||Star Movies HD||19|
+|a-la-carte||Star Movies Select HD||19|
+|a-la-carte||Star Plus||19|
+|a-la-carte||Star Plus HD||19|
+|a-la-carte||Star Pravah||19|
+|a-la-carte||Star Pravah HD||19|
+|a-la-carte||Star Sports 1||19|
+|a-la-carte||Star Sports 1 HD||19|
+|a-la-carte||Star Sports 1 Hindi||19|
+|a-la-carte||Star Sports 1 Kannada||19|
+|a-la-carte||Star Sports 1 Tamil||19|
+|a-la-carte||Star Sports 1 Telugu||19|
+|a-la-carte||Star Sports 2||4|
+|a-la-carte||Star Sports 2 HD||19|
+|a-la-carte||Star Sports 3||2|
+|a-la-carte||STAR SPORTS FIRST|627|0.5|
+|a-la-carte||Star Sports Hindi 1 HD|620|19|
+|a-la-carte||Star Sports Select 1||19|
+|a-la-carte||Star Sports Select 1 HD||19|
+|a-la-carte||Star Sports Select 2||7|
+|a-la-carte||Star Sports Select 2 HD|624|10|
+|a-la-carte||Star Suvarna||19|
+|a-la-carte||Star Suvarna HD||19|
+|a-la-carte||Star Utsav|167|0.5|
+|a-la-carte||Star Utsav Movies|363|0.5|
+|a-la-carte||Star vijay||19|
+|a-la-carte||STAR VIJAY HD||19|
+|a-la-carte||Star World||8|
+|a-la-carte||Star World HD||9|
+|a-la-carte||STAR WORLD PREMIER HD|508|9|
+|a-la-carte||Studio One+||0|
+|a-la-carte||SUBHAVAARTHA TV||0|
+|a-la-carte||SUDARSHAN NEWS|751|0|
+|a-la-carte||Sun Life||9|
+|a-la-carte||Sun Music||6|
+|a-la-carte||SUN Music HD||19|
+|a-la-carte||Sun News|2963|1|
+|a-la-carte||Sun TV||19|
+|a-la-carte||Sun TV HD||19|
+|a-la-carte||Super Hungama||4|
+|a-la-carte||Surya Comedy||4|
+|a-la-carte||Surya HD||19|
+|a-la-carte||Surya Movies||11|
+|a-la-carte||Surya Music||4|
+|a-la-carte||Surya Tv||12|
+|a-la-carte||SUVARNA 24X7 NEWS||0|
+|a-la-carte||Suvarna Plus||5|
+|a-la-carte||SVBC||0|
+|a-la-carte||SVBC 2||0|
+|a-la-carte||T News||0|
+|a-la-carte||Tarang||14|
+|a-la-carte||Tarang Music||2|
+|a-la-carte||Thanthi TV||0|
+|a-la-carte||The History Channel||3|
+|a-la-carte||Times Now||2.5|
+|a-la-carte||Times Now Navbharat||0|
+|a-la-carte||TLC||2|
+|a-la-carte||TLC HD|972|3|
+|a-la-carte||Travel XP||3|
+|a-la-carte||TV5 Kannada||0|
+|a-la-carte||TV5 Telugu News||0|
+|a-la-carte||TV9 Kannada||0|
+|a-la-carte||TV9 MARATHI||0|
+|a-la-carte||Twenty Four||0|
+|a-la-carte||Udaya Comedy||6|
+|a-la-carte||Udaya HD||19|
+|a-la-carte||Udaya Movies||19|
+|a-la-carte||Udaya Music||5|
+|a-la-carte||Udaya Tv||19|
+|a-la-carte||UTV Action||2|
+|a-la-carte||UTV Movies||2|
+|a-la-carte||V6 News||0|
+|a-la-carte||Vas Promos||0|
+|a-la-carte||Vasanth TV||0|
+|a-la-carte||Velicham TV||0|
+|a-la-carte||Vendhar TV||0|
+|a-la-carte||VH1||1|
+|a-la-carte||Vidya|2484|0|
+|a-la-carte||Vijay Music||1|
+|a-la-carte||Vijay Super||8|
+|a-la-carte||VISSA TV|2369|0|
+|a-la-carte||Vistara News||0|
+|a-la-carte||VTV Gujarati||0|
+|a-la-carte||We TV||0|
+|a-la-carte||WION||1|
+|a-la-carte||Zee 24 Ghanta||0.1|
+|a-la-carte||Zee 24 Kalak||0.1|
+|a-la-carte||Zee 24 Taas||0.1|
+|a-la-carte||Zee Action||0.1|
+|a-la-carte||Zee Anmol||0.1|
+|a-la-carte||Zee Anmol Cinema||0.1|
+|a-la-carte||Zee Bangla||19|
+|a-la-carte||Zee Bangla Cinema||10|
+|a-la-carte||Zee Bangla HD||19|
+|a-la-carte||Zee Bihar Jharkhand|823|0.1|
+|a-la-carte||Zee Biskope||0.1|
+|a-la-carte||Zee Bollywood||3|
+|a-la-carte||Zee Business|873|0.1|
+|a-la-carte||Zee Cafe||10|
+|a-la-carte||Zee Café HD||10|
+|a-la-carte||Zee Cinema||19|
+|a-la-carte||Zee Cinema HD||19|
+|a-la-carte||Zee Cinemalu||10|
+|a-la-carte||Zee Cinemalu HD||16|
+|a-la-carte||Zee Delhi NCR Haryana|1753|0.1|
+|a-la-carte||Zee Hindustan|721|0.1|
+|a-la-carte||Zee Kannada||19|
+|a-la-carte||Zee Kannada HD||19|
+|a-la-carte||Zee Keralam|3111|10|
+|a-la-carte||Zee Keralam HD||10|
+|a-la-carte||Zee Madhya Pradesh Chattisgarh|855|0.1|
+|a-la-carte||Zee Marathi||19|
+|a-la-carte||Zee Marathi HD||19|
+|a-la-carte||Zee News|723|0.1|
+|a-la-carte||Zee Odisha||0.1|
+|a-la-carte||Zee Picchar||10|
+|a-la-carte||Zee Punjab Haryana Himachal|1409|0.1|
+|a-la-carte||Zee Punjabi||10|
+|a-la-carte||Zee Rajasthan News|843|0.1|
+|a-la-carte||Zee Salaam|777|0.1|
+|a-la-carte||Zee Sarthak||19|
+|a-la-carte||Zee Talkies||9|
+|a-la-carte||Zee Talkies HD||19|
+|a-la-carte||Zee Tamil||19|
+|a-la-carte||Zee Tamil HD||19|
+|a-la-carte||Zee Telugu||19|
+|a-la-carte||Zee Telugu HD||19|
+|a-la-carte||Zee Thirai||10|
+|a-la-carte||Zee tv||19|
+|a-la-carte||Zee TV HD||19|
+|a-la-carte||Zee Uttar Pradesh Uttarakhand|819|0.1|
+|a-la-carte||Zee Yuva|1461|1|
+|a-la-carte||Zing|465|0.1|
+|a-la-carte||Zoom|173|0.5|
+GEC|bst-east||DD National|175|0|
+GEC|bst-east||NEPAL ONE|1961|0|
+GEC|bst-east||PTC PUNJABI|1357|0|
+GEC|bst-east||Aakash aath|1813|0|
+GEC|bst-east||CHARDIKALA TIME TV|1359|0|
+GEC|bst-east||DD ASSAM|1965|0|
+GEC|bst-east||DD PUNJABI|1363|0|
+GEC|bst-east||DD URDU|779|0|
+GEC|bst-east||DD SAHYADRI|1471|0|
+GEC|bst-east||DD KASHIR|783|0|
+GEC|bst-east||DD PODHIGAI|2893|0|
+GEC|bst-east||DD BANGLA|1827|0|
+GEC|bst-east||DD CHANDANA|2623|0|
+GEC|bst-east||DANGAL|109|0|
+GEC|bst-east||RANG|1957|0|
+GEC|bst-east||DD Yadagiri|2375|0|
+GEC|bst-east||DD MALAYALAM|3125|0|
+GEC|bst-east||DD UP|607|0|
+GEC|bst-east||DD Rajasthan|179|0|
+GEC|bst-east||RENGONI TV|1959|0|
+GEC|bst-east||DD MP|183|0|
+GEC|bst-east||DD SAPTAGIRI|2377|0|
+GEC|bst-east||DD BIHAR|2061|0|
+GEC|bst-east||DD GIRNAR|1609|0|
+GEC|bst-east||DD Oriya|1713|0|
+GEC|bst-east||Anjan TV|155|0|
+GEC|bst-east||Rupashi Bangla|1815|0|
+GEC|bst-east||Sun Bangla|1819|0|
+GEC|bst-east||DD ArunPrabha|1967|0|
+GEC|bst-east||Watcho|308|0|
+GEC|bst-east||DD RETRO|177|0|
+GEC|bst-east||PTC PUNJABI GOLD|1361|0|
+GEC|bst-east||Shemaroo TV|149|0|
+GEC|bst-east||The Q|153|0|
+GEC|bst-east||Shemaroo Umang|172|0|
+GEC|bst-east||Dangal 2|169|0|
+Sports|bst-east||DD SPORTS|629|0|
+Sports|bst-east||INDIA NEWS|735|0|
+Music|bst-east||B4u Music|459|0|
+Music|bst-east||SANGEET BANGLA|1851|0|
+Music|bst-east||DHOOM MUSIC|1849|0|
+Music|bst-east||PTC CHAKDE|1389|0|
+Music|bst-east||MH1|1395|0|
+Music|bst-east||RAMDHENU|1979|0|
+Music|bst-east||PTC Music|1393|0|
+Music|bst-east||Balle Balle|1397|0|
+News|bst-east||INDIA TV|747|0|
+News|bst-east||ASIANET NEWS|3179|0|
+News|bst-east||ABP NEWS|739|0|
+News|bst-east||TV9 Telugu news|2453|0|
+News|bst-east||OTV|1751|0|
+News|bst-east||ABP Ananda|1867|0|
+News|bst-east||RUSSIA TODAY|915|0|
+News|bst-east||DY 365|1993|0|
+News|bst-east||TV9 Gujarati|1643|0|
+News|bst-east||ABN Andhra Jyothi|2447|0|
+News|bst-east||DD INDIA|759|0|
+News|bst-east||DD NEWS|753|0|
+News|bst-east||Sansad TV HD|757|0|
+News|bst-east||News 24|743|0|
+News|bst-east||Pratidin Time|1997|0|
+News|bst-east||NEWS TIME|1875|0|
+News|bst-east||NEWS LIVE|1991|0|
+News|bst-east||KANAK NEWS|1763|0|
+News|bst-east||Kalinga TV|1755|0|
+News|bst-east||Prameya News7|1759|0|
+News|bst-east||NEWS NATION|727|0|
+News|bst-east||ABP ASMITA|1647|0|
+News|bst-east||Republic TV|903|0|
+News|bst-east||Gulistan News|763|0|
+News|bst-east||JK 24x7 News|761|0|
+News|bst-east||SAAM TV|1519|0|
+News|bst-east||Republic Bharat|741|0|
+News|bst-east||TV9 Bharatvash|733|0|
+News|bst-east||LOKSHAHI|1521|0|
+News|bst-east||ARGUS|1757|0|
+News|bst-east||Sansad TV - Rajya Sabha|758|0|
+News|bst-east||Gujarat First 24X7 News|1652|0|
+Movies|bst-east||B4U Movies|357|0|
+Movies|bst-east||B4U BHOJPURI|2077|0|
+Movies|bst-east||BHOJPURI CINEMA|2075|0|
+Movies|bst-east||B4U KADAK|327|0|
+Movies|bst-east||Enterr10 Movies|347|0|
+Movies|bst-east||Pitaara TV|1377|0|
+Movies|bst-east||Fakt Marathi|1463|0|
+Movies|bst-east||Shemaroo Marathibana|1483|0|
+Infotainment|bst-east||DD BHARATI|979|0|
+Infotainment|bst-east||DD KISAN|977|0|
+Infotainment|bst-east||DD Gyandarshan|976|0|
+Shopping|bst-east||Telugu Naaptol|2365|0|
+Shopping|bst-east||Ezmall|750|0|
+Shopping|bst-east||Tamil Naaptol|2885|0|
+Shopping|bst-east||Malayalam Naaptol|3115|0|
+Shopping|bst-east||Kannada Naaptol|2612|0|
+Shopping|bst-east||Naaptol|325|0|
+Religious|bst-east||SATSANG|1209|0|
+Religious|bst-east||JINVANI|1219|0|
+Religious|bst-east||SANSKAR|1205|0|
+Religious|bst-east||AASTHA|1201|0|
+Religious|bst-east||Aastha Bhajan|1207|0|
+Religious|bst-east||Paras Gold|1218|0|
+Religious|bst-east||PTC Simran|1431|0|
+Religious|bst-east||Ishwar Bhakti|1215|0|
+Religious|bst-east||Sant Wani|1211|0|
+Religious|bst-east||Sadhna Bhakti|1213|0|
+Religious|bst-east||Aadinath|1217|0|
+Religious|bst-east||Shraddha MH One|1220|0|
+Kannada|bst-east||Power TV|2696|0|
+GEC|dd||DD National|175|0|
+GEC|dd-pack||DD ASSAM|1965|0|
+GEC|dd-pack||DD PUNJABI|1363|0|
+GEC|dd-pack||DD URDU|779|0|
+GEC|dd-pack||DD SAHYADRI|1471|0|
+GEC|dd-pack||DD KASHIR|783|0|
+GEC|dd-pack||DD PODHIGAI|2893|0|
+GEC|dd-pack||DD BANGLA|1827|0|
+GEC|dd-pack||DD CHANDANA|2623|0|
+GEC|dd-pack||DD Yadagiri|2375|0|
+GEC|dd-pack||DD MALAYALAM|3125|0|
+GEC|dd-pack||DD UP|607|0|
+GEC|dd-pack||DD Rajasthan|179|0|
+GEC|dd-pack||DD MP|183|0|
+GEC|dd-pack||DD SAPTAGIRI|2377|0|
+GEC|dd-pack||DD BIHAR|2061|0|
+GEC|dd-pack||DD GIRNAR|1609|0|
+GEC|dd-pack||DD Oriya|1713|0|
+GEC|dd-pack||DD ArunPrabha|1967|0|
+GEC|dd-pack||DD RETRO|177|0|
+Sports|dd-pack||DD SPORTS|629|0|
+Sports|dd-pack||1 Sports|663|0|
+News|dd-pack||ABN Andhra Jyothi|2447|0|
+News|dd-pack||DD INDIA|759|0|
+News|dd-pack||DD NEWS|753|0|
+News|dd-pack||Sansad TV HD|757|0|
+Infotainment|dd-pack||DD BHARATI|979|0|
+Infotainment|dd-pack||DD KISAN|977|0|
+Infotainment|dd-pack||DD Gyandarshan|976|0|
+Shopping|dd-pack||Telugu Naaptol|2365|0|
+Shopping|dd-pack||Tamil Naaptol|2885|0|
+Shopping|dd-pack||Malayalam Naaptol|3115|0|
+Shopping|dd-pack||Kannada Naaptol|2612|0|
+Shopping|dd-pack||Naaptol|325|0|
+News|zmcl-east||ZEE NEWS|723|0.15|
+News|zmcl-east||24 Ghanta TV|1869|0.15|
+News|zmcl-east||Zee Hindustan|721|0.15|
+News|zmcl-east||Zee Salaam|777|0.15|
+News|zmcl-east||ZEE BIHAR JHARKHAND|823|0.15|
+News|zmcl-east||WION|893|0.15|
+Business News|zmcl-east||ZEE BUSINESS|873|0.15|
