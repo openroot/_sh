@@ -123,7 +123,7 @@ function _db._print() {
 
 				printf "$_db_print_cellseparator";
 
-				if ! [[ -z $1 ]];then sleep 0.001; fi
+				if [[ $1 == "t" ]];then sleep 0.001; fi
 			done
 
 			printf "$_db_print_rowseparator";

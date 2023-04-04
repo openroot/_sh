@@ -50,7 +50,7 @@ function _d2h._app() {
 	_d2h_channels_db_isvarified=$_db_isvarified;
 
 	#_db._print
-	#_db._print "1";
+	#_db._print "t";
 
 	# _db._searchrows
 	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|";
