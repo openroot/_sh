@@ -53,6 +53,7 @@ function _d2h._app() {
 		_dialog._message "$_arg1" "Passed argument";
 	fi
 
+	# _db._read
 	_db._read "$_d2h_channels_db_file";
 	_d2h_channels_db_rows=("${_db_rows[@]}");
 	_d2h_channels_db_rowcount=$_db_rowcount;
@@ -61,10 +62,14 @@ function _d2h._app() {
 	_d2h_channels_db_tablewidth=$_db_tablewidth;
 	_d2h_channels_db_isvarified=$_db_isvarified;
 
+	#_db._print
 	#_db._print "1";
 
-	local _querystring="4|news|2|bst|5|73|";
-	_db._searchrows "caseinsensitive_part" "$_querystring";
+	# _db._searchrows
+	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|";
+
+	_db._searchrows "$_querystring";
+	
 	if [[ $_db_searchrows_result != -1 ]];
 	then
 		_db._bardelimitedstringtoarray "$_db_searchrows_result";
@@ -84,7 +89,9 @@ function _d2h._app() {
 		done
 	fi
 
+	# _db._getrow
 	_db._getrow "543" "6";
+
 	if [[ $_db_getrow_result != -1 ]];
 	then
 		printf "\nLast row, last cell: $_db_getrow_result\n";
@@ -188,8 +195,8 @@ function _db._print() {
 }
 
 function _db._searchrows() {
-	local _action=$1;
-	local _queryset=$2;
+	local _queryset=$1;
+	local _querysetwidth=4;
 
 	_db_searchrows_result="";
 
@@ -197,7 +204,7 @@ function _db._searchrows() {
 	local _querysetarray=("${_db_array[@]}");
 
 	local _querysetarraycount=${#_querysetarray[@]};
-	local _querysetcount=$((_querysetarraycount/2));
+	local _querysetcount=$((_querysetarraycount/_querysetwidth));
 
 	if [[ $_db_isvarified == 1 ]];
 	then
@@ -209,30 +216,30 @@ function _db._searchrows() {
 
 			local _issuccess=0;
 			local _s=-1;
-			for (( _s=0; _s<$_querysetarraycount; _s+=2 ));
+			for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
 			do
 				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
 				local _data="${_querysetarray[$((_s+1))]}";
 
-				case $_action in
-					"casesensitive_part")
-						if [[ $_celldata == *"$_data"* ]];
-						then
-							_issuccess=$((_issuccess+1));
-						fi
-					;;
+				local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == 'f' ]];then _iscaseinsensitive=0; fi;
+				local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
 
-					"caseinsensitive_part")
-						if [[ ${_celldata,,} == *"${_data,,}"* ]];
-						then
-							_issuccess=$((_issuccess+1));
-						fi
-					;;
-
-					*)
-					;;
-				esac
-
+				if [[ $_iscaseinsensitive == 1 ]];
+				then
+					if [[ $_ispartdata == 1 ]];
+					then
+						if [[ ${_celldata,,} == *"${_data,,}"* ]];then _issuccess=$((_issuccess+1)); fi
+					else
+						if [[ ${_celldata,,} == "${_data,,}" ]];then _issuccess=$((_issuccess+1)); fi
+					fi
+				else
+					if [[ $_ispartdata == 1 ]];
+					then
+						if [[ $_celldata == *"$_data"* ]];then _issuccess=$((_issuccess+1)); fi
+					else
+						if [[ $_celldata == "$_data" ]];then _issuccess=$((_issuccess+1)); fi
+					fi
+				fi
 			done
 
 			if [[ $_issuccess == $_querysetcount ]];
