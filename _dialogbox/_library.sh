@@ -240,6 +240,7 @@ function _dialog._menu() {
 	local _height=11;
 	local _width=34;
 	local _menuheight=3;
+	local _columnseparator="";
 
 	# converting semicolon separated list of items into array
 	_dialog._chardelimitedstringtoarray "$_items";
@@ -256,9 +257,14 @@ function _dialog._menu() {
 	then
 		_menuheight=$6;
 	fi
+	if ! [ -z $7 ]
+	then
+		_columnseparator=$7;
+	fi
 
 	dialog --clear --erase-on-exit \
 	--title "$_title" \
+	--column-separator "$_columnseparator" \
 	--menu "$_menumessage" \
 	$_height $_width $_menuheight \
 	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
@@ -388,6 +394,7 @@ function _dialog._checklist() {
 	local _height=11;
 	local _width=34;
 	local _checklistheight=3;
+	local _columnseparator="";
 
 	# converting semicolon separated list of items into array
 	_dialog._chardelimitedstringtoarray "$_items";
@@ -404,9 +411,14 @@ function _dialog._checklist() {
 	then
 		_checklistheight=$6;
 	fi
+	if ! [ -z $7 ]
+	then
+		_columnseparator=$7;
+	fi
 
 	dialog --clear --erase-on-exit \
 	--title "$_title" \
+	--column-separator "$_columnseparator" \
 	--checklist "$_checklistmessage" \
 	$_height $_width $_checklistheight \
 	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";
@@ -430,6 +442,7 @@ function _dialog._radiolist() {
 	local _height=11;
 	local _width=34;
 	local _radiolistheight=3;
+	local _columnseparator="";
 
 	# converting semicolon separated list of items into array
 	_dialog._chardelimitedstringtoarray "$_items";
@@ -446,9 +459,14 @@ function _dialog._radiolist() {
 	then
 		_radiolistheight=$6;
 	fi
+	if ! [ -z $7 ]
+	then
+		_columnseparator=$7;
+	fi
 
 	dialog --clear --erase-on-exit \
 	--title "$_title" \
+	--column-separator "$_columnseparator" \
 	--radiolist "$_radiolistmessage" \
 	$_height $_width $_radiolistheight \
 	"${_items[@]}" 2> "${_const_currentdir}/_temporary_container/output.txt";

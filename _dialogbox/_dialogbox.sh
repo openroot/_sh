@@ -91,14 +91,14 @@ function _dialogbox._samplingfunction() {
 		"_dialog._menu")
 			# _dialog._menu
 			local _menuitems=(
-				"App for test buddies"
-				"Book of jealous intelligent(s)"
-				"Copy of tutorial(s)"
+				"App<>for test buddies"
+				"Book<>of jealous intelligent(s)"
+				"Copy<>of tutorial(s)"
 			);
 			_dialog._menu._labelgenerator "${_menuitems[@]}";
 			local _menuitemslabels=$_dialog_menu_labels;
 
-			_dialog._menu "$_menuitemslabels" "List of menu items" "Sample Menu" "11" "45" "3";
+			_dialog._menu "$_menuitemslabels" "List of menu items" "Sample Menu" "11" "45" "3" "<>";
 
 			if [[ $_dialog_menu_result != -1 ]];
 			then
