@@ -125,7 +125,8 @@ function _d2h._searchbynameorcategory() {
 				if [[ $_db_getrow_result != -1 ]];
 				then
 					local _label="";
-					if [[ "${_db_getrow_result[4]}" != "" ]]; then _label+="${_db_getrow_result[4]} || "; fi
+					if [[ "${_db_getrow_result[4]}" != "" ]]; then _label+="${_db_getrow_result[4]}"; fi
+					_label+="<>";
 					if [[ "${_db_getrow_result[3]}" != "" ]]; then _label+="${_db_getrow_result[3]}"; fi
 					_menuitems+=("$_label");
 				fi
@@ -136,7 +137,7 @@ function _d2h._searchbynameorcategory() {
 			local _menuitemslabels=$_dialog_menu_labels;
 
 			# showing menu
-			_dialog._menu "$_menuitemslabels" "$_foundrowscount+ Found channels" "Channel List" "50" "75" "5";
+			_dialog._menu "$_menuitemslabels" "$_foundrowscount+ Found channels" "Channel List" "50" "75" "5" "<>";
 
 			# processing menu returned result
 			if [[ $_dialog_menu_result != -1 ]];
