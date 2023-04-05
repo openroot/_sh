@@ -49,6 +49,16 @@ function _db._bardelimitedstringtoarray() {
 	IFS=$_oifs;
 }
 
+function _db._semicolondelimitedstringtoarray() {
+	local _semicolondelimitedstring=$1;
+
+	# converting semicolon delimited string into array
+	local _oifs=$IFS;
+	IFS=$';';
+	_db_array=($_semicolondelimitedstring);
+	IFS=$_oifs;
+}
+
 function _db._read() {
 	_db_file=$1;
 
@@ -134,20 +144,22 @@ function _db._print() {
 }
 
 function _db._searchrows() {
-	local _queryset=$1;
-	local _querysetwidth=4;
+	local _querylines=$1;
 
+	local _querysetwidth=4;
 	_db_searchrows_result="";
 
-	_db._bardelimitedstringtoarray "$_queryset";
-	local _querysetarray=("${_db_array[@]}");
+	_db._semicolondelimitedstringtoarray "$_querylines";
+	local _querylinearray=("${_db_array[@]}");
 
+	_db._bardelimitedstringtoarray "${_querylinearray[0]}";
+	local _querysetarray=("${_db_array[@]}");
 	local _querysetarraycount=${#_querysetarray[@]};
 	local _querysetcount=$((_querysetarraycount/_querysetwidth));
 
 	if [[ $_db_isvarified == 1 ]];
 	then
-		# each ' line '
+		# each ' row '
 		local _i=-1;
 		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 		do
@@ -188,7 +200,7 @@ function _db._searchrows() {
 			then
 				_db_searchrows_result+="$_rownumber|";
 			fi
-			
+
 			#done
 		done
 	fi
