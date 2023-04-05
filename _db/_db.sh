@@ -45,14 +45,13 @@ function _db._app() {
 	# _db._searchrows
 	echo "------------------------------------------------[[ SEARCH ROWS ]]-";
 
-	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|;1|news|t|t|";
+	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|;1|business news|t|t|";
 
 	_db._searchrows "$_querystring";
 	
-	if [[ $_db_searchrows_result != -1 ]];
+	if [[ "${#_db_searchrows_foundrows[@]}" > 0 ]];
 	then
-		_db._bardelimitedstringtoarray "$_db_searchrows_result";
-		local _rows=("${_db_array[@]}");
+		local _rows=("${_db_searchrows_foundrows[@]}");
 
 		echo "Query String: $_querystring"; echo;
 		echo "Found Number of Rows: ${#_rows[@]}"; echo;
@@ -81,6 +80,10 @@ function _db._app() {
 	fi
 
 	echo "------------------------------------------------------------------"; echo;
+
+
+
+
 
 	echo;echo;
 	read -rp "Press any key to exit .. " "_dump";

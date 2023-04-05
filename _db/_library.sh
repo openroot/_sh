@@ -59,10 +59,17 @@ function _db._semicolondelimitedstringtoarray() {
 	IFS=$_oifs;
 }
 
+function _db._arraycontains () {
+	local _array _searchstring="$1";
+	shift;
+	for _array; do [[ "$_array" == "$_searchstring" ]] && return 1; done
+	return 0;
+}
+
 function _db._read() {
 	_db_file=$1;
 
-	if [[ $_db_rowcount == -1 ]];
+	if [[ $_db_rowcount -eq -1 ]];
 	then
 		_db._newlinedelimitedstringtoarray "$(cat "$_db_file")";
 
@@ -106,11 +113,11 @@ function _db._checksum() {
 
 			local _firstrow_cellcount=${#_items[@]};
 
-			if [[ $(($_db_rowcount*$_firstrow_cellcount)) == $_db_cellcount ]];
+			if [[ $(($_db_rowcount*$_firstrow_cellcount)) -eq $_db_cellcount ]];
 			then
-				return "1";
+				return 1;
 			else
-				return "0";
+				return 0;
 			fi
 		fi
 	fi
@@ -138,7 +145,7 @@ function _db._print() {
 
 			printf "$_db_print_rowseparator";
 			
-			if [[ $_db_finishloop != -1 ]];then break; fi
+			if [[ $_db_finishloop -ne -1 ]];then break; fi
 		done
 	fi
 }
@@ -146,29 +153,22 @@ function _db._print() {
 function _db._searchrows() {
 	local _querylines=$1;
 
+	_db_searchrows_foundrows=();
 	local _querysetwidth=4;
-	_db_searchrows_result="";
 
+	# separating string to array of ' query lines '
 	_db._semicolondelimitedstringtoarray "$_querylines";
 	local _querylinearray=("${_db_array[@]}");
 	local _querylinearraycount=${#_querylinearray[@]};
 
-
-	# local _ql=-1;
-	# for (( _ql=0; _ql<$_querylinearraycount; _ql++ ));
-	# do
-	# 	echo "${_querylinearray[$_ql]}";
-	# done
-
-
-
-	if [[ $_db_isvarified == 1 ]];
+	if [[ $_db_isvarified -eq 1 ]];
 	then
 		# each ' query line '
 		local _ql=-1;
 		for (( _ql=0; _ql<$_querylinearraycount; _ql++ ));
 		do
 
+			# separating string of ' query line ' to array of ' query set '
 			_db._bardelimitedstringtoarray "${_querylinearray[$_ql]}";
 			local _querysetarray=("${_db_array[@]}");
 			local _querysetarraycount=${#_querysetarray[@]};
@@ -182,25 +182,26 @@ function _db._searchrows() {
 
 				# persistent ' cell '
 				local _issuccess=0;
-				
+
 				local _s=-1;
 				for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
 				do
+					# realising ' a set ' of clause arguments into definite vars
 					local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
 					local _data="${_querysetarray[$((_s+1))]}";
 					local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
 					local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
 
-					if [[ $_iscaseinsensitive == 1 ]];
+					if [[ $_iscaseinsensitive -eq 1 ]];
 					then
-						if [[ $_ispartdata == 1 ]];
+						if [[ $_ispartdata -eq 1 ]];
 						then
 							if [[ ${_celldata,,} == *"${_data,,}"* ]];then _issuccess=$((_issuccess+1)); fi
 						else
 							if [[ ${_celldata,,} == "${_data,,}" ]];then _issuccess=$((_issuccess+1)); fi
 						fi
 					else
-						if [[ $_ispartdata == 1 ]];
+						if [[ $_ispartdata -eq 1 ]];
 						then
 							if [[ $_celldata == *"$_data"* ]];then _issuccess=$((_issuccess+1)); fi
 						else
@@ -209,19 +210,16 @@ function _db._searchrows() {
 					fi
 				done
 
-				if [[ $_issuccess == $_querysetcount ]];
+				# if persistent ' cell matches ' the count of total number of clauses
+				if [[ $_querysetcount -eq $_issuccess ]];
 				then
-					_db_searchrows_result+="$_rownumber|";
+					_db._arraycontains "$_rownumber" "${_db_searchrows_foundrows[@]}";
+					if [[ $? == 0 ]]; then _db_searchrows_foundrows+=($_rownumber); fi
 				fi
 
 			done
 
 		done
-	fi
-
-	if [[ $_db_searchrows_result == "" ]];
-	then
-		_db_searchrows_result=-1;
 	fi
 }
 
@@ -231,7 +229,7 @@ function _db._getrow() {
 
 	_db_getrow_result=-1;
 
-	if [[ $_db_isvarified == 1 ]];
+	if [[ $_db_isvarified -eq 1 ]];
 	then
 		if [[ $_rownumber -lt $((_db_rowcount+1)) ]];
 		then
