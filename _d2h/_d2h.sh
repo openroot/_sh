@@ -103,30 +103,25 @@ function _d2h._searchbynameorcategory() {
 	if [[ $_searchterm != "" ]];
 	then
 
-		local _queryresult="";
+		local _foundrows="";
 
 		# query
 		local _querystring="4|$_searchterm|t|t|;1|$_searchterm|t|t|;";
 		_db._searchrows "$_querystring";
-		if [[ $_db_searchrows_result != -1 ]]; then _queryresult+="$_db_searchrows_result"; fi
-		_querystring="1|$_searchterm|t|t|";
-		_db._searchrows "$_querystring";
-		if [[ $_db_searchrows_result != -1 ]]; then _queryresult+="$_db_searchrows_result"; fi
+		if [[ ${#_db_searchrows_foundrows[@]} -gt 0 ]]; then
+			_foundrows=("${_db_searchrows_foundrows[@]}");
+			local _foundrowscount=${#_foundrows[@]};
+		fi
 		
 		# process query result
-		if [[ $_queryresult != "" ]];
+		if [[ $_foundrowscount -gt 0 ]];
 		then
-			# converting query result to array
-			_db._bardelimitedstringtoarray "$_queryresult";
-			local _rows=("${_db_array[@]}");
-			local _rowscount=${#_rows[@]};
-
 			# generating menu items array
 			local _menuitems=();
-			for (( _i=0; _i<$_rowscount; _i++ ));
+			for (( _i=0; _i<$_foundrowscount; _i++ ));
 			do
 				# fetching db row value from row number
-				_db._getrow "${_rows[$_i]}";
+				_db._getrow "${_foundrows[$_i]}";
 				if [[ $_db_getrow_result != -1 ]];
 				then
 					local _label="";
@@ -141,7 +136,7 @@ function _d2h._searchbynameorcategory() {
 			local _menuitemslabels=$_dialog_menu_labels;
 
 			# showing menu
-			_dialog._menu "$_menuitemslabels" "$_rowscount+ Found channels" "Channel List" "34" "48" "3";
+			_dialog._menu "$_menuitemslabels" "$_foundrowscount+ Found channels" "Channel List" "50" "75" "5";
 
 			# processing menu returned result
 			if [[ $_dialog_menu_result != -1 ]];
