@@ -80,34 +80,36 @@ function _d2h._inputbox() {
 }
 
 function _d2h._searchbynameorcategory() {
-	local _search="";
+	# taking search term from either console or within app
+	local _searchterm="";
 
 	if ! [ -z $_arg1 ]
 	then
-		# trying taking channel selection from passed argument from console
-		_search="$_arg1";
-		unset _arg1;
+		# trying taking search term from passed argument from console
+		_searchterm="$_arg1";
+		unset _arg1; # unset console arg once used
 	else
-		# else take input within app
+		# take search term within app
 		_d2h._inputbox "" "Please enter a \nChannel Name or Category" "Channel Search";
 		if [[ $_d2h_inputbox_result != -1 ]];
 		then
-			_search="$_d2h_inputbox_result";
+			_searchterm="$_d2h_inputbox_result";
 		else
-			return $_d2h_inputbox_result;
+			return $_d2h_inputbox_result; # return status 'cancel (255)' persistent to exit app
 		fi
 	fi
 
-	if [[ $_search != "" ]];
+	# have search on non-empty search term
+	if [[ $_searchterm != "" ]];
 	then
 
 		local _queryresult="";
 
 		# query
-		local _querystring="4|$_search|t|t|";
+		local _querystring="4|$_searchterm|t|t|";
 		_db._searchrows "$_querystring";
 		if [[ $_db_searchrows_result != -1 ]]; then _queryresult+="$_db_searchrows_result"; fi
-		_querystring="1|$_search|t|t|";
+		_querystring="1|$_searchterm|t|t|";
 		_db._searchrows "$_querystring";
 		if [[ $_db_searchrows_result != -1 ]]; then _queryresult+="$_db_searchrows_result"; fi
 		

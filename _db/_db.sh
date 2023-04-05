@@ -28,6 +28,8 @@ function _db._construct() {
 }
 
 function _db._app() {
+	clear;
+
 	# _db._read
 	_db._read "$_sample_db_db_file";
 	_sample_db_db_rows=("${_db_rows[@]}");
@@ -41,6 +43,8 @@ function _db._app() {
 	#_db._print "t";
 
 	# _db._searchrows
+	echo "------------------------------------------------[[ SEARCH ROWS ]]-";
+
 	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|";
 
 	_db._searchrows "$_querystring";
@@ -50,11 +54,11 @@ function _db._app() {
 		_db._bardelimitedstringtoarray "$_db_searchrows_result";
 		local _rows=("${_db_array[@]}");
 
-		echo "Query String: $_querystring";
-		echo "Found Number of Rows: ${#_rows[@]}";
+		echo "Query String: $_querystring"; echo;
+		echo "Found Number of Rows: ${#_rows[@]}"; echo;
 		for (( _i=0; _i<${#_rows[@]}; _i++ ));
 		do
-			printf "${_rows[$_i]} ";
+			printf "(Row Number) ${_rows[$_i]} => ";
 
 			_db._getrow "${_rows[$_i]}";
 			if [[ $_db_getrow_result != -1 ]];
@@ -64,13 +68,22 @@ function _db._app() {
 		done
 	fi
 
+	echo "------------------------------------------------------------------"; echo;
+
 	# _db._getrow
+	echo "--------------------------------------------[[ GET ROW OR CELL ]]-";
+
 	_db._getrow "543" "6";
 
 	if [[ $_db_getrow_result != -1 ]];
 	then
-		printf "\nLast Row, Last Cell: $_db_getrow_result\n";
+		printf "Last Row, Last Cell => $_db_getrow_result\n";
 	fi
+
+	echo "------------------------------------------------------------------"; echo;
+
+	echo;echo;
+	read -rp "Press any key to exit .. " "_dump";
 }
 
 # endregion
