@@ -88,7 +88,7 @@ News|a-la-carte||Dighvijay 24x7 News||0|
 Sports|a-la-carte||Euro Sports HD|652|5.5|
 Sports|a-la-carte||EUROSPORT||3.5|
 |a-la-carte||Flowers TV||10|
-Lifestyle|a-la-carte||Fox Life||1|
+Lifestyle|a-la-carte||Fox Life|971|1|
 Lifestyle|a-la-carte||Fox Life HD|970|2|
 |a-la-carte||Gemini Comedy||5|
 |a-la-carte||GEMINI HD||19|
@@ -314,9 +314,9 @@ News|a-la-carte||SUVARNA 24X7 NEWS||0|
 |a-la-carte||The History Channel||3|
 News|a-la-carte||Times Now||2.5|
 |a-la-carte||Times Now Navbharat||0|
-Lifestyle|a-la-carte||TLC||2|
+Lifestyle|a-la-carte||TLC|973|2|
 Lifestyle|a-la-carte||TLC HD|972|3|
-Lifestyle|a-la-carte||Travel XP||3|
+Lifestyle|a-la-carte||Travel XP|975|3|
 |a-la-carte|kannada|TV5 Kannada||0|
 |a-la-carte|telegu|TV5 Telugu News||0|
 |a-la-carte|kannada|TV9 Kannada||0|

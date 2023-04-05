@@ -95,14 +95,20 @@ function _d2h._searchbynameorcategory() {
 
 	if [[ $_search != "" ]];
 	then
-		local _querystring="4|$_search|t|t|";
 
+		local _searchresult="";
+
+		local _querystring="4|$_search|t|t|";
 		_db._searchrows "$_querystring";
+		if [[ $_db_searchrows_result != -1 ]]; then _searchresult+="$_db_searchrows_result"; fi
+		_querystring="1|$_search|t|t|";
+		_db._searchrows "$_querystring";
+		if [[ $_db_searchrows_result != -1 ]]; then _searchresult+="$_db_searchrows_result"; fi
 		
-		if [[ $_db_searchrows_result != -1 ]];
+		if [[ $_searchresult != "" ]];
 		then
 
-			_db._bardelimitedstringtoarray "$_db_searchrows_result";
+			_db._bardelimitedstringtoarray "$_searchresult";
 			local _rows=("${_db_array[@]}");
 
 			# _dialog._menu
