@@ -59,11 +59,40 @@ function _db._semicolondelimitedstringtoarray() {
 	IFS=$_oifs;
 }
 
-function _db._arraycontains () {
+function _db._array._contains () {
 	local _array _searchstring="$1";
 	shift;
 	for _array; do [[ "$_array" == "$_searchstring" ]] && return 1; done
 	return 0;
+}
+
+function _db._array._sort () {
+	local _array=("$@");
+	local _arraycount="${#_array[@]}";
+
+	local _flag=1;
+	local _i=-1;
+	for (( _i = 0; _i < $((_arraycount-1)); _i++ ))
+	do
+		_flag=0;
+		local _j=-1;
+		for ((_j = 0; _j < $((_arraycount-1-_i)); _j++ ))
+		do
+			if [[ ${_array[$_j]} -gt ${_array[$((_j+1))]} ]]
+			then
+				local _temp=${_array[$_j]};
+				_array[$_j]=${_array[$((_j+1))]};
+				_array[$((_j+1))]=$_temp;
+				_flag=1;
+			fi
+		done
+
+		if [[ $_flag -eq 0 ]]; then
+			break;
+		fi
+	done
+
+	_db_array_sorted=("${_array[@]}");
 }
 
 function _db._read() {
@@ -213,7 +242,8 @@ function _db._searchrows() {
 				# if persistent ' cell matches ' the count of total number of clauses
 				if [[ $_querysetcount -eq $_issuccess ]];
 				then
-					_db._arraycontains "$_rownumber" "${_db_searchrows_foundrows[@]}";
+					# add unique row number interest
+					_db._array._contains "$_rownumber" "${_db_searchrows_foundrows[@]}";
 					if [[ $? == 0 ]]; then _db_searchrows_foundrows+=($_rownumber); fi
 				fi
 
@@ -221,6 +251,10 @@ function _db._searchrows() {
 
 		done
 	fi
+
+	# sort resulted array of row numbers
+	_db._array._sort "${_db_searchrows_foundrows[@]}";
+	_db_searchrows_foundrows=("${_db_array_sorted[@]}");
 }
 
 function _db._getrow() {
