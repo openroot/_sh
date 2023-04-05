@@ -18,8 +18,8 @@ News|a-la-carte|hindi|Aaj Tak|725|0|
 |a-la-carte||Adithya TV||9|
 |a-la-carte||Alankar||4|
 |a-la-carte||Amrita TV||0|
-|a-la-carte||Animal Planet||2|
-|a-la-carte||Animal Planet HD World|964|5|
+Nature|a-la-carte||Animal Planet||2|
+Nature|a-la-carte||Animal Planet HD World|964|5|
 |a-la-carte||Aradhana||0|
 |a-la-carte||Asianet||19|
 |a-la-carte||Asianet HD||19|
@@ -34,7 +34,7 @@ News|a-la-carte|english|BBC World News|913|1.5|
 |a-la-carte||Bindass|141|0.1|
 News|a-la-carte||BTV News|2697|0|
 News|a-la-carte|bengali|Calcutta News|822|0|
-|a-la-carte||Cartoon Network|1113|4.25|
+Kids|a-la-carte||Cartoon Network|1113|4.25|
 |a-la-carte||Chintu TV||5|
 |a-la-carte||Chutti Tv||6|
 Business News|a-la-carte||CNBC AWAAZ|871|0.1|
