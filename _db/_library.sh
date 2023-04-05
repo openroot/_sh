@@ -153,13 +153,14 @@ function _db._searchrows() {
 		do
 			local _rownumber=$(((_i/_db_tablewidth)+1));
 
+			# TODO: Add querystring Join operation ;here
+			#for (());
+			#do
+
 			local _issuccess=0;
 			local _s=-1;
 			for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
 			do
-				# TODO: Add querystring Join operation ;here
-				#for (());
-				#do
 				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
 				local _data="${_querysetarray[$((_s+1))]}";
 				local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
@@ -181,13 +182,14 @@ function _db._searchrows() {
 						if [[ $_celldata == "$_data" ]];then _issuccess=$((_issuccess+1)); fi
 					fi
 				fi
-				#done
 			done
 
 			if [[ $_issuccess == $_querysetcount ]];
 			then
 				_db_searchrows_result+="$_rownumber|";
 			fi
+			
+			#done
 		done
 	fi
 
