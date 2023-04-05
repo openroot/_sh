@@ -110,30 +110,29 @@ function _d2h._searchbynameorcategory() {
 
 			_db._bardelimitedstringtoarray "$_searchresult";
 			local _rows=("${_db_array[@]}");
+			local _rowscount=${#_rows[@]};
 
-			# _dialog._menu
 			local _menuitems=();
-
-			for (( _i=0; _i<${#_rows[@]}; _i++ ));
+			for (( _i=0; _i<$_rowscount; _i++ ));
 			do
 				_db._getrow "${_rows[$_i]}";
 				if [[ $_db_getrow_result != -1 ]];
 				then
-					local _string="";
-					if [[ "${_db_getrow_result[4]}" != "" ]]; then _string+="${_db_getrow_result[4]} || "; fi
-					if [[ "${_db_getrow_result[3]}" != "" ]]; then _string+="${_db_getrow_result[3]}"; fi
-					_menuitems+=("$_string");
+					local _label="";
+					if [[ "${_db_getrow_result[4]}" != "" ]]; then _label+="${_db_getrow_result[4]} || "; fi
+					if [[ "${_db_getrow_result[3]}" != "" ]]; then _label+="${_db_getrow_result[3]}"; fi
+					_menuitems+=("$_label");
 				fi
 			done
 
 			_dialog._menu._labelgenerator "${_menuitems[@]}";
 			local _menuitemslabels=$_dialog_menu_labels;
 
-			_dialog._menu "$_menuitemslabels" "Found channels" "Channel List" "28" "48" "3";
+			_dialog._menu "$_menuitemslabels" "$_rowscount+ Found channels" "Channel List" "34" "48" "3";
 
 			if [[ $_dialog_menu_result != -1 ]];
 			then
-				_dialog._message "${_menuitems[$_dialog_menu_result-1]}" "Selection returned";
+				_dialog._message "${_menuitems[$_dialog_menu_result-1]}" "Channel Selection Returned";
 			fi
 		fi
 
