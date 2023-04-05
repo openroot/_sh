@@ -151,57 +151,71 @@ function _db._searchrows() {
 
 	_db._semicolondelimitedstringtoarray "$_querylines";
 	local _querylinearray=("${_db_array[@]}");
+	local _querylinearraycount=${#_querylinearray[@]};
 
-	_db._bardelimitedstringtoarray "${_querylinearray[0]}";
-	local _querysetarray=("${_db_array[@]}");
-	local _querysetarraycount=${#_querysetarray[@]};
-	local _querysetcount=$((_querysetarraycount/_querysetwidth));
+
+	# local _ql=-1;
+	# for (( _ql=0; _ql<$_querylinearraycount; _ql++ ));
+	# do
+	# 	echo "${_querylinearray[$_ql]}";
+	# done
+
+
 
 	if [[ $_db_isvarified == 1 ]];
 	then
-		# each ' row '
-		local _i=-1;
-		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
+		# each ' query line '
+		local _ql=-1;
+		for (( _ql=0; _ql<$_querylinearraycount; _ql++ ));
 		do
-			local _rownumber=$(((_i/_db_tablewidth)+1));
 
-			# TODO: Add querystring Join operation ;here
-			#for (());
-			#do
+			_db._bardelimitedstringtoarray "${_querylinearray[$_ql]}";
+			local _querysetarray=("${_db_array[@]}");
+			local _querysetarraycount=${#_querysetarray[@]};
+			local _querysetcount=$((_querysetarraycount/_querysetwidth));
 
-			local _issuccess=0;
-			local _s=-1;
-			for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
+			# each ' row '
+			local _i=-1;
+			for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
 			do
-				local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
-				local _data="${_querysetarray[$((_s+1))]}";
-				local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
-				local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
+				local _rownumber=$(((_i/_db_tablewidth)+1));
 
-				if [[ $_iscaseinsensitive == 1 ]];
+				# persistent ' cell '
+				local _issuccess=0;
+				
+				local _s=-1;
+				for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
+				do
+					local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
+					local _data="${_querysetarray[$((_s+1))]}";
+					local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
+					local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
+
+					if [[ $_iscaseinsensitive == 1 ]];
+					then
+						if [[ $_ispartdata == 1 ]];
+						then
+							if [[ ${_celldata,,} == *"${_data,,}"* ]];then _issuccess=$((_issuccess+1)); fi
+						else
+							if [[ ${_celldata,,} == "${_data,,}" ]];then _issuccess=$((_issuccess+1)); fi
+						fi
+					else
+						if [[ $_ispartdata == 1 ]];
+						then
+							if [[ $_celldata == *"$_data"* ]];then _issuccess=$((_issuccess+1)); fi
+						else
+							if [[ $_celldata == "$_data" ]];then _issuccess=$((_issuccess+1)); fi
+						fi
+					fi
+				done
+
+				if [[ $_issuccess == $_querysetcount ]];
 				then
-					if [[ $_ispartdata == 1 ]];
-					then
-						if [[ ${_celldata,,} == *"${_data,,}"* ]];then _issuccess=$((_issuccess+1)); fi
-					else
-						if [[ ${_celldata,,} == "${_data,,}" ]];then _issuccess=$((_issuccess+1)); fi
-					fi
-				else
-					if [[ $_ispartdata == 1 ]];
-					then
-						if [[ $_celldata == *"$_data"* ]];then _issuccess=$((_issuccess+1)); fi
-					else
-						if [[ $_celldata == "$_data" ]];then _issuccess=$((_issuccess+1)); fi
-					fi
+					_db_searchrows_result+="$_rownumber|";
 				fi
+
 			done
 
-			if [[ $_issuccess == $_querysetcount ]];
-			then
-				_db_searchrows_result+="$_rownumber|";
-			fi
-
-			#done
 		done
 	fi
 

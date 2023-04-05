@@ -45,7 +45,7 @@ function _db._app() {
 	# _db._searchrows
 	echo "------------------------------------------------[[ SEARCH ROWS ]]-";
 
-	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|";
+	local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|;1|news|t|t|";
 
 	_db._searchrows "$_querystring";
 	

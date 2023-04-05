@@ -106,10 +106,10 @@ function _d2h._searchbynameorcategory() {
 		local _queryresult="";
 
 		# query
-		local _querystring="4|$_searchterm|t|t|;";
+		local _querystring="4|$_searchterm|t|t|;1|$_searchterm|t|t|;";
 		_db._searchrows "$_querystring";
 		if [[ $_db_searchrows_result != -1 ]]; then _queryresult+="$_db_searchrows_result"; fi
-		_querystring="1|$_searchterm|t|t|;";
+		_querystring="1|$_searchterm|t|t|";
 		_db._searchrows "$_querystring";
 		if [[ $_db_searchrows_result != -1 ]]; then _queryresult+="$_db_searchrows_result"; fi
 		
