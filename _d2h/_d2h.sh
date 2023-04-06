@@ -128,6 +128,8 @@ function _d2h._searchbynameorcategory() {
 					if [[ "${_db_getrow_result[4]}" != "" ]]; then _label+="${_db_getrow_result[4]}"; fi
 					_label+="<>";
 					if [[ "${_db_getrow_result[3]}" != "" ]]; then _label+="${_db_getrow_result[3]}"; fi
+					_label+="<>";
+					if [[ "${_db_getrow_result[5]}" != "" ]]; then _label+="${_db_getrow_result[5]}"; fi
 					_menuitems+=("$_label");
 				fi
 			done
