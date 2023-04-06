@@ -362,6 +362,8 @@ function _db._updaterow() {
 	then
 		if [[ $_rownumber -le $_db_rowcount ]];
 		then
+			local _issuccess=0;
+
 			_db._bardelimitedstringtoarray "$_rowline";
 			local _columns=("${_db_array[@]}");
 
@@ -378,14 +380,37 @@ function _db._updaterow() {
 				then
 					if [[ $_cellnumbersarraycount -le $_db_tablewidth ]];
 					then
-						echo "cellnumbers: ${#_columns[@]} => ${_columns[@]}";
+						local _i=-1;
+						for (( _i=0; _i<$_cellnumbersarraycount; _i++ ));
+						do
+							local _cellnumber=${_cellnumbersarray[$_i]};
+							if [[ $_cellnumber -le $_db_tablewidth ]];
+							then
+								_db_cells[$((((_rownumber-1)*_db_tablewidth)+_cellnumber-1))]="${_columns[$_i]}";
+								_issuccess=$((_issuccess+1));
+							fi
+						done
+						if [[ $_issuccess -eq $_cellnumbersarraycount ]]; then _issuccess=1; fi
 					fi
 				fi
 			else
 				if [[ $_columnscount -eq $_db_tablewidth ]];
 				then
-					echo ": ${#_columns[@]} => ${_columns[@]}";
+					local _i=-1;
+					for (( _i=0; _i<$_columnscount; _i++ ));
+					do
+						_db_cells[$((((_rownumber-1)*_db_tablewidth)+_i))]="${_columns[$_i]}";
+						_issuccess=$((_issuccess+1));
+					done
+					if [[ $_issuccess -eq $_db_tablewidth ]]; then _issuccess=1; fi
 				fi
+			fi
+
+			if [[ $_issuccess -eq 1 ]];
+			then
+				# TODO: update write into orginal file
+				echo "UPDATED SUCCESSFULLY.";
+				echo "${#_db_cells[@]} => ${_db_cells[@]}";
 			fi
 		fi
 	fi

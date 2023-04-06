@@ -99,8 +99,12 @@ function _db._app() {
 
 	echo "--------------------------------------------------------------"; echo;
 
-	_db._updaterow "1" "1|2|3|4|5|6|" "category|package|language|name|cno|price|";
+	echo "---------------------------------------------[[ UPDATE ROW ]]-";
 
+	#_db._updaterow "1" "" "Acategory|Bpackage|Clanguage|Dname|Ecno|Fprice|";
+	_db._updaterow "1" "6|5|4|3|1|2|" "Acategory|Bpackage|Clanguage|Dname|Ecno|Fprice|";
+
+	echo "--------------------------------------------------------------"; echo;
 
 
 
