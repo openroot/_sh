@@ -70,7 +70,10 @@ function _db._semicolondelimitedstringtoarray() {
 function _db._array._contains() {
 	local _array _searchstring="$1";
 	shift;
-	for _array; do [[ "$_array" == "$_searchstring" ]] && return 1; done
+	for _array;
+	do
+		[[ "$_array" == "$_searchstring" ]] && return 1;
+	done
 	return 0;
 }
 
