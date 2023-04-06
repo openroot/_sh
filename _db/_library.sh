@@ -177,9 +177,9 @@ function _db._checksum() {
 			local _rowline=${_firstrow:0:${#_firstrow}-1};	# removing last most char of line
 
 			_db._bardelimitedstringtoarray "$_rowline";
-			local _items=("${_db_array[@]}");
+			local _columns=("${_db_array[@]}");
 
-			local _firstrow_cellcount=${#_items[@]};
+			local _firstrow_cellcount=${#_columns[@]};
 
 			if [[ $(($_db_rowcount*$_firstrow_cellcount)) -eq $_db_cellcount ]];
 			then
@@ -349,6 +349,44 @@ function _db._getuniquevalues() {
 					 if [[ $? -eq 0 ]]; then _db_getuniquevalues_result+=("$_value"); fi
 				fi
 			done
+		fi
+	fi
+}
+
+function _db._updaterow() {
+	local _rownumber=$1;
+	local _cellnumbers=$2;
+	local _rowline=$3;
+
+	if [[ $_db_isvarified -eq 1 ]];
+	then
+		if [[ $_rownumber -le $_db_rowcount ]];
+		then
+			_db._bardelimitedstringtoarray "$_rowline";
+			local _columns=("${_db_array[@]}");
+
+			local _columnscount=${#_columns[@]};
+
+			if ! [[ -z $_cellnumbers ]];
+			then
+				_db._bardelimitedstringtoarray "$_cellnumbers";
+				local _cellnumbersarray=("${_db_array[@]}");
+
+				local _cellnumbersarraycount=${#_cellnumbersarray[@]};
+
+				if [[ $_columnscount -eq $_cellnumbersarraycount ]];
+				then
+					if [[ $_cellnumbersarraycount -le $_db_tablewidth ]];
+					then
+						echo "cellnumbers: ${#_columns[@]} => ${_columns[@]}";
+					fi
+				fi
+			else
+				if [[ $_columnscount -eq $_db_tablewidth ]];
+				then
+					echo ": ${#_columns[@]} => ${_columns[@]}";
+				fi
+			fi
 		fi
 	fi
 }

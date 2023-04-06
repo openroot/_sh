@@ -99,6 +99,8 @@ function _db._app() {
 
 	echo "--------------------------------------------------------------"; echo;
 
+	_db._updaterow "1" "1|2|3|4|5|6|" "category|package|language|name|cno|price|";
+
 
 
 
