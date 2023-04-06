@@ -88,10 +88,13 @@ function _db._app() {
 	echo "Getting Unique Values of Cell Number: $_cellnumber";
 	_db._getuniquevalues "$_cellnumber";
 
+	_db._array._freezecells "1" "${_db_getuniquevalues_result[@]}";
+	local _finalresult=("${_db_array_freezecells_result[@]}");
+
 	local _i=-1;
-	for (( _i=0; _i<${#_db_getuniquevalues_result[@]}; _i++ ));
+	for (( _i=0; _i<${#_finalresult[@]}; _i++ ));
 	do
-		echo "$((_i+1)) => ${_db_getuniquevalues_result[$_i]}";
+		echo "$((_i+1)) => ${_finalresult[$_i]}";
 	done
 
 	echo "--------------------------------------------------------------"; echo;

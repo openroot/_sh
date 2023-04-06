@@ -77,6 +77,23 @@ function _db._array._contains() {
 	return 0;
 }
 
+function _db._array._freezecells() {
+	local _array _freezevalue="$1";
+	shift;
+
+	_db_array_freezecells_result=();
+
+	local _i=0;
+	for _array;
+	do
+		if [[ $_i -ge $_freezevalue ]];
+		then
+			_db_array_freezecells_result+=("$_array");
+		fi
+		_i=$((_i+1));
+	done
+}
+
 function _db._array._sort() {
 	local _array=("$@");
 	local _arraycount=${#_array[@]};
@@ -102,10 +119,6 @@ function _db._array._sort() {
 	done
 
 	_db_array_sorted=("${_array[@]}");
-}
-
-function _db._array._freezecells() {
-	local _array=("$@");
 }
 
 function _db._read() {
