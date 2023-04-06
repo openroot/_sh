@@ -265,7 +265,7 @@ function _db._searchrows() {
 				then
 					# add unique row number interest
 					_db._array._contains "$_rownumber" "${_db_searchrows_foundrows[@]}";
-					if [[ $? == 0 ]]; then _db_searchrows_foundrows+=($_rownumber); fi
+					if [[ $? -eq 0 ]]; then _db_searchrows_foundrows+=($_rownumber); fi
 				fi
 
 			done
@@ -286,7 +286,7 @@ function _db._getrow() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ $_rownumber -lt $((_db_rowcount+1)) ]];
+		if [[ $_rownumber -le $_db_rowcount ]];
 		then
 			local _init=$(((_rownumber-1)*_db_tablewidth));
 			if [ -z $_cellnumber ]
@@ -298,7 +298,7 @@ function _db._getrow() {
 					_db_getrow_result+=("${_db_cells[$_i]}");
 				done
 			else
-				if [[ $_cellnumber -lt $((_db_tablewidth+1)) ]];
+				if [[ $_cellnumber -le $_db_tablewidth ]];
 				then
 					_db_getrow_result="${_db_cells[$((_init+_cellnumber-1))]}";
 				fi
@@ -312,9 +312,27 @@ function _db._getuniquevalues() {
 
 	_db_getuniquevalues_result=-1;
 
-	echo "$_cellnumber";
+	if [[ $_db_isvarified -eq 1 ]];
+	then
+		if [[ $_cellnumber -le _db_tablewidth ]];
+		then
+			_db_getuniquevalues_result=();
 
+			local _i=-1;
+			for (( _i=0; _i<$_temp_db_cellcount; _i+=$_db_tablewidth ));
+			do
+				local _value="${_db_cells[$((_i+_cellnumber-1))]}";
 
+				# if ' cell value ' is not empty
+				if ! [[ -z $_value ]];
+				then
+					# add unique value interest
+					 _db._array._contains "$_value" "${_db_getuniquevalues_result[@]}";
+					 if [[ $? -eq 0 ]]; then _db_getuniquevalues_result+=("$_value"); fi
+				fi
+			done
+		fi
+	fi
 }
 
 # regionend

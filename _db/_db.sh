@@ -84,7 +84,15 @@ function _db._app() {
 	# _db._getuniquevalues
 	echo "---------------------------------------[[ GET UNIQUE VALUE ]]-";
 
-	_db._getuniquevalues "4";
+	local _cellnumber=1;
+	echo "Getting Unique Values of Cell Number: $_cellnumber";
+	_db._getuniquevalues "$_cellnumber";
+
+	local _i=-1;
+	for (( _i=0; _i<${#_db_getuniquevalues_result[@]}; _i++ ));
+	do
+		echo "$((_i+1)) => ${_db_getuniquevalues_result[$_i]}";
+	done
 
 	echo "--------------------------------------------------------------"; echo;
 
