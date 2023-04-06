@@ -413,6 +413,40 @@ function _db._updaterow() {
 	return $_issuccess;
 }
 
+function _db._deleterow() {
+	local _rownumber=$1;
+
+	local _issuccess=-1;
+
+	if [[ $_db_isvarified -eq 1 ]];
+	then
+		if [[ $_rownumber -le $_db_rowcount ]];
+		then
+			_issuccess=0;
+			local _firstslabstart=0;
+			local _firstslabstartlength=$(((_rownumber-1)*6));
+			local _secondslabstart=$((_firstslabstartlength+_db_tablewidth));
+			local _secondslabstartlength=$_db_cellcount;
+
+			_temp_db_cells=();
+			_temp_db_cells+=("${_db_cells[@]:$_firstslabstart:$_firstslabstartlength}");
+			_temp_db_cells+=("${_db_cells[@]:$_secondslabstart:$_secondslabstartlength}");
+
+			_temp_db_cellcount=${#_temp_db_cells[@]};
+
+			if [[ $_temp_db_cellcount -eq $(((_db_rowcount-1)*_db_tablewidth)) ]]
+			then
+				_db_rowcount=$((_db_rowcount-1));
+				_db_cells=("${_temp_db_cells[@]}");
+				_db_cellcount=$_temp_db_cellcount;
+				_issuccess=1;
+			fi
+		fi
+	fi
+
+	return $_issuccess;
+}
+
 # regionend
 
 # region execute

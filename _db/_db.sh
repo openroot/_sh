@@ -106,9 +106,25 @@ function _db._app() {
 	local _issuccess=$?;
 	if [[ $_issuccess -eq 1 ]];
 	then
-		# TODO: update write into orginal file
 		echo "UPDATED SUCCESSFULLY.";
-		echo "${#_db_cells[@]} => ${_db_cells[@]}";
+		#echo "${#_db_cells[@]} => ${_db_cells[@]}";
+		echo "${#_db_cells[@]} =>";
+		# TODO: update write into orginal file
+	fi
+
+	echo "--------------------------------------------------------------"; echo;
+
+	echo "---------------------------------------------[[ DELETE ROW ]]-";
+
+	_db._deleterow "2";
+	_db._deleterow "2";
+	local _issuccess=$?;
+	if [[ $_issuccess -eq 1 ]];
+	then
+		echo "DELETED SUCCESSFULLY.";
+		#echo "${#_db_cells[@]} => ${_db_cells[@]}";
+		echo "${#_db_cells[@]} =>";
+		# TODO: update write into orginal file
 	fi
 
 	echo "--------------------------------------------------------------"; echo;
