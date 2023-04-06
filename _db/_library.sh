@@ -307,6 +307,22 @@ function _db._getrow() {
 	fi
 }
 
+function _db._getuniquerow() {
+	local _cellnumbers=$1;
+
+	# separating string of ' cell numbers ' to array of ' cell numbers '
+	_db._bardelimitedstringtoarray "$_cellnumbers";
+
+	# sort resulted array of cell numbers
+	_db._array._sort "${_db_array[@]}";
+	local _cellnumberarray=("${_db_array_sorted[@]}");
+	local _cellnumberarraycount=${#_cellnumberarray[@]};
+
+	echo "$_cellnumberarraycount => ${_cellnumberarray[@]}";
+
+	
+}
+
 # regionend
 
 # region execute
