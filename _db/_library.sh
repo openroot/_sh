@@ -27,6 +27,14 @@ function _db._construct() {
 	_db_cellcount=-1;
 	_db_tablewidth=-1;
 	_db_isvarified=-1;
+
+	_temp_db_file="";
+	_temp_db_rows=();
+	_temp_db_rowcount=-1;
+	_temp_db_cells=();
+	_temp_db_cellcount=-1;
+	_temp_db_tablewidth=-1;
+	_temp_db_isvarified=-1;
 }
 
 function _db._newlinedelimitedstringtoarray() {
@@ -96,33 +104,46 @@ function _db._array._sort () {
 }
 
 function _db._read() {
-	_db_file=$1;
+	_temp_db_file=$1;
 
-	if [[ $_db_rowcount -eq -1 ]];
+	_temp_db_rowcount=-1;
+	if [[ $_temp_db_rowcount -eq -1 ]];
 	then
-		_db._newlinedelimitedstringtoarray "$(cat "$_db_file")";
+		_db._newlinedelimitedstringtoarray "$(cat "$_temp_db_file")";
 
-		_db_rows=("${_db_array[@]}");
+		_temp_db_rows=("${_db_array[@]}");
 
-		_db_rowcount=${#_db_rows[@]};
+		_temp_db_rowcount=${#_temp_db_rows[@]};
 
 		local _row=-1;
-		for _row in "${_db_rows[@]}";
+		for _row in "${_temp_db_rows[@]}";
 		do
 			local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
 
 			_db._bardelimitedstringtoarray "$_rowline";
-			local _items=("${_db_array[@]}");
+			local _columns=("${_db_array[@]}");
 
-			_db_cells+=("${_items[@]}");
+			_temp_db_cells+=("${_columns[@]}");
 			
-			_db_tablewidth=${#_items[@]};
+			_temp_db_tablewidth=${#_columns[@]};
 		done
 
-		_db_cellcount=${#_db_cells[@]};
+		_temp_db_cellcount=${#_temp_db_cells[@]};
 		
-		_db._checksum "${_db_rows[0]}" "$_db_rowcount" "$_db_cellcount";
-		_db_isvarified=$?;
+		_temp_db_isvarified=-1;
+		_db._checksum "${_temp_db_rows[0]}" "$_temp_db_rowcount" "$_temp_db_cellcount";
+		_temp_db_isvarified=$?;
+
+		if [[ $_temp_db_isvarified -eq 1 ]];
+		then
+			_db_file="$_temp_db_file";
+			_db_rows=("${_temp_db_rows[@]}");
+			_db_rowcount=$_temp_db_rowcount;
+			_db_cells=("${_temp_db_cells[@]}");
+			_db_cellcount=$_temp_db_cellcount;
+			_db_tablewidth=$_temp_db_tablewidth;
+			_db_isvarified=$_temp_db_isvarified;
+		fi
 	fi
 }
 
@@ -146,7 +167,7 @@ function _db._checksum() {
 			then
 				return 1;
 			else
-				return 0;
+				return -1;
 			fi
 		fi
 	fi
