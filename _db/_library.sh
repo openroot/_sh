@@ -358,11 +358,13 @@ function _db._updaterow() {
 	local _cellnumbers=$2;
 	local _rowline=$3;
 
+	local _issuccess=-1;
+
 	if [[ $_db_isvarified -eq 1 ]];
 	then
 		if [[ $_rownumber -le $_db_rowcount ]];
 		then
-			local _issuccess=0;
+			_issuccess=0;
 
 			_db._bardelimitedstringtoarray "$_rowline";
 			local _columns=("${_db_array[@]}");
@@ -405,15 +407,10 @@ function _db._updaterow() {
 					if [[ $_issuccess -eq $_db_tablewidth ]]; then _issuccess=1; fi
 				fi
 			fi
-
-			if [[ $_issuccess -eq 1 ]];
-			then
-				# TODO: update write into orginal file
-				echo "UPDATED SUCCESSFULLY.";
-				echo "${#_db_cells[@]} => ${_db_cells[@]}";
-			fi
 		fi
 	fi
+
+	return $_issuccess;
 }
 
 # regionend

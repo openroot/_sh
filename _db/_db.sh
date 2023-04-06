@@ -103,6 +103,13 @@ function _db._app() {
 
 	#_db._updaterow "1" "" "Acategory|Bpackage|Clanguage|Dname|Ecno|Fprice|";
 	_db._updaterow "1" "6|5|4|3|1|2|" "Acategory|Bpackage|Clanguage|Dname|Ecno|Fprice|";
+	local _issuccess=$?;
+	if [[ $_issuccess -eq 1 ]];
+	then
+		# TODO: update write into orginal file
+		echo "UPDATED SUCCESSFULLY.";
+		echo "${#_db_cells[@]} => ${_db_cells[@]}";
+	fi
 
 	echo "--------------------------------------------------------------"; echo;
 
