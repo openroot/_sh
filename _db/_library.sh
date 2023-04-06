@@ -76,7 +76,7 @@ function _db._array._contains () {
 
 function _db._array._sort () {
 	local _array=("$@");
-	local _arraycount="${#_array[@]}";
+	local _arraycount=${#_array[@]};
 
 	local _flag=1;
 	local _i=-1;
