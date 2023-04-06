@@ -67,24 +67,24 @@ function _db._semicolondelimitedstringtoarray() {
 	IFS=$_oifs;
 }
 
-function _db._array._contains () {
+function _db._array._contains() {
 	local _array _searchstring="$1";
 	shift;
 	for _array; do [[ "$_array" == "$_searchstring" ]] && return 1; done
 	return 0;
 }
 
-function _db._array._sort () {
+function _db._array._sort() {
 	local _array=("$@");
 	local _arraycount=${#_array[@]};
 
 	local _flag=1;
 	local _i=-1;
-	for (( _i = 0; _i < $((_arraycount-1)); _i++ ))
+	for (( _i=0; _i<$((_arraycount-1)); _i++ ))
 	do
 		_flag=0;
 		local _j=-1;
-		for ((_j = 0; _j < $((_arraycount-1-_i)); _j++ ))
+		for (( _j=0; _j<$((_arraycount-1-_i)); _j++ ))
 		do
 			if [[ ${_array[$_j]} -gt ${_array[$((_j+1))]} ]]
 			then
@@ -95,12 +95,14 @@ function _db._array._sort () {
 			fi
 		done
 
-		if [[ $_flag -eq 0 ]]; then
-			break;
-		fi
+		if [[ $_flag -eq 0 ]]; then break; fi
 	done
 
 	_db_array_sorted=("${_array[@]}");
+}
+
+function _db._array._freezecells() {
+	local _array=("$@");
 }
 
 function _db._read() {
