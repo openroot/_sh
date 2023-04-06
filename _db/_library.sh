@@ -307,20 +307,14 @@ function _db._getrow() {
 	fi
 }
 
-function _db._getuniquerow() {
-	local _cellnumbers=$1;
+function _db._getuniquevalues() {
+	local _cellnumber=$1;
 
-	# separating string of ' cell numbers ' to array of ' cell numbers '
-	_db._bardelimitedstringtoarray "$_cellnumbers";
+	_db_getuniquevalues_result=-1;
 
-	# sort resulted array of cell numbers
-	_db._array._sort "${_db_array[@]}";
-	local _cellnumberarray=("${_db_array_sorted[@]}");
-	local _cellnumberarraycount=${#_cellnumberarray[@]};
+	echo "$_cellnumber";
 
-	echo "$_cellnumberarraycount => ${_cellnumberarray[@]}";
 
-	
 }
 
 # regionend

@@ -81,10 +81,10 @@ function _db._app() {
 
 	echo "--------------------------------------------------------------"; echo;
 
-	# _db._getuniquerow
-	echo "-----------------------------------------[[ GET UNIQUE ROW ]]-";
+	# _db._getuniquevalues
+	echo "---------------------------------------[[ GET UNIQUE VALUE ]]-";
 
-	_db._getuniquerow "6|4|";
+	_db._getuniquevalues "4";
 
 	echo "--------------------------------------------------------------"; echo;
 
