@@ -41,12 +41,12 @@ function _db._operation_sample_db () {
 	if [[ $_readissuccess -eq 1 ]];
 	then
 
-		_sample_db_db_file="$_db_file";
-		_sample_db_db_rowcount=$_db_rowcount;
-		_sample_db_db_cells=("${_db_cells[@]}");
-		_sample_db_db_cellcount=$_db_cellcount;
-		_sample_db_db_tablewidth=$_db_tablewidth;
-		_sample_db_db_isvarified=$_db_isvarified;
+		local _sample_db_db_file="$_db_file";
+		local _sample_db_db_rowcount=$_db_rowcount;
+		local _sample_db_db_cells=("${_db_cells[@]}");
+		local _sample_db_db_cellcount=$_db_cellcount;
+		local _sample_db_db_tablewidth=$_db_tablewidth;
+		local _sample_db_db_isvarified=$_db_isvarified;
 
 		#_db._print
 		#_db._print "t";
@@ -170,12 +170,12 @@ function _db._operation_fresh_db () {
 	if [[ $_readissuccess -eq 1 ]];
 	then
 
-		_sample_db_db_file="$_db_file";
-		_sample_db_db_rowcount=$_db_rowcount;
-		_sample_db_db_cells=("${_db_cells[@]}");
-		_sample_db_db_cellcount=$_db_cellcount;
-		_sample_db_db_tablewidth=$_db_tablewidth;
-		_sample_db_db_isvarified=$_db_isvarified;
+		local _fresh_db_db_file="$_db_file";
+		local _fresh_db_db_rowcount=$_db_rowcount;
+		local _fresh_db_db_cells=("${_db_cells[@]}");
+		local _fresh_db_db_cellcount=$_db_cellcount;
+		local _fresh_db_db_tablewidth=$_db_tablewidth;
+		local _fresh_db_db_isvarified=$_db_isvarified;
 
 		_db._print
 		_db._print "t";
