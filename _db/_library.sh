@@ -531,6 +531,47 @@ function _db._insertrow() {
 	return $_issuccess;
 }
 
+function _db._dbreset() {
+	_db_file="";
+	_db_rowcount=-1;
+	_db_cells=();
+	_db_cellcount=-1;
+	_db_tablewidth=-1;
+	_db_isvarified=-1;
+}
+
+function _db._createtable() {
+	local _file=$1;
+	local _tablewidth=$2;
+
+	local _issuccess=-1;
+
+	if [[ "$_file" != "" ]];
+	then
+		if ! [[ -z $_tablewidth ]];
+		then
+			if [[ $_tablewidth -ge 1 ]];
+			then
+				if [[ $_tablewidth -le 1024 ]];
+				then
+					if [[ $_db_isvarified -eq -1 ]];
+					then
+						_db_file="$_file";
+						_db_rowcount=1;
+						_db_cells=();
+						_db_cellcount=0;
+						_db_tablewidth=$_tablewidth;
+						_db_isvarified=1;
+						_issuccess=1;
+					fi
+				fi
+			fi
+		fi
+	fi
+
+	return $_issuccess;
+}
+
 # regionend
 
 # region execute
