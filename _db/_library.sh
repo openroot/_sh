@@ -497,8 +497,6 @@ function _db._insertrow() {
 
 							_temp_db_cellcount=${#_temp_db_cells[@]};
 
-							#echo "$_temp_db_cellcount => ${_temp_db_row[@]}";
-
 							if [[ $_temp_db_cellcount -eq $(((_db_rowcount+1)*_db_tablewidth)) ]];
 							then
 								_db_rowcount=$((_db_rowcount+1));
