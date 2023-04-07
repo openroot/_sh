@@ -420,26 +420,29 @@ function _db._deleterow() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ $_rownumber -le $_db_rowcount ]];
+		if [[ $_rownumber -gt 0 ]];
 		then
-			_issuccess=0;
-			local _firstslab=0;
-			local _firstslablength=$(((_rownumber-1)*6));
-			local _secondslab=$((_firstslablength+_db_tablewidth));
-			local _secondslablength=$_db_cellcount;
-
-			_temp_db_cells=();
-			_temp_db_cells+=("${_db_cells[@]:$_firstslab:$_firstslablength}");
-			_temp_db_cells+=("${_db_cells[@]:$_secondslab:$_secondslablength}");
-
-			_temp_db_cellcount=${#_temp_db_cells[@]};
-
-			if [[ $_temp_db_cellcount -eq $(((_db_rowcount-1)*_db_tablewidth)) ]]
+			if [[ $_rownumber -le $_db_rowcount ]];
 			then
-				_db_rowcount=$((_db_rowcount-1));
-				_db_cells=("${_temp_db_cells[@]}");
-				_db_cellcount=$_temp_db_cellcount;
-				_issuccess=1;
+				_issuccess=0;
+				local _firstslab=0;
+				local _firstslablength=$(((_rownumber-1)*6));
+				local _secondslab=$((_firstslablength+_db_tablewidth));
+				local _secondslablength=$_db_cellcount;
+
+				_temp_db_cells=();
+				_temp_db_cells+=("${_db_cells[@]:$_firstslab:$_firstslablength}");
+				_temp_db_cells+=("${_db_cells[@]:$_secondslab:$_secondslablength}");
+
+				_temp_db_cellcount=${#_temp_db_cells[@]};
+
+				if [[ $_temp_db_cellcount -eq $(((_db_rowcount-1)*_db_tablewidth)) ]]
+				then
+					_db_rowcount=$((_db_rowcount-1));
+					_db_cells=("${_temp_db_cells[@]}");
+					_db_cellcount=$_temp_db_cellcount;
+					_issuccess=1;
+				fi
 			fi
 		fi
 	fi
