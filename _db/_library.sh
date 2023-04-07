@@ -455,9 +455,9 @@ function _db._insertrow() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ -z $_rownumber ]]; then _rownumber=$_db_rowcount; fi
+		if [[ -z $_rownumber ]]; then _rownumber=$((_db_rowcount+1)); fi
 
-		if [[ $_rownumber -le $_db_rowcount ]];
+		if [[ $_rownumber -le $((_db_rowcount+1)) ]];
 		then
 			if ! [[ -z $_rowline ]];
 			then
@@ -484,6 +484,17 @@ function _db._insertrow() {
 					if [[ ${#_temp_db_row[@]} -eq $_db_tablewidth ]];
 					then
 						echo "${#_temp_db_row[@]} => ${_temp_db_row[@]}";
+
+						local _firstslabstart=0;
+						local _firstslabstartlength=$((_rownumber*6));
+						local _secondslabstart=$((_firstslabstartlength+_db_tablewidth));
+						local _secondslabstartlength=$_db_cellcount;
+
+						_temp_db_cells=();
+						_temp_db_cells+=("${_db_cells[@]:$_firstslabstart:$_firstslabstartlength}");
+						_temp_db_cells+=("${_db_cells[@]:$_secondslabstart:$_secondslabstartlength}");
+
+			_temp_db_cellcount=${#_temp_db_cells[@]};
 
 						_issuccess=1;
 					fi
