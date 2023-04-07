@@ -687,9 +687,13 @@ function _db._write() {
 							then
 								{
 								$(cp "$_file_temp" "$_file"; rm "$_file_temp";);
-								_db._read "$_file";
-								return $?;
 								} || { _issuccess=5; }
+								
+								if [[ $_issuccess -ne 5 ]];
+								then
+									_db._read "$_file";
+									return $?;
+								fi
 							else
 								_issuccess=$_db_read_temporaryissuccess;
 							fi
