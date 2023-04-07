@@ -147,8 +147,14 @@ function _db._operation_sample_db () {
 
 		# uncommenting the following function ' _db._write ' will write changes to the ' source DB file ',
 		# can have this line placed after any virtual changes to the DB to write it to disk back.
-		#_db._write "$_sample_db_db_file";
-		#_db._print "t";
+		# _db._write "$_sample_db_db_file";
+		# local _dbwriteissuccess=$?;
+		# if [[ $_dbwriteissuccess -ne 1 ]];
+		# then
+		# 	_db._print "t";
+		# else
+		# 	echo "DB Write Error Code: $_dbwriteissuccess";
+		# fi
 
 		echo "--------------------------------------------------------------"; echo;
 		
