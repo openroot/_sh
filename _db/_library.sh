@@ -254,26 +254,33 @@ function _db._searchrows() {
 				local _s=-1;
 				for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
 				do
-					# realising ' a set ' of clause arguments into definite vars
-					local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}"; #FIXME: First check whether ${_querysetarray[$_s]} falls between 1 and _db_tablewidth
-					local _data="${_querysetarray[$((_s+1))]}";
-					local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
-					local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
-
-					if [[ $_iscaseinsensitive -eq 1 ]];
+					local _cellnumber=${_querysetarray[$_s]};
+					if [[ $_cellnumber -ge 1 ]];
 					then
-						if [[ $_ispartdata -eq 1 ]];
+						if [[ $_cellnumber -le $_db_tablewidth ]];
 						then
-							if [[ ${_celldata,,} == *"${_data,,}"* ]];then _issuccess=$((_issuccess+1)); fi
-						else
-							if [[ ${_celldata,,} == "${_data,,}" ]];then _issuccess=$((_issuccess+1)); fi
-						fi
-					else
-						if [[ $_ispartdata -eq 1 ]];
-						then
-							if [[ $_celldata == *"$_data"* ]];then _issuccess=$((_issuccess+1)); fi
-						else
-							if [[ $_celldata == "$_data" ]];then _issuccess=$((_issuccess+1)); fi
+							# realising ' a set ' of clause arguments into definite vars
+							local _celldata="${_db_cells[$((_i+$_cellnumber-1))]}";
+							local _data="${_querysetarray[$((_s+1))]}";
+							local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
+							local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
+
+							if [[ $_iscaseinsensitive -eq 1 ]];
+							then
+								if [[ $_ispartdata -eq 1 ]];
+								then
+									if [[ ${_celldata,,} == *"${_data,,}"* ]];then _issuccess=$((_issuccess+1)); fi
+								else
+									if [[ ${_celldata,,} == "${_data,,}" ]];then _issuccess=$((_issuccess+1)); fi
+								fi
+							else
+								if [[ $_ispartdata -eq 1 ]];
+								then
+									if [[ $_celldata == *"$_data"* ]];then _issuccess=$((_issuccess+1)); fi
+								else
+									if [[ $_celldata == "$_data" ]];then _issuccess=$((_issuccess+1)); fi
+								fi
+							fi
 						fi
 					fi
 				done
