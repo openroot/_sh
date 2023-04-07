@@ -304,21 +304,24 @@ function _db._getrow() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ $_rownumber -le $_db_rowcount ]];
+		if [[ $_rownumber -gt 0 ]];
 		then
-			local _init=$(((_rownumber-1)*_db_tablewidth));
-			if [ -z $_cellnumber ]
+			if [[ $_rownumber -le $_db_rowcount ]];
 			then
-				_db_getrow_result=();
-				local _i=-1;
-				for (( _i=$_init; _i<$((_init+_db_tablewidth)); _i++ ));
-				do
-					_db_getrow_result+=("${_db_cells[$_i]}");
-				done
-			else
-				if [[ $_cellnumber -le $_db_tablewidth ]];
+				local _init=$(((_rownumber-1)*_db_tablewidth));
+				if [ -z $_cellnumber ]
 				then
-					_db_getrow_result="${_db_cells[$((_init+_cellnumber-1))]}";
+					_db_getrow_result=();
+					local _i=-1;
+					for (( _i=$_init; _i<$((_init+_db_tablewidth)); _i++ ));
+					do
+						_db_getrow_result+=("${_db_cells[$_i]}");
+					done
+				else
+					if [[ $_cellnumber -le $_db_tablewidth ]];
+					then
+						_db_getrow_result="${_db_cells[$((_init+_cellnumber-1))]}";
+					fi
 				fi
 			fi
 		fi
