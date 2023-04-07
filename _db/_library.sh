@@ -332,23 +332,26 @@ function _db._getuniquevalues() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ $_cellnumber -le _db_tablewidth ]];
+		if [[ $_cellnumber -gt 0 ]];
 		then
-			_db_getuniquevalues_result=();
+			if [[ $_cellnumber -le _db_tablewidth ]];
+			then
+				_db_getuniquevalues_result=();
 
-			local _i=-1;
-			for (( _i=0; _i<$_temp_db_cellcount; _i+=$_db_tablewidth ));
-			do
-				local _value="${_db_cells[$((_i+_cellnumber-1))]}";
+				local _i=-1;
+				for (( _i=0; _i<$_temp_db_cellcount; _i+=$_db_tablewidth ));
+				do
+					local _value="${_db_cells[$((_i+_cellnumber-1))]}";
 
-				# if ' cell value ' is not empty
-				if ! [[ -z $_value ]];
-				then
-					# add unique value interest
-					 _db._array._contains "$_value" "${_db_getuniquevalues_result[@]}";
-					 if [[ $? -eq 0 ]]; then _db_getuniquevalues_result+=("$_value"); fi
-				fi
-			done
+					# if ' cell value ' is not empty
+					if ! [[ -z $_value ]];
+					then
+						# add unique value interest
+						_db._array._contains "$_value" "${_db_getuniquevalues_result[@]}";
+						if [[ $? -eq 0 ]]; then _db_getuniquevalues_result+=("$_value"); fi
+					fi
+				done
+			fi
 		fi
 	fi
 }
