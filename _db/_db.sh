@@ -149,7 +149,7 @@ function _db._operation_sample_db () {
 		# can have this line placed after any virtual changes to the DB to write it to disk back.
 		# _db._write "$_sample_db_db_file";
 		# local _dbwriteissuccess=$?;
-		# if [[ $_dbwriteissuccess -ne 1 ]];
+		# if [[ $_dbwriteissuccess -eq 1 ]];
 		# then
 		# 	_db._print "t";
 		# else
