@@ -17,7 +17,6 @@ source $_const_currentdir/_library.sh;
 
 function _db._construct() {
 	_sample_db_db_file="$_const_currentdir/_sample_db/sample-db.txt";
-	_sample_db_db_rows=();
 	_sample_db_db_rowcount=-1;
 	_sample_db_db_cells=();
 	_sample_db_db_cellcount=-1;
@@ -32,7 +31,6 @@ function _db._app() {
 
 	# _db._read
 	_db._read "$_sample_db_db_file";
-	_sample_db_db_rows=("${_db_rows[@]}");
 	_sample_db_db_rowcount=$_db_rowcount;
 	_sample_db_db_cells=("${_db_cells[@]}");
 	_sample_db_db_cellcount=$_db_cellcount;

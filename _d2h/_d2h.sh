@@ -32,7 +32,6 @@ function _d2h._construct() {
 	_arg1=$1;
 
 	_d2h_channels_db_file="$_const_currentdir/_packs/channel-list.txt";
-	_d2h_channels_db_rows=();
 	_d2h_channels_db_rowcount=-1;
 	_d2h_channels_db_cells=();
 	_d2h_channels_db_cellcount=-1;
@@ -61,7 +60,6 @@ function _d2h._app() {
 
 function _d2h._channels_db() {
 	_db._read "$_d2h_channels_db_file";
-	_d2h_channels_db_rows=("${_db_rows[@]}");
 	_d2h_channels_db_rowcount=$_db_rowcount;
 	_d2h_channels_db_cells=("${_db_cells[@]}");
 	_d2h_channels_db_cellcount=$_db_cellcount;

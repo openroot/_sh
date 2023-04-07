@@ -21,7 +21,6 @@ function _db._construct() {
 	_db_print_rowseparator="\n";
 	_db_print_cellseparator=" | ";
 	_db_file="";
-	_db_rows=();
 	_db_rowcount=-1;
 	_db_cells=();
 	_db_cellcount=-1;
@@ -155,7 +154,6 @@ function _db._read() {
 		if [[ $_temp_db_isvarified -eq 1 ]];
 		then
 			_db_file="$_temp_db_file";
-			_db_rows=("${_temp_db_rows[@]}");
 			_db_rowcount=$_temp_db_rowcount;
 			_db_cells=("${_temp_db_cells[@]}");
 			_db_cellcount=$_temp_db_cellcount;
