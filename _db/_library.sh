@@ -423,14 +423,14 @@ function _db._deleterow() {
 		if [[ $_rownumber -le $_db_rowcount ]];
 		then
 			_issuccess=0;
-			local _firstslabstart=0;
-			local _firstslabstartlength=$(((_rownumber-1)*6));
-			local _secondslabstart=$((_firstslabstartlength+_db_tablewidth));
-			local _secondslabstartlength=$_db_cellcount;
+			local _firstslab=0;
+			local _firstslablength=$(((_rownumber-1)*6));
+			local _secondslab=$((_firstslablength+_db_tablewidth));
+			local _secondslablength=$_db_cellcount;
 
 			_temp_db_cells=();
-			_temp_db_cells+=("${_db_cells[@]:$_firstslabstart:$_firstslabstartlength}");
-			_temp_db_cells+=("${_db_cells[@]:$_secondslabstart:$_secondslabstartlength}");
+			_temp_db_cells+=("${_db_cells[@]:$_firstslab:$_firstslablength}");
+			_temp_db_cells+=("${_db_cells[@]:$_secondslab:$_secondslablength}");
 
 			_temp_db_cellcount=${#_temp_db_cells[@]};
 
@@ -485,16 +485,16 @@ function _db._insertrow() {
 					then
 						echo "${#_temp_db_row[@]} => ${_temp_db_row[@]}";
 
-						local _firstslabstart=0;
-						local _firstslabstartlength=$((_rownumber*6));
-						local _secondslabstart=$((_firstslabstartlength+_db_tablewidth));
-						local _secondslabstartlength=$_db_cellcount;
+						local _firstslab=0;
+						local _firstslablength=$((_rownumber*6));
+						local _secondslab=$((_firstslabstartlength+_db_tablewidth));
+						local _secondslablength=$_db_cellcount;
 
 						_temp_db_cells=();
-						_temp_db_cells+=("${_db_cells[@]:$_firstslabstart:$_firstslabstartlength}");
-						_temp_db_cells+=("${_db_cells[@]:$_secondslabstart:$_secondslabstartlength}");
+						_temp_db_cells+=("${_db_cells[@]:$_firstslab:$_firstslablength}");
+						_temp_db_cells+=("${_db_cells[@]:$_secondslab:$_secondslablength}");
 
-			_temp_db_cellcount=${#_temp_db_cells[@]};
+						_temp_db_cellcount=${#_temp_db_cells[@]};
 
 						_issuccess=1;
 					fi
