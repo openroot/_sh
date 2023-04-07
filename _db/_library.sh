@@ -18,8 +18,15 @@ function _db._trap() {
 }
 
 function _db._construct() {
+	# create directory "_temporary_container" at 'source caller' directory if not already exists
+	_temporarycontainerdirectoryname="_temporary_container";
+	if ! [ -d "$_temporarycontainerdirectoryname" ];
+	then
+		mkdir $(printf "$_temporarycontainerdirectoryname";);
+	fi
+
 	_db_print_rowseparator="\n";
-	_db_print_cellseparator=" | ";
+	_db_print_cellseparator="|";
 
 	_db_file="";
 	_db_rowcount=-1;
@@ -126,6 +133,30 @@ function _db._read() {
 
 	local _issuccess=-1;
 
+	_db._read._temporary "$_file";
+	local _db_read_temporaryissuccess=$?;
+
+	if [[ $_db_read_temporaryissuccess -eq 1 ]];
+	then
+		_db_file="$_temp_db_file";
+		_db_rowcount=$_temp_db_rowcount;
+		_db_cells=("${_temp_db_cells[@]}");
+		_db_cellcount=$_temp_db_cellcount;
+		_db_tablewidth=$_temp_db_tablewidth;
+		_db_isvarified=$_temp_db_isvarified;
+		_issuccess=1;
+	else
+		_issuccess=$_db_read_temporaryissuccess;
+	fi
+
+	return $_issuccess;
+}
+
+function _db._read._temporary() {
+	local _file=$1;
+
+	local _issuccess=-1;
+
 	if ! [[ -z $_file ]];
 	then
 		_issuccess=0;
@@ -159,18 +190,11 @@ function _db._read() {
 
 				_temp_db_cellcount=${#_temp_db_cells[@]};
 				
-				_temp_db_isvarified=-1;
 				_db._checksum "${_temp_db_rows[0]}" "$_temp_db_rowcount" "$_temp_db_cellcount";
 				_temp_db_isvarified=$?;
 
 				if [[ $_temp_db_isvarified -eq 1 ]];
 				then
-					_db_file="$_temp_db_file";
-					_db_rowcount=$_temp_db_rowcount;
-					_db_cells=("${_temp_db_cells[@]}");
-					_db_cellcount=$_temp_db_cellcount;
-					_db_tablewidth=$_temp_db_tablewidth;
-					_db_isvarified=$_temp_db_isvarified;
 					_issuccess=1;
 				fi
 			fi
@@ -587,8 +611,6 @@ function _db._dbcreate() {
 
 					if [[ $_db_isvarified -eq -1 ]];
 					then
-						# TODO: update write into orginal file to set ' _issuccess ' as 1
-						
 						_db_file="$_file";
 						_db_rowcount=1;
 						_db_cells=();
@@ -596,11 +618,87 @@ function _db._dbcreate() {
 						_db_tablewidth=$_tablewidth;
 						_db_isvarified=1;
 
-						_issuccess=1;
+						_db._write "$_file";
+						local _dbwriteisuccess=$?;
+
+						if [[ $_dbwriteisuccess -ne 1 ]];
+						then
+							_db._dbreset;
+							_issuccess=$_dbwriteisuccess;
+						else
+							_issuccess=1;
+						fi
 					fi
 				fi
 			fi
 		fi
+	fi
+
+	return $_issuccess;
+}
+
+function _db._write() {
+	local _file=$1;
+
+	local _issuccess=-1;
+
+	if ! [[ -z $_file ]];
+	then
+		_issuccess=0;
+
+		#if [[ -f $_file ]];
+		#then
+
+			if [[ $_db_isvarified -eq 1 ]];
+			then
+				if [[ $_db_rowcount -gt 0 ]];
+				then
+					local _rowcount=$_db_rowcount;
+
+					# if it is an empty db going to be ' write ', set ' row count ' as ' 0 ' locally, which do realize ' 1 ' default
+					if [[ $_db_cellcount -eq 0 ]]; then _rowcount=0; fi
+
+					if [[ $((_rowcount*_db_tablewidth)) -eq $_db_cellcount ]];
+					then
+						local _writedata="";
+						local _i=-1;
+						for (( _i=0; _i<_db_cellcount; _i+=_db_tablewidth ));
+						do
+							local _j=-1;
+							for (( _j=0; _j<_db_tablewidth; _j++ ));
+							do
+								_writedata+="${_db_cells[$((_i+_j))]}";
+								_writedata+="$_db_print_cellseparator";
+							done
+							_writedata+="$_db_print_rowseparator";
+						done
+
+						local _file_temp="$_temporarycontainerdirectoryname/temp-db.txt";
+						{
+							$(printf "$_writedata" > "$_file_temp");
+						} || { _issuccess=5; }
+
+						if [[ $_issuccess -ne 5 ]];
+						then
+							_db._read._temporary "$_file_temp";
+							local _db_read_temporaryissuccess=$?;
+
+							if [[ $_db_read_temporaryissuccess -eq 1 ]];
+							then
+								{
+								$(cp "$_file_temp" "$_file"; rm "$_file_temp";);
+								_db._read "$_file";
+								return $?;
+								} || { _issuccess=5; }
+							else
+								_issuccess=$_db_read_temporaryissuccess;
+							fi
+						fi
+					fi
+				fi
+			fi
+		
+		#fi
 	fi
 
 	return $_issuccess;

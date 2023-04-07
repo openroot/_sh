@@ -23,7 +23,7 @@ function _db._app() {
 	clear;
 
 	_db._operation_sample_db;
-	_db._operation_fresh_db;
+	#_db._operation_fresh_db;
 
 	echo;echo;
 	read -rp "Press any key to exit .. " "_dump";
@@ -116,9 +116,7 @@ function _db._operation_sample_db () {
 		if [[ $_issuccess -eq 1 ]];
 		then
 			echo "Row Updated Successfully.";
-			#echo "${#_db_cells[@]} => ${_db_cells[@]}";
 			echo "${#_db_cells[@]} =>";
-			# TODO: update write into orginal file
 		fi
 
 		echo "--------------------------------------------------------------"; echo;
@@ -131,9 +129,7 @@ function _db._operation_sample_db () {
 		if [[ $_issuccess -eq 1 ]];
 		then
 			echo "Row Deleted Successfully.";
-			#echo "${#_db_cells[@]} => ${_db_cells[@]}";
 			echo "${#_db_cells[@]} =>";
-			# TODO: update write into orginal file
 		fi
 
 		echo "--------------------------------------------------------------"; echo;
@@ -145,10 +141,14 @@ function _db._operation_sample_db () {
 		if [[ $_issuccess -eq 1 ]];
 		then
 			echo "Row Inserted Successfully.";
-			#echo "${#_db_cells[@]} => ${_db_cells[@]}";
 			echo "${#_db_cells[@]} =>";
-			# TODO: update write into orginal file
 		fi
+
+
+		# uncommenting the following function ' _db._write ' will write changes to the ' source DB file ',
+		# can have this line placed after any virtual changes to the DB to write it to disk back.
+		#_db._write "$_sample_db_db_file";
+		#_db._print "t";
 
 		echo "--------------------------------------------------------------"; echo;
 		
