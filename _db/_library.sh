@@ -611,22 +611,25 @@ function _db._dbcreate() {
 
 					if [[ $_db_isvarified -eq -1 ]];
 					then
-						_db_file="$_file";
-						_db_rowcount=1;
-						_db_cells=();
-						_db_cellcount=0;
-						_db_tablewidth=$_tablewidth;
-						_db_isvarified=1;
-
-						_db._write "$_file";
-						local _dbwriteisuccess=$?;
-
-						if [[ $_dbwriteisuccess -ne 1 ]];
+						if [[ -f $_file ]];
 						then
-							_db._dbreset;
-							_issuccess=$_dbwriteisuccess;
+							_issuccess=3;
 						else
-							_issuccess=1;
+							{
+								$(printf "\n" > "$_file");
+							} || { _issuccess=5; }
+
+							if [[ $_issuccess -ne 5 ]];
+							then
+								_db_file="$_file";
+								_db_rowcount=1;
+								_db_cells=();
+								_db_cellcount=0;
+								_db_tablewidth=$_tablewidth;
+								_db_isvarified=1;
+
+								_issuccess=1;
+							fi
 						fi
 					fi
 				fi

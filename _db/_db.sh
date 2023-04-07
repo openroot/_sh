@@ -173,7 +173,16 @@ function _db._operation_fresh_db () {
 	_db._dbcreate "$_file" "3";
 	local _dbcreateissuccess=$?;
 
-	if [[ $_dbcreateissuccess -eq 1 ]];
+	if [[ $_dbcreateissuccess -ne 1 ]];
+	then
+		echo "DB Create Unsuccessfull. Error Code: $_dbcreateissuccess";
+	fi
+
+	# _db._read
+	_db._read "$_file";
+	local _readissuccess=$?;
+
+	if [[ $_readissuccess -eq 1 ]];
 	then
 
 		local _fresh_db_db_file="$_db_file";
@@ -183,10 +192,32 @@ function _db._operation_fresh_db () {
 		local _fresh_db_db_tablewidth=$_db_tablewidth;
 		local _fresh_db_db_isvarified=$_db_isvarified;
 
-		_db._print "t";
+		echo "---------------------------------------------[[ INSERT ROW ]]-";
+
+			_db._insertrow "1|2|3|";
+			local _issuccess=$?;
+			if [[ $_issuccess -eq 1 ]];
+			then
+				echo "Row Inserted Successfully.";
+				echo "${#_db_cells[@]} =>";
+			fi
+
+
+			# uncommenting the following function ' _db._write ' will write changes to the ' source DB file ',
+			# can have this line placed after any virtual changes to the DB to write it to disk back.
+			_db._write "$_fresh_db_db_file";
+			local _dbwriteissuccess=$?;
+			if [[ $_dbwriteissuccess -eq 1 ]];
+			then
+				_db._print "t";
+			else
+				echo "DB Write Error Code: $_dbwriteissuccess";
+			fi
+
+		echo "--------------------------------------------------------------"; echo;
 
 	else
-		echo "DB Create Unsuccessfull";
+		echo "DB Read Unsuccessfull. Error Code: $_readissuccess";
 	fi
 }
 
