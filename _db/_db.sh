@@ -172,7 +172,7 @@ function _db._operation_fresh_db () {
 	# _db._dbcreate
 	_db._dbcreate "$_file" "3";
 	local _dbcreateissuccess=$?;
-	
+
 	if [[ $_dbcreateissuccess -eq 1 ]];
 	then
 
