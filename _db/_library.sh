@@ -686,7 +686,7 @@ function _db._write() {
 							if [[ $_db_read_temporaryissuccess -eq 1 ]];
 							then
 								{
-								$(cp "$_file_temp" "$_file"; rm "$_file_temp";);
+									$(cp "$_file_temp" "$_file"; rm "$_file_temp";);
 								} || { _issuccess=5; }
 								
 								if [[ $_issuccess -ne 5 ]];
