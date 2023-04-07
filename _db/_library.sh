@@ -447,6 +447,54 @@ function _db._deleterow() {
 	return $_issuccess;
 }
 
+function _db._insertrow() {
+	local _rowline=$1;
+	local _rownumber=$2;
+
+	local _issuccess=-1;
+
+	if [[ $_db_isvarified -eq 1 ]];
+	then
+		if [[ -z $_rownumber ]]; then _rownumber=$_db_rowcount; fi
+
+		if [[ $_rownumber -le $_db_rowcount ]];
+		then
+			if ! [[ -z $_rowline ]];
+			then
+				_issuccess=0;
+
+				_db._bardelimitedstringtoarray "$_rowline";
+				local _columns=("${_db_array[@]}");
+
+				local _columnscount=${#_columns[@]};
+				if [[ $_columnscount -le $_db_tablewidth ]];
+				then
+					local _temp_db_row=();
+					local _i=-1;
+					for (( _i=0; _i<$_db_tablewidth; _i++ ));
+					do
+						if [[ "${_columns[$_i]}" != "" ]];
+						then
+							_temp_db_row+=("${_columns[$_i]}");
+						else
+							_temp_db_row+=("");
+						fi
+					done
+
+					if [[ ${#_temp_db_row[@]} -eq $_db_tablewidth ]];
+					then
+						echo "${#_temp_db_row[@]} => ${_temp_db_row[@]}";
+
+						_issuccess=1;
+					fi
+				fi
+			fi
+		fi
+	fi
+
+	return $_issuccess;
+}
+
 # regionend
 
 # region execute

@@ -129,6 +129,20 @@ function _db._app() {
 
 	echo "--------------------------------------------------------------"; echo;
 
+	echo "---------------------------------------------[[ INSERT ROW ]]-";
+
+	_db._insertrow "1|2|3||5";
+	local _issuccess=$?;
+	if [[ $_issuccess -eq 1 ]];
+	then
+		echo "Row Inserted Successfully.";
+		#echo "${#_db_cells[@]} => ${_db_cells[@]}";
+		echo "${#_db_cells[@]} =>";
+		# TODO: update write into orginal file
+	fi
+
+	echo "--------------------------------------------------------------"; echo;
+
 
 
 
