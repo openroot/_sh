@@ -567,7 +567,7 @@ function _db._dbreset() {
 	_temp_db_isvarified=-1;
 }
 
-function _db._createtable() {
+function _db._dbcreate() {
 	local _file=$1;
 	local _tablewidth=$2;
 
@@ -581,16 +581,21 @@ function _db._createtable() {
 			then
 				if [[ $_tablewidth -le 1024 ]];
 				then
+					_issuccess=0;
+
 					_db._dbreset;
 
 					if [[ $_db_isvarified -eq -1 ]];
 					then
+						# TODO: update write into orginal file to set ' _issuccess ' as 1
+						
 						_db_file="$_file";
 						_db_rowcount=1;
 						_db_cells=();
 						_db_cellcount=0;
 						_db_tablewidth=$_tablewidth;
 						_db_isvarified=1;
+
 						_issuccess=1;
 					fi
 				fi

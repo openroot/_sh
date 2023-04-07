@@ -154,7 +154,7 @@ function _db._operation_sample_db () {
 		
 	elif [[ $_readissuccess -eq 4 ]];
 	then
-		echo "File Unavailable";
+		echo "DB File Unavailable";
 	fi
 }
 
@@ -162,6 +162,16 @@ function _db._operation_fresh_db () {
 	local _file="$_const_currentdir/_sample_db/fresh-db.txt";
 
 	echo "DB File: $_file"; echo;
+
+	# _db._dbcreate
+	_db._dbcreate "$_file" "3";
+	local _dbcreateissuccess=$?;
+	if [[ $_dbcreateissuccess -eq 1 ]];
+	then
+		echo "DB Created";
+	else
+		echo "DB Create Unsuccessfull";
+	fi
 
 	# _db._read
 	_db._read "$_file";
@@ -182,7 +192,7 @@ function _db._operation_fresh_db () {
 
 	elif [[ $_readissuccess -eq 4 ]];
 	then
-		echo "File Unavailable";
+		echo "DB File Unavailable";
 	fi
 }
 
