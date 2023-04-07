@@ -362,49 +362,52 @@ function _db._updaterow() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ $_rownumber -le $_db_rowcount ]];
+		if [[ $_rownumber -gt 0 ]];
 		then
-			_issuccess=0;
-
-			_db._bardelimitedstringtoarray "$_rowline";
-			local _columns=("${_db_array[@]}");
-
-			local _columnscount=${#_columns[@]};
-
-			if ! [[ -z $_cellnumbers ]];
+			if [[ $_rownumber -le $_db_rowcount ]];
 			then
-				_db._bardelimitedstringtoarray "$_cellnumbers";
-				local _cellnumbersarray=("${_db_array[@]}");
+				_issuccess=0;
 
-				local _cellnumbersarraycount=${#_cellnumbersarray[@]};
+				_db._bardelimitedstringtoarray "$_rowline";
+				local _columns=("${_db_array[@]}");
 
-				if [[ $_columnscount -eq $_cellnumbersarraycount ]];
+				local _columnscount=${#_columns[@]};
+
+				if ! [[ -z $_cellnumbers ]];
 				then
-					if [[ $_cellnumbersarraycount -le $_db_tablewidth ]];
+					_db._bardelimitedstringtoarray "$_cellnumbers";
+					local _cellnumbersarray=("${_db_array[@]}");
+
+					local _cellnumbersarraycount=${#_cellnumbersarray[@]};
+
+					if [[ $_columnscount -eq $_cellnumbersarraycount ]];
+					then
+						if [[ $_cellnumbersarraycount -le $_db_tablewidth ]];
+						then
+							local _i=-1;
+							for (( _i=0; _i<$_cellnumbersarraycount; _i++ ));
+							do
+								local _cellnumber=${_cellnumbersarray[$_i]};
+								if [[ $_cellnumber -le $_db_tablewidth ]];
+								then
+									_db_cells[$((((_rownumber-1)*_db_tablewidth)+_cellnumber-1))]="${_columns[$_i]}";
+									_issuccess=$((_issuccess+1));
+								fi
+							done
+							if [[ $_issuccess -eq $_cellnumbersarraycount ]]; then _issuccess=1; fi
+						fi
+					fi
+				else
+					if [[ $_columnscount -eq $_db_tablewidth ]];
 					then
 						local _i=-1;
-						for (( _i=0; _i<$_cellnumbersarraycount; _i++ ));
+						for (( _i=0; _i<$_columnscount; _i++ ));
 						do
-							local _cellnumber=${_cellnumbersarray[$_i]};
-							if [[ $_cellnumber -le $_db_tablewidth ]];
-							then
-								_db_cells[$((((_rownumber-1)*_db_tablewidth)+_cellnumber-1))]="${_columns[$_i]}";
-								_issuccess=$((_issuccess+1));
-							fi
+							_db_cells[$((((_rownumber-1)*_db_tablewidth)+_i))]="${_columns[$_i]}";
+							_issuccess=$((_issuccess+1));
 						done
-						if [[ $_issuccess -eq $_cellnumbersarraycount ]]; then _issuccess=1; fi
+						if [[ $_issuccess -eq $_db_tablewidth ]]; then _issuccess=1; fi
 					fi
-				fi
-			else
-				if [[ $_columnscount -eq $_db_tablewidth ]];
-				then
-					local _i=-1;
-					for (( _i=0; _i<$_columnscount; _i++ ));
-					do
-						_db_cells[$((((_rownumber-1)*_db_tablewidth)+_i))]="${_columns[$_i]}";
-						_issuccess=$((_issuccess+1));
-					done
-					if [[ $_issuccess -eq $_db_tablewidth ]]; then _issuccess=1; fi
 				fi
 			fi
 		fi
