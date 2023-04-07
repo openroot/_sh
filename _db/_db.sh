@@ -23,7 +23,7 @@ function _db._app() {
 	clear;
 
 	_db._operation_sample_db;
-	#_db._operation_fresh_db;
+	_db._operation_fresh_db;
 
 	echo;echo;
 	read -rp "Press any key to exit .. " "_dump";
@@ -172,18 +172,8 @@ function _db._operation_fresh_db () {
 	# _db._dbcreate
 	_db._dbcreate "$_file" "3";
 	local _dbcreateissuccess=$?;
+	
 	if [[ $_dbcreateissuccess -eq 1 ]];
-	then
-		echo "DB Created";
-	else
-		echo "DB Create Unsuccessfull";
-	fi
-
-	# _db._read
-	_db._read "$_file";
-	local _readissuccess=$?;
-
-	if [[ $_readissuccess -eq 1 ]];
 	then
 
 		local _fresh_db_db_file="$_db_file";
@@ -193,12 +183,10 @@ function _db._operation_fresh_db () {
 		local _fresh_db_db_tablewidth=$_db_tablewidth;
 		local _fresh_db_db_isvarified=$_db_isvarified;
 
-		_db._print
 		_db._print "t";
 
-	elif [[ $_readissuccess -eq 4 ]];
-	then
-		echo "DB File Unavailable";
+	else
+		echo "DB Create Unsuccessfull";
 	fi
 }
 
