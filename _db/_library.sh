@@ -255,7 +255,7 @@ function _db._searchrows() {
 				for (( _s=0; _s<$_querysetarraycount; _s+=$_querysetwidth ));
 				do
 					# realising ' a set ' of clause arguments into definite vars
-					local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}";
+					local _celldata="${_db_cells[$((_i+${_querysetarray[$_s]}-1))]}"; #FIXME: First check whether ${_querysetarray[$_s]} falls between 1 and _db_tablewidth
 					local _data="${_querysetarray[$((_s+1))]}";
 					local _iscaseinsensitive=1; if [[ "${_querysetarray[$((_s+2))]}" == "f" ]];then _iscaseinsensitive=0; fi;
 					local _ispartdata=1; if [[ "${_querysetarray[$((_s+3))]}" == "f" ]];then _ispartdata=0; fi;
