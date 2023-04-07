@@ -646,8 +646,8 @@ function _db._write() {
 	then
 		_issuccess=0;
 
-		#if [[ -f $_file ]];
-		#then
+		if [[ -f $_file ]];
+		then
 
 			if [[ $_db_isvarified -eq 1 ]];
 			then
@@ -702,7 +702,7 @@ function _db._write() {
 				fi
 			fi
 		
-		#fi
+		fi
 	fi
 
 	return $_issuccess;
