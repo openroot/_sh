@@ -106,7 +106,7 @@ function _db._app() {
 	local _issuccess=$?;
 	if [[ $_issuccess -eq 1 ]];
 	then
-		echo "Updated Successfully.";
+		echo "Row Updated Successfully.";
 		#echo "${#_db_cells[@]} => ${_db_cells[@]}";
 		echo "${#_db_cells[@]} =>";
 		# TODO: update write into orginal file
@@ -121,7 +121,7 @@ function _db._app() {
 	local _issuccess=$?;
 	if [[ $_issuccess -eq 1 ]];
 	then
-		echo "Deleted Successfully.";
+		echo "Row Deleted Successfully.";
 		#echo "${#_db_cells[@]} => ${_db_cells[@]}";
 		echo "${#_db_cells[@]} =>";
 		# TODO: update write into orginal file
@@ -131,7 +131,7 @@ function _db._app() {
 
 	echo "---------------------------------------------[[ INSERT ROW ]]-";
 
-	_db._insertrow "1|2|3||5";
+	_db._insertrow "1|2|3|4|5|6" "1";
 	local _issuccess=$?;
 	if [[ $_issuccess -eq 1 ]];
 	then

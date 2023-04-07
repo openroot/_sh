@@ -456,47 +456,57 @@ function _db._insertrow() {
 	if [[ $_db_isvarified -eq 1 ]];
 	then
 		if [[ -z $_rownumber ]]; then _rownumber=$((_db_rowcount+1)); fi
-
-		if [[ $_rownumber -le $((_db_rowcount+1)) ]];
+		
+		if [[ $_rownumber -gt 0 ]];
 		then
-			if ! [[ -z $_rowline ]];
+			if [[ $_rownumber -le $((_db_rowcount+1)) ]];
 			then
-				_issuccess=0;
-
-				_db._bardelimitedstringtoarray "$_rowline";
-				local _columns=("${_db_array[@]}");
-
-				local _columnscount=${#_columns[@]};
-				if [[ $_columnscount -le $_db_tablewidth ]];
+				if ! [[ -z $_rowline ]];
 				then
-					local _temp_db_row=();
-					local _i=-1;
-					for (( _i=0; _i<$_db_tablewidth; _i++ ));
-					do
-						if [[ "${_columns[$_i]}" != "" ]];
-						then
-							_temp_db_row+=("${_columns[$_i]}");
-						else
-							_temp_db_row+=("");
-						fi
-					done
+					_issuccess=0;
 
-					if [[ ${#_temp_db_row[@]} -eq $_db_tablewidth ]];
+					_db._bardelimitedstringtoarray "$_rowline";
+					local _columns=("${_db_array[@]}");
+
+					local _columnscount=${#_columns[@]};
+					if [[ $_columnscount -le $_db_tablewidth ]];
 					then
-						echo "${#_temp_db_row[@]} => ${_temp_db_row[@]}";
+						local _temp_db_row=();
+						local _i=-1;
+						for (( _i=0; _i<$_db_tablewidth; _i++ ));
+						do
+							if [[ "${_columns[$_i]}" != "" ]];
+							then
+								_temp_db_row+=("${_columns[$_i]}");
+							else
+								_temp_db_row+=("");
+							fi
+						done
 
-						local _firstslab=0;
-						local _firstslablength=$((_rownumber*6));
-						local _secondslab=$((_firstslabstartlength+_db_tablewidth));
-						local _secondslablength=$_db_cellcount;
+						if [[ ${#_temp_db_row[@]} -eq $_db_tablewidth ]];
+						then
+							local _firstslab=0;
+							local _firstslablength=$(((_rownumber-1)*6));
+							local _secondslab=$_firstslablength;
+							local _secondslablength=$_db_cellcount;
 
-						_temp_db_cells=();
-						_temp_db_cells+=("${_db_cells[@]:$_firstslab:$_firstslablength}");
-						_temp_db_cells+=("${_db_cells[@]:$_secondslab:$_secondslablength}");
+							_temp_db_cells=();
+							_temp_db_cells+=("${_db_cells[@]:$_firstslab:$_firstslablength}");
+							_temp_db_cells+=("${_temp_db_row[@]}");
+							_temp_db_cells+=("${_db_cells[@]:$_secondslab:$_secondslablength}");
 
-						_temp_db_cellcount=${#_temp_db_cells[@]};
+							_temp_db_cellcount=${#_temp_db_cells[@]};
 
-						_issuccess=1;
+							#echo "$_temp_db_cellcount => ${_temp_db_row[@]}";
+
+							if [[ $_temp_db_cellcount -eq $(((_db_rowcount+1)*_db_tablewidth)) ]];
+							then
+								_db_rowcount=$((_db_rowcount+1));
+								_db_cells=("${_temp_db_cells[@]}");
+								_db_cellcount=$_temp_db_cellcount;
+								_issuccess=1;
+							fi
+						fi
 					fi
 				fi
 			fi
