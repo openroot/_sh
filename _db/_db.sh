@@ -16,21 +16,24 @@ source $_const_currentdir/_library.sh;
 # region function
 
 function _db._construct() {
-	_sample_db_db_file="$_const_currentdir/_sample_db/sample-db.txt";
-	_sample_db_db_rowcount=-1;
-	_sample_db_db_cells=();
-	_sample_db_db_cellcount=-1;
-	_sample_db_db_tablewidth=-1;
-	_sample_db_db_isvarified=-1;
-
 	_db._app;
 }
 
 function _db._app() {
 	clear;
 
+	_db._operation_sample_db;
+
+	echo;echo;
+	read -rp "Press any key to exit .. " "_dump";
+}
+
+function _db._operation_sample_db () {
+	local _file="$_const_currentdir/_sample_db/sample-db.txt";
+
 	# _db._read
-	_db._read "$_sample_db_db_file";
+	_db._read "$_file";
+	_sample_db_db_file="$_db_file";
 	_sample_db_db_rowcount=$_db_rowcount;
 	_sample_db_db_cells=("${_db_cells[@]}");
 	_sample_db_db_cellcount=$_db_cellcount;
@@ -140,12 +143,6 @@ function _db._app() {
 	fi
 
 	echo "--------------------------------------------------------------"; echo;
-
-
-
-
-	echo;echo;
-	read -rp "Press any key to exit .. " "_dump";
 }
 
 # endregion
