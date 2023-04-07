@@ -20,6 +20,7 @@ function _db._trap() {
 function _db._construct() {
 	_db_print_rowseparator="\n";
 	_db_print_cellseparator=" | ";
+
 	_db_file="";
 	_db_rowcount=-1;
 	_db_cells=();
@@ -121,44 +122,50 @@ function _db._array._sort() {
 }
 
 function _db._read() {
-	_temp_db_file=$1;
+	local _file=$1;
 
-	_temp_db_rowcount=-1;
-	if [[ $_temp_db_rowcount -eq -1 ]];
+	if ! [[ -z $_file ]];
 	then
-		_db._newlinedelimitedstringtoarray "$(cat "$_temp_db_file")";
+		_db._dbreset;
 
-		_temp_db_rows=("${_db_array[@]}");
-
-		_temp_db_rowcount=${#_temp_db_rows[@]};
-
-		local _row=-1;
-		for _row in "${_temp_db_rows[@]}";
-		do
-			local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
-
-			_db._bardelimitedstringtoarray "$_rowline";
-			local _columns=("${_db_array[@]}");
-
-			_temp_db_cells+=("${_columns[@]}");
-			
-			_temp_db_tablewidth=${#_columns[@]};
-		done
-
-		_temp_db_cellcount=${#_temp_db_cells[@]};
-		
-		_temp_db_isvarified=-1;
-		_db._checksum "${_temp_db_rows[0]}" "$_temp_db_rowcount" "$_temp_db_cellcount";
-		_temp_db_isvarified=$?;
-
-		if [[ $_temp_db_isvarified -eq 1 ]];
+		if [[ $_temp_db_rowcount -eq -1 ]];
 		then
-			_db_file="$_temp_db_file";
-			_db_rowcount=$_temp_db_rowcount;
-			_db_cells=("${_temp_db_cells[@]}");
-			_db_cellcount=$_temp_db_cellcount;
-			_db_tablewidth=$_temp_db_tablewidth;
-			_db_isvarified=$_temp_db_isvarified;
+			_temp_db_file="$_file";
+
+			_db._newlinedelimitedstringtoarray "$(cat "$_temp_db_file")";
+
+			_temp_db_rows=("${_db_array[@]}");
+
+			_temp_db_rowcount=${#_temp_db_rows[@]};
+
+			local _row=-1;
+			for _row in "${_temp_db_rows[@]}";
+			do
+				local _rowline=${_row:0:${#_row}-1};	# removing last most char of line
+
+				_db._bardelimitedstringtoarray "$_rowline";
+				local _columns=("${_db_array[@]}");
+
+				_temp_db_cells+=("${_columns[@]}");
+				
+				_temp_db_tablewidth=${#_columns[@]};
+			done
+
+			_temp_db_cellcount=${#_temp_db_cells[@]};
+			
+			_temp_db_isvarified=-1;
+			_db._checksum "${_temp_db_rows[0]}" "$_temp_db_rowcount" "$_temp_db_cellcount";
+			_temp_db_isvarified=$?;
+
+			if [[ $_temp_db_isvarified -eq 1 ]];
+			then
+				_db_file="$_temp_db_file";
+				_db_rowcount=$_temp_db_rowcount;
+				_db_cells=("${_temp_db_cells[@]}");
+				_db_cellcount=$_temp_db_cellcount;
+				_db_tablewidth=$_temp_db_tablewidth;
+				_db_isvarified=$_temp_db_isvarified;
+			fi
 		fi
 	fi
 }
@@ -538,6 +545,14 @@ function _db._dbreset() {
 	_db_cellcount=-1;
 	_db_tablewidth=-1;
 	_db_isvarified=-1;
+
+	_temp_db_file="";
+	_temp_db_rows=();
+	_temp_db_rowcount=-1;
+	_temp_db_cells=();
+	_temp_db_cellcount=-1;
+	_temp_db_tablewidth=-1;
+	_temp_db_isvarified=-1;
 }
 
 function _db._createtable() {
@@ -554,6 +569,8 @@ function _db._createtable() {
 			then
 				if [[ $_tablewidth -le 1024 ]];
 				then
+					_db._dbreset;
+					
 					if [[ $_db_isvarified -eq -1 ]];
 					then
 						_db_file="$_file";

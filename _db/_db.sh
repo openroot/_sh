@@ -33,6 +33,7 @@ function _db._operation_sample_db () {
 
 	# _db._read
 	_db._read "$_file";
+	
 	_sample_db_db_file="$_db_file";
 	_sample_db_db_rowcount=$_db_rowcount;
 	_sample_db_db_cells=("${_db_cells[@]}");
