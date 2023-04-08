@@ -200,6 +200,8 @@ function _db._operation_fresh_db () {
 			then
 				echo "Row Inserted Successfully.";
 				echo "${#_db_cells[@]} =>";
+			else
+				echo "DB Insert Row. Error Code: $_issuccess";
 			fi
 
 
