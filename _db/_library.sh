@@ -128,6 +128,23 @@ function _db._array._sort() {
 	_db_array_sorted=("${_array[@]}");
 }
 
+function _db._dbreset() {
+	_db_file="";
+	_db_rowcount=-1;
+	_db_cells=();
+	_db_cellcount=-1;
+	_db_tablewidth=-1;
+	_db_isvarified=-1;
+
+	_temp_db_file="";
+	_temp_db_rows=();
+	_temp_db_rowcount=-1;
+	_temp_db_cells=();
+	_temp_db_cellcount=-1;
+	_temp_db_tablewidth=-1;
+	_temp_db_isvarified=-1;
+}
+
 function _db._read() {
 	local _file=$1;
 
@@ -572,23 +589,6 @@ function _db._insertrow() {
 	fi
 
 	return $_issuccess;
-}
-
-function _db._dbreset() {
-	_db_file="";
-	_db_rowcount=-1;
-	_db_cells=();
-	_db_cellcount=-1;
-	_db_tablewidth=-1;
-	_db_isvarified=-1;
-
-	_temp_db_file="";
-	_temp_db_rows=();
-	_temp_db_rowcount=-1;
-	_temp_db_cells=();
-	_temp_db_cellcount=-1;
-	_temp_db_tablewidth=-1;
-	_temp_db_isvarified=-1;
 }
 
 function _db._dbcreate() {
