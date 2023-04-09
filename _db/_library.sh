@@ -263,6 +263,7 @@ function _db._print() {
 			for (( _j=0; _j<$_db_tablewidth; _j++ ));
 			do
 				printf "${_db_cells[$((_i+_j))]}";
+				#printf "$(tput sitm)"${_db_cells[$((_i+_j))]}"$(tput sgr0)";
 
 				printf "$_db_print_cellseparator";
 
