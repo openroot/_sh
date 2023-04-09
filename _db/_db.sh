@@ -43,8 +43,13 @@ function _db._operation_sample_db () {
 
 		local _sample_db_db_file="$_db_file";
 
+		# _db._print
+		echo "-----------------------------------------------[[ PRINT DB ]]-";
+
 		#_db._print
 		#_db._print "t";
+
+		echo "--------------------------------------------------------------"; echo;
 
 		# _db._searchrows
 		echo "--------------------------------------------[[ SEARCH ROWS ]]-";
@@ -52,7 +57,6 @@ function _db._operation_sample_db () {
 		local _querystring="4|news|t|t|2|bst|t|t|5|73|f|t|;1|business news|t|t|";
 
 		_db._searchrows "$_querystring";
-		
 		if [[ "${#_db_searchrows_foundrows[@]}" > 0 ]];
 		then
 			local _rows=("${_db_searchrows_foundrows[@]}");
@@ -77,7 +81,6 @@ function _db._operation_sample_db () {
 		echo "----------------------------------------[[ GET ROW OR CELL ]]-";
 
 		_db._getrow "543" "6";
-
 		if [[ $_db_getrow_result != -1 ]];
 		then
 			printf "Last Row, Last Cell => $_db_getrow_result\n";
@@ -91,7 +94,6 @@ function _db._operation_sample_db () {
 		local _cellnumber=1;
 		echo "Getting Unique Values of Cell Number: $_cellnumber";
 		_db._getuniquevalues "$_cellnumber";
-
 		_db._array._freezecells "1" "${_db_getuniquevalues_result[@]}";
 		local _finalresult=("${_db_array_freezecells_result[@]}");
 
@@ -190,34 +192,35 @@ function _db._operation_fresh_db () {
 	local _issuccess=$?;
 	if [[ $_issuccess -eq 1 ]];
 	then
+
 		_fresh_db_db_file="$_db_file";
 
 		# _db._insertrow
 		echo "---------------------------------------------[[ INSERT ROW ]]-";
 
-			_db._insertrow "1|2|3|";
-			local _issuccess=$?;
-			if [[ $_issuccess -eq 1 ]];
-			then
-				echo "Row Inserted Successfully.";
-				echo "${#_db_cells[@]} =>";
-			else
-				echo "DB Insert Row. Error Code: $_issuccess";
-			fi
+		_db._insertrow "1|2|3|";
+		local _issuccess=$?;
+		if [[ $_issuccess -eq 1 ]];
+		then
+			echo "Row Inserted Successfully.";
+			echo "${#_db_cells[@]} =>";
+		else
+			echo "DB Insert Row. Error Code: $_issuccess";
+		fi
 		
 		echo "--------------------------------------------------------------"; echo;
 
 		# _db._write
 		echo "-----------------------------------------------[[ DB WRITE ]]-";
 
-			_db._write "$_fresh_db_db_file";
-			local _issuccess=$?;
-			if [[ $_issuccess -eq 1 ]];
-			then
-				echo "DB Written Successfully.";
-			else
-				echo "DB Write Error Code: $_issuccess";
-			fi
+		_db._write "$_fresh_db_db_file";
+		local _issuccess=$?;
+		if [[ $_issuccess -eq 1 ]];
+		then
+			echo "DB Written Successfully.";
+		else
+			echo "DB Write Error Code: $_issuccess";
+		fi
 
 		echo "--------------------------------------------------------------"; echo;
 
@@ -228,6 +231,7 @@ function _db._operation_fresh_db () {
 		_db._print "t";
 
 		echo "--------------------------------------------------------------"; echo;
+		
 	else
 		echo "DB Read Unsuccessfull. Error Code: $_issuccess";
 	fi

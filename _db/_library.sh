@@ -255,7 +255,7 @@ function _db._print() {
 		_db_finishloop=-1;
 
 		local _i=-1;
-		for (( _i=0; _i<=$((_db_cellcount-_db_tablewidth)); _i+=$_db_tablewidth ));
+		for (( _i=0; _i<$_db_cellcount; _i+=$_db_tablewidth ));
 		do
 			printf "$_db_print_cellseparator";
 
@@ -664,49 +664,47 @@ function _db._write() {
 			then
 				if [[ $_db_rowcount -gt 0 ]];
 				then
-					local _rowcount=$_db_rowcount;
-
-					# if it is an empty db going to be ' write ', set ' row count ' as ' 0 ' locally, which do realize ' 1 ' default
-					if [[ $_db_cellcount -eq 0 ]]; then _rowcount=0; fi
-
-					if [[ $((_rowcount*_db_tablewidth)) -eq $_db_cellcount ]];
+					if [[ $_db_cellcount -gt 0 ]];
 					then
-						local _writedata="";
-						local _i=-1;
-						for (( _i=0; _i<_db_cellcount; _i+=_db_tablewidth ));
-						do
-							local _j=-1;
-							for (( _j=0; _j<_db_tablewidth; _j++ ));
-							do
-								_writedata+="${_db_cells[$((_i+_j))]}";
-								_writedata+="$_db_print_cellseparator";
-							done
-							_writedata+="$_db_print_rowseparator";
-						done
-
-						local _file_temp="$_temporarycontainerdirectoryname/temp-db.txt";
-						{
-							$(printf "$_writedata" > "$_file_temp");
-						} || { _issuccess=5; }
-
-						if [[ $_issuccess -ne 5 ]];
+						if [[ $((_db_rowcount*_db_tablewidth)) -eq $_db_cellcount ]];
 						then
-							_db._read._temporary "$_file_temp";
-							local _db_read_temporaryissuccess=$?;
+							local _writedata="";
+							local _i=-1;
+							for (( _i=0; _i<$_db_cellcount; _i+=$_db_tablewidth ));
+							do
+								local _j=-1;
+								for (( _j=0; _j<$_db_tablewidth; _j++ ));
+								do
+									_writedata+="${_db_cells[$((_i+_j))]}";
+									_writedata+="$_db_print_cellseparator";
+								done
+								_writedata+="$_db_print_rowseparator";
+							done
 
-							if [[ $_db_read_temporaryissuccess -eq 1 ]];
+							local _file_temp="$_temporarycontainerdirectoryname/temp-db.txt";
+							{
+								$(printf "$_writedata" > "$_file_temp");
+							} || { _issuccess=5; }
+
+							if [[ $_issuccess -ne 5 ]];
 							then
-								{
-									$(cp "$_file_temp" "$_file"; rm "$_file_temp";);
-								} || { _issuccess=5; }
-								
-								if [[ $_issuccess -ne 5 ]];
+								_db._read._temporary "$_file_temp";
+								local _db_read_temporaryissuccess=$?;
+
+								if [[ $_db_read_temporaryissuccess -eq 1 ]];
 								then
-									_db._read "$_file";
-									return $?;
+									{
+										$(cp "$_file_temp" "$_file"; rm "$_file_temp";);
+									} || { _issuccess=5; }
+									
+									if [[ $_issuccess -ne 5 ]];
+									then
+										_db._read "$_file";
+										return $?;
+									fi
+								else
+									_issuccess=$_db_read_temporaryissuccess;
 								fi
-							else
-								_issuccess=$_db_read_temporaryissuccess;
 							fi
 						fi
 					fi
