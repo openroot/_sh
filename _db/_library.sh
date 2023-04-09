@@ -213,7 +213,7 @@ function _db._checksum() {
 
 	if ! [ -z $_firstrow ];
 	then
-		if [[ $_db_rowcount > 0 ]];
+		if [[ $_db_rowcount -gt 0 ]];
 		then
 			local _rowline=${_firstrow:0:${#_firstrow}-1};	# removing last most char of line
 
@@ -615,8 +615,16 @@ function _db._dbcreate() {
 						then
 							_issuccess=3;
 						else
+							local _writedata="";
+							local _i=-1;
+							for (( _i=0; _i<$_tablewidth; _i++ ));
+							do
+								_writedata+="column$((_i+1))";
+								_writedata+="$_db_print_cellseparator";
+							done
+							_writedata+="\n";
 							{
-								$(printf "\n" > "$_file");
+								$(printf "$_writedata" > "$_file");
 							} || { _issuccess=5; }
 
 							if [[ $_issuccess -ne 5 ]];

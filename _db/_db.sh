@@ -36,17 +36,12 @@ function _db._operation_sample_db () {
 
 	# _db._read
 	_db._read "$_file";
-	local _readissuccess=$?;
+	local _issuccess=$?;
 
-	if [[ $_readissuccess -eq 1 ]];
+	if [[ $_issuccess -eq 1 ]];
 	then
 
 		local _sample_db_db_file="$_db_file";
-		local _sample_db_db_rowcount=$_db_rowcount;
-		local _sample_db_db_cells=("${_db_cells[@]}");
-		local _sample_db_db_cellcount=$_db_cellcount;
-		local _sample_db_db_tablewidth=$_db_tablewidth;
-		local _sample_db_db_isvarified=$_db_isvarified;
 
 		#_db._print
 		#_db._print "t";
@@ -108,6 +103,7 @@ function _db._operation_sample_db () {
 
 		echo "--------------------------------------------------------------"; echo;
 
+		# _db._updaterow
 		echo "---------------------------------------------[[ UPDATE ROW ]]-";
 
 		#_db._updaterow "1" "" "Acategory|Bpackage|Clanguage|Dname|Ecno|Fprice|";
@@ -121,6 +117,7 @@ function _db._operation_sample_db () {
 
 		echo "--------------------------------------------------------------"; echo;
 
+		# _db._deleterow
 		echo "---------------------------------------------[[ DELETE ROW ]]-";
 
 		_db._deleterow "2";
@@ -134,6 +131,7 @@ function _db._operation_sample_db () {
 
 		echo "--------------------------------------------------------------"; echo;
 
+		# _db._insertrow
 		echo "---------------------------------------------[[ INSERT ROW ]]-";
 
 		_db._insertrow "1|2|3|4|5|6" "1";
@@ -144,16 +142,20 @@ function _db._operation_sample_db () {
 			echo "${#_db_cells[@]} =>";
 		fi
 
+		echo "--------------------------------------------------------------"; echo;
+
+		# _db._write
+		echo "-----------------------------------------------[[ DB WRITE ]]-";
 
 		# uncommenting the following function ' _db._write ' will write changes to the ' source DB file ',
 		# can have this line placed after any virtual changes to the DB to write it to disk back.
 		# _db._write "$_sample_db_db_file";
-		# local _dbwriteissuccess=$?;
-		# if [[ $_dbwriteissuccess -eq 1 ]];
+		# local _issuccess=$?;
+		# if [[ $_issuccess -eq 1 ]];
 		# then
 		# 	_db._print "t";
 		# else
-		# 	echo "DB Write Error Code: $_dbwriteissuccess";
+		# 	echo "DB Write Error Code: $_issuccess";
 		# fi
 
 		echo "--------------------------------------------------------------"; echo;
@@ -165,33 +167,32 @@ function _db._operation_sample_db () {
 }
 
 function _db._operation_fresh_db () {
-	local _file="$_const_currentdir/_sample_db/fresh-db.txt";
+	local _file="_temporary_container/temporary-db.txt";
 
 	echo "DB File: $_file"; echo;
 
 	# _db._dbcreate
-	_db._dbcreate "$_file" "3";
-	local _dbcreateissuccess=$?;
+	echo "----------------------------------------------[[ DB CREATE ]]-";
 
-	if [[ $_dbcreateissuccess -ne 1 ]];
+	_db._dbcreate "$_file" "3";
+	local _issuccess=$?;
+	if [[ $_issuccess -eq 1 ]];
 	then
-		echo "DB Create Unsuccessfull. Error Code: $_dbcreateissuccess";
+		echo "DB Created Successfully.";
+	else
+		echo "DB Create Unsuccessfull. Error Code: $_issuccess";
 	fi
 
 	# _db._read
+	echo "--------------------------------------------------------------"; echo;
+
 	_db._read "$_file";
-	local _readissuccess=$?;
-
-	if [[ $_readissuccess -eq 1 ]];
+	local _issuccess=$?;
+	if [[ $_issuccess -eq 1 ]];
 	then
+		_fresh_db_db_file="$_db_file";
 
-		local _fresh_db_db_file="$_db_file";
-		local _fresh_db_db_rowcount=$_db_rowcount;
-		local _fresh_db_db_cells=("${_db_cells[@]}");
-		local _fresh_db_db_cellcount=$_db_cellcount;
-		local _fresh_db_db_tablewidth=$_db_tablewidth;
-		local _fresh_db_db_isvarified=$_db_isvarified;
-
+		# _db._insertrow
 		echo "---------------------------------------------[[ INSERT ROW ]]-";
 
 			_db._insertrow "1|2|3|";
@@ -203,23 +204,32 @@ function _db._operation_fresh_db () {
 			else
 				echo "DB Insert Row. Error Code: $_issuccess";
 			fi
+		
+		echo "--------------------------------------------------------------"; echo;
 
+		# _db._write
+		echo "-----------------------------------------------[[ DB WRITE ]]-";
 
-			# uncommenting the following function ' _db._write ' will write changes to the ' source DB file ',
-			# can have this line placed after any virtual changes to the DB to write it to disk back.
 			_db._write "$_fresh_db_db_file";
-			local _dbwriteissuccess=$?;
-			if [[ $_dbwriteissuccess -eq 1 ]];
+			local _issuccess=$?;
+			if [[ $_issuccess -eq 1 ]];
 			then
-				_db._print "t";
+				echo "DB Written Successfully.";
 			else
-				echo "DB Write Error Code: $_dbwriteissuccess";
+				echo "DB Write Error Code: $_issuccess";
 			fi
 
 		echo "--------------------------------------------------------------"; echo;
 
+		# _db._print
+		echo "-----------------------------------------------[[ PRINT DB ]]-";
+
+		# _db._print
+		_db._print "t";
+
+		echo "--------------------------------------------------------------"; echo;
 	else
-		echo "DB Read Unsuccessfull. Error Code: $_readissuccess";
+		echo "DB Read Unsuccessfull. Error Code: $_issuccess";
 	fi
 }
 
