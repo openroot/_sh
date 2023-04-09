@@ -228,7 +228,7 @@ function _db._operation_fresh_db () {
 		echo "--------------------------------------------------------------"; echo;
 
 		# _db._print
-		echo "------------------------------------------[[ DB ADD COLUMN ]]-";
+		echo "------------------------------------------[[ PRINT DB ]]-";
 
 		# _db._print
 		_db._print "t";
@@ -236,7 +236,7 @@ function _db._operation_fresh_db () {
 		echo "--------------------------------------------------------------"; echo;
 
 		# _db._dbaddcolumn
-		echo "---------------------------------------[[ DB REMOVE COLUMN ]]-";
+		echo "------------------------------------------[[ DB ADD COLUMN ]]-";
 
 		# _db._dbaddcolumn
 		_db._dbaddcolumn;
@@ -244,7 +244,7 @@ function _db._operation_fresh_db () {
 		echo "--------------------------------------------------------------"; echo;
 
 		# _db._dbremovecolumn
-		echo "-----------------------------------------------[[ PRINT DB ]]-";
+		echo "---------------------------------------[[ DB REMOVE COLUMN ]]-";
 
 		# _db._dbremovecolumn
 		_db._dbremovecolumn;
