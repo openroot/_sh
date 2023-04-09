@@ -649,6 +649,14 @@ function _db._dbcreate() {
 	return $_issuccess;
 }
 
+function _db._dbaddcolumn() {
+	echo "nothing";
+}
+
+function _db._dbremovecolumn() {
+	echo "nothing";
+}
+
 function _db._write() {
 	local _file=$1;
 

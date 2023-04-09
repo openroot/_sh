@@ -48,8 +48,8 @@ function _db._operation_sample_db () {
 
 		# while true;
 		# do
-			#_db._print
-			_db._print "t";
+		# 	#_db._print
+		# 	_db._print "t";
 		# done
 
 		echo "--------------------------------------------------------------"; echo;
@@ -228,10 +228,26 @@ function _db._operation_fresh_db () {
 		echo "--------------------------------------------------------------"; echo;
 
 		# _db._print
-		echo "-----------------------------------------------[[ PRINT DB ]]-";
+		echo "------------------------------------------[[ DB ADD COLUMN ]]-";
 
 		# _db._print
 		_db._print "t";
+
+		echo "--------------------------------------------------------------"; echo;
+
+		# _db._dbaddcolumn
+		echo "---------------------------------------[[ DB REMOVE COLUMN ]]-";
+
+		# _db._dbaddcolumn
+		_db._dbaddcolumn;
+
+		echo "--------------------------------------------------------------"; echo;
+
+		# _db._dbremovecolumn
+		echo "-----------------------------------------------[[ PRINT DB ]]-";
+
+		# _db._dbremovecolumn
+		_db._dbremovecolumn;
 
 		echo "--------------------------------------------------------------"; echo;
 		
