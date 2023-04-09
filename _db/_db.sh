@@ -46,11 +46,11 @@ function _db._operation_sample_db () {
 		# _db._print
 		echo "-----------------------------------------------[[ PRINT DB ]]-";
 
-		#while true;
-		#do
-		#_db._print
-		_db._print "t";
-		#done
+		# while true;
+		# do
+			#_db._print
+			_db._print "t";
+		# done
 
 		echo "--------------------------------------------------------------"; echo;
 
