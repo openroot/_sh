@@ -650,11 +650,37 @@ function _db._dbcreate() {
 }
 
 function _db._dbaddcolumn() {
-	echo "nothing";
+	local _issuccess=-1;
+
+	if [[ $_db_isvarified -eq 1 ]];
+	then
+		if [[ $_db_rowcount -ge 1 ]];
+		then
+			if [[ $_db_tablewidth -ge 1 ]];
+			then
+				echo "nothing";
+			fi
+		fi
+	fi
+
+	return $_issuccess;
 }
 
 function _db._dbremovecolumn() {
-	echo "nothing";
+	local _issuccess=-1;
+
+	if [[ $_db_isvarified -eq 1 ]];
+	then
+		if [[ $_db_rowcount -ge 1 ]];
+		then
+			if [[ $_db_tablewidth -ge 2 ]];
+			then
+				echo "nothing";
+			fi
+		fi
+	fi
+
+	return $_issuccess;
 }
 
 function _db._write() {
