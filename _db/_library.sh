@@ -667,15 +667,30 @@ function _db._dbaddcolumn() {
 }
 
 function _db._dbremovecolumn() {
+	local _cellnumber=$1;
 	local _issuccess=-1;
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if [[ $_db_rowcount -ge 1 ]];
+		if ! [[ -z $_cellnumber ]];
 		then
-			if [[ $_db_tablewidth -ge 2 ]];
+			$_cellnumber=_db_tablewidth;
+		fi
+
+		if [[ $_cellnumber -ge 1 ]];
+		then
+			if [[ $_db_rowcount -ge 1 ]];
 			then
-				echo "nothing";
+				if [[ $_db_tablewidth -ge 2 ]];
+				then
+					echo "nothing";
+					#$_db_rowcount=8;
+					#"${_db_cells[@]}";
+					#$_db_cellcount=24;
+					echo "row = $_db_rowcount : cell = $_db_cellcount";
+
+
+				fi
 			fi
 		fi
 	fi
