@@ -160,7 +160,7 @@ function _db._operation_sample_db () {
 		# then
 		# 	_db._print "t";
 		# else
-		# 	echo "DB Write Error Code: $_issuccess";
+		# 	echo "DB Write Unsuccessfull. Error Code: $_issuccess";
 		# fi
 
 		echo "--------------------------------------------------------------"; echo;
@@ -201,14 +201,14 @@ function _db._operation_fresh_db () {
 		# _db._insertrow
 		echo "---------------------------------------------[[ INSERT ROW ]]-";
 
-		_db._insertrow "1|2|3|";
+		_db._insertrow "1|2|3";
 		local _issuccess=$?;
 		if [[ $_issuccess -eq 1 ]];
 		then
 			echo "Row Inserted Successfully.";
 			echo "${#_db_cells[@]} =>";
 		else
-			echo "DB Insert Row. Error Code: $_issuccess";
+			echo "DB Insert Row Unsuccessfull. Error Code: $_issuccess";
 		fi
 		
 		echo "--------------------------------------------------------------"; echo;
@@ -222,7 +222,7 @@ function _db._operation_fresh_db () {
 		then
 			echo "DB Written Successfully.";
 		else
-			echo "DB Write Error Code: $_issuccess";
+			echo "DB Write Unsuccessfull. Error Code: $_issuccess";
 		fi
 
 		echo "--------------------------------------------------------------"; echo;
@@ -247,7 +247,15 @@ function _db._operation_fresh_db () {
 		echo "---------------------------------------[[ DB REMOVE COLUMN ]]-";
 
 		# _db._dbremovecolumn
-		_db._dbremovecolumn;
+		_db._dbremovecolumn "2";
+		local _issuccess=$?;
+		if [[ $_issuccess -eq 1 ]];
+		then
+			echo "DB Coulumn Removed Successfully.";
+			_db._print;
+		else
+			echo "DB Coulumn Remove Unsuccessfull. Error Code: $_issuccess";
+		fi
 
 		echo "--------------------------------------------------------------"; echo;
 		

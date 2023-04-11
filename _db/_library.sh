@@ -672,24 +672,55 @@ function _db._dbremovecolumn() {
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
-		if ! [[ -z $_cellnumber ]];
+		_issuccess=0;
+
+		if [[ -z $_cellnumber ]];
 		then
-			$_cellnumber=_db_tablewidth;
+			_cellnumber=$_db_tablewidth;
 		fi
 
 		if [[ $_cellnumber -ge 1 ]];
 		then
-			if [[ $_db_rowcount -ge 1 ]];
+			if [[ $_cellnumber -le $_db_tablewidth ]];
 			then
-				if [[ $_db_tablewidth -ge 2 ]];
+				if [[ $_db_rowcount -ge 1 ]];
 				then
-					echo "nothing";
-					#$_db_rowcount=8;
-					#"${_db_cells[@]}";
-					#$_db_cellcount=24;
-					echo "row = $_db_rowcount : cell = $_db_cellcount";
+					if [[ $_db_tablewidth -ge 2 ]];
+					then
 
+						_temp_db_cells=();
+						local _i=-1;
+						for (( _i=0; _i<$_db_cellcount; _i+=$_db_tablewidth ));
+						do
+							local _j=-1;
+							for (( _j=0; _j<$_db_tablewidth; _j++ ));
+							do
+								if [[ _j -ne $((_cellnumber-1)) ]]
+								then
+									_temp_db_cells+=("${_db_cells[$((_i+_j))]}");
+								fi
+							done
+						done
 
+						local _temp_db_cellcount=${#_temp_db_cells[@]};
+
+						if [[ $((_temp_db_cellcount+_db_rowcount)) -eq $_db_cellcount ]];
+						then
+							_db_cells=("${_temp_db_cells[@]}");
+							_db_cellcount=${#_db_cells[@]};
+							_db_tablewidth=$((_db_tablewidth-1));
+
+							_db._write "$_db_file";
+							local _writeissuccess=$?;
+							if [[ $_writeissuccess -eq 1 ]];
+							then
+								_issuccess=1;
+							else
+								_issuccess=4;
+							fi
+						fi
+
+					fi
 				fi
 			fi
 		fi
