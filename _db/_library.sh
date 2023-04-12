@@ -425,6 +425,10 @@ function _db._getuniquevalues() {
 	fi
 }
 
+function _db._getuniquerow() {
+	echo "nothing";
+}
+
 function _db._updaterow() {
 	local _rownumber=$1;
 	local _cellnumbers=$2;
