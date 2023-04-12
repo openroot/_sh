@@ -238,16 +238,15 @@ function _db._operation_fresh_db () {
 		# _db._dbaddcolumn
 		echo "------------------------------------------[[ DB ADD COLUMN ]]-";
 
-		# _db._dbaddcolumn
-		_db._dbaddcolumn;
-		local _issuccess=$?;
-		if [[ $_issuccess -eq 1 ]];
-		then
-			echo "DB Coulumn Added Successfully.";
-			_db._print;
-		else
-			echo "DB Coulumn Add Unsuccessfull. Error Code: $_issuccess";
-		fi
+		# _db._dbaddcolumn;
+		# local _issuccess=$?;
+		# if [[ $_issuccess -eq 1 ]];
+		# then
+		# 	echo "DB Coulumn Added Successfully.";
+		# 	_db._print;
+		# else
+		# 	echo "DB Coulumn Add Unsuccessfull. Error Code: $_issuccess";
+		# fi
 
 		echo "--------------------------------------------------------------"; echo;
 
@@ -266,7 +265,7 @@ function _db._operation_fresh_db () {
 		# fi
 
 		echo "--------------------------------------------------------------"; echo;
-		
+
 	else
 		echo "DB Read Unsuccessfull. Error Code: $_issuccess";
 	fi
