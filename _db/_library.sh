@@ -228,7 +228,7 @@ function _db._checksum() {
 	local _db_rowcount=$2;
 	local _db_cellcount=$3;
 
-	if ! [ -z $_firstrow ];
+	if ! [[ -z $_firstrow ]];
 	then
 		if [[ $_db_rowcount -gt 0 ]];
 		then
@@ -650,16 +650,61 @@ function _db._dbcreate() {
 }
 
 function _db._dbaddcolumn() {
+	local _cellnumber=$1;
 	local _issuccess=-1;
 
 	if [[ $_db_isvarified -eq 1 ]];
 	then
 		if [[ $_db_rowcount -ge 1 ]];
 		then
-			if [[ $_db_tablewidth -ge 1 ]];
+			_issuccess=0;
+
+			if [[ -z $_cellnumber ]];
 			then
-				echo "nothing";
+				_cellnumber=$((_db_tablewidth+1));
 			fi
+
+			if [[ $_cellnumber -ge 1 ]];
+			then
+				if [[ $_cellnumber -le $((_db_tablewidth+1)) ]];
+				then
+					if [[ $_db_rowcount -ge 1 ]];
+					then
+						if [[ $_db_tablewidth -ge 1 ]];
+						then
+
+							local _temp_db_cells=();
+							local _i=-1;
+							for (( _i=0; _i<$_db_cellcount; _i+=$_db_tablewidth ));
+							do
+								local _j=-1;
+								for (( _j=0; _j<$_db_tablewidth; _j++ ));
+								do
+									if [[ _j -eq $((_cellnumber-1)) ]];
+									then
+										_temp_db_cells+=("");
+									fi
+									_temp_db_cells+=("${_db_cells[$((_i+_j))]}");
+								done
+								if [[ $_cellnumber -eq $((_db_tablewidth+1)) ]];
+								then
+									_temp_db_cells+=("");
+								fi
+							done
+
+							local _temp_db_cellcount=${#_temp_db_cells[@]};
+
+							_db_cells=("${_temp_db_cells[@]}");
+							_db_cellcount=${#_db_cells[@]};
+							_db_tablewidth=$((_db_tablewidth+1));
+
+							_issuccess=1;
+
+						fi
+					fi
+				fi
+			fi
+
 		fi
 	fi
 
@@ -688,7 +733,7 @@ function _db._dbremovecolumn() {
 					if [[ $_db_tablewidth -ge 2 ]];
 					then
 
-						_temp_db_cells=();
+						local _temp_db_cells=();
 						local _i=-1;
 						for (( _i=0; _i<$_db_cellcount; _i+=$_db_tablewidth ));
 						do

@@ -240,22 +240,30 @@ function _db._operation_fresh_db () {
 
 		# _db._dbaddcolumn
 		_db._dbaddcolumn;
+		local _issuccess=$?;
+		if [[ $_issuccess -eq 1 ]];
+		then
+			echo "DB Coulumn Added Successfully.";
+			_db._print;
+		else
+			echo "DB Coulumn Add Unsuccessfull. Error Code: $_issuccess";
+		fi
 
 		echo "--------------------------------------------------------------"; echo;
 
 		# _db._dbremovecolumn
 		echo "---------------------------------------[[ DB REMOVE COLUMN ]]-";
 
-		# _db._dbremovecolumn
-		_db._dbremovecolumn "2";
-		local _issuccess=$?;
-		if [[ $_issuccess -eq 1 ]];
-		then
-			echo "DB Coulumn Removed Successfully.";
-			_db._print;
-		else
-			echo "DB Coulumn Remove Unsuccessfull. Error Code: $_issuccess";
-		fi
+		# # _db._dbremovecolumn
+		# _db._dbremovecolumn "2";
+		# local _issuccess=$?;
+		# if [[ $_issuccess -eq 1 ]];
+		# then
+		# 	echo "DB Coulumn Removed Successfully.";
+		# 	_db._print;
+		# else
+		# 	echo "DB Coulumn Remove Unsuccessfull. Error Code: $_issuccess";
+		# fi
 
 		echo "--------------------------------------------------------------"; echo;
 		
