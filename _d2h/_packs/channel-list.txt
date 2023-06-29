@@ -67,7 +67,7 @@ News|a-la-carte|english|CNN News|897|0.5|
 |a-la-carte||DARSHANA||0|
 News|a-la-carte||Dighvijay 24x7 News||0|
 |a-la-carte||Discovery||4|
-|a-la-carte||Discovery HD World||8|
+|a-la-carte||Discovery HD World|960|8|
 |a-la-carte||Discovery Kids||3.5|
 |a-la-carte||Discovery Science|967|1|
 |a-la-carte||Discovery Turbo||1|
@@ -152,9 +152,9 @@ News|a-la-carte|bengali|Kolkata TV|1871|0|
 Music|a-la-carte||MTV Beats|463|0.1|
 |a-la-carte||MURASU||12|
 |a-la-carte||Nambikkkai||0|
-Nature|a-la-carte||NAT GEO WILD||1|
+Nature|a-la-carte||NAT GEO WILD|969|1|
 Nature|a-la-carte||NAT GEO WILD HD||8|
-Nature|a-la-carte||National Geographic||2|
+Nature|a-la-carte||National Geographic|963|2|
 News|a-la-carte||NDTV 24x7|891|3|
 News|a-la-carte||NDTV India|729|0|
 News|a-la-carte|bengali|New18 Bangla|1877|0.1|
